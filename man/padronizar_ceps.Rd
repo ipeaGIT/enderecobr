@@ -13,8 +13,21 @@ padronizar_ceps(ceps)
 Um vetor de caracteres com os CEPs padronizados.
 }
 \description{
-Padroniza CEPs.
+Padroniza um vetor de CEPs. Veja a seção \emph{Detalhes} para mais informações
+sobre a padronização.
 }
+\section{Detalhes}{
+
+Operações realizadas durante a padronização:
+\enumerate{
+\item conversão para caracter, se o input for numérico;
+\item adição de zeros à esquerda, se o input contiver menos de 8 dígitos;
+\item remoção de espaços em branco, pontos e vírgulas;
+\item adição de traço separando o radical (5 primeiros dígitos) do sufixo (3
+últimos digitos).
+}
+}
+
 \examples{
 ceps <- c("22290-140", "22.290-140", "22290 140", "22290140")
 padronizar_ceps(ceps)
