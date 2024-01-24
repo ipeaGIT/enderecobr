@@ -15,6 +15,9 @@ Description: Padroniza endereços brasileiros a partir de diferentes
 License: MIT + file LICENSE
 URL: https://github.com/ipeaGIT/enderecopadrao
 BugReports: https://github.com/ipeaGIT/enderecopadrao/issues
+Imports: 
+    checkmate,
+    stringr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

@@ -1,2 +1,7 @@
+reference:
+  - title: "Campos individuais"
+  - contents:
+    - padronizar_ceps
+
 development:
   mode: auto
