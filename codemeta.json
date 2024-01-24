@@ -62,6 +62,30 @@
     },
     "2": {
       "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "provider": {
@@ -74,7 +98,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "5.66KB",
+  "fileSize": "8.585KB",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"

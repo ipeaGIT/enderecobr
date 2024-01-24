@@ -2,6 +2,15 @@ test_that("da erro com inputs != de caracteres e numeros", {
   expect_error(padronizar_ceps(as.factor(22290140)))
 })
 
+test_that("da erro quando cep contem letra", {
+  expect_error(padronizar_ceps("botafogo"), class = "cep_com_letra")
+})
+
+test_that("da erro quando cep contem mais de 8 digitos", {
+  expect_error(padronizar_ceps(100000000), class = "cep_com_digitos_demais")
+  expect_error(padronizar_ceps("222290-140"), class = "cep_com_digitos_demais")
+})
+
 test_that("padroniza corretamente", {
   expect_equal(padronizar_ceps("22290-140"), "22290-140")
   expect_equal(padronizar_ceps("22290 140"), "22290-140")
@@ -11,6 +20,7 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_ceps(" 22290  140 "), "22290-140")
   expect_equal(padronizar_ceps("01000-000"), "01000-000")
   expect_equal(padronizar_ceps("1000000"), "01000-000")
+  expect_equal(padronizar_ceps(" 1000000"), "01000-000")
   expect_equal(padronizar_ceps(1000000), "01000-000")
   expect_equal(padronizar_ceps(NA_character_), "")
   expect_equal(padronizar_ceps(NA_integer_), "")

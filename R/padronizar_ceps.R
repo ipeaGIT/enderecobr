@@ -38,22 +38,42 @@ padronizar_ceps <- function(ceps) {
 
   indice_cep_vazio <- which(ceps == "" | is.na(ceps))
 
-  ceps_padrao <- if (is.numeric(ceps)) {
-    formatC(ceps, width = 8, format = "d", flag = 0)
+  if (is.numeric(ceps)) {
+    ceps_padrao <- formatC(ceps, width = 8, format = "d", flag = 0)
   } else {
-    ceps
+    if (any(stringr::str_detect(ceps[!is.na(ceps)], "[a-zA-Z]"))) {
+      erro_letra_presente()
+    }
+
+    ceps_padrao <- ceps
   }
 
+  ceps_padrao <- stringr::str_replace_all(ceps_padrao, c("\\.|,| " = ""))
   ceps_padrao <- stringr::str_pad(ceps_padrao, width = 8, pad = "0")
   ceps_padrao <- stringr::str_replace_all(
     ceps_padrao,
-    c(
-      "\\.|,| " = "",
-      "(\\d{5})(\\d{3})" = "\\1-\\2"
-    )
+    c("(\\d{5})(\\d{3})" = "\\1-\\2")
   )
 
   ceps_padrao[indice_cep_vazio] <- ""
 
+  if (any(nchar(ceps_padrao) > 9)) erro_digitos_demais()
+
   return(ceps_padrao)
+}
+
+erro_letra_presente <- function() {
+  cli::cli_abort(
+    "CEP n\u00e3o deve conter letras.",
+    class = "cep_com_letra",
+    call = rlang::caller_env()
+  )
+}
+
+erro_digitos_demais <- function() {
+  cli::cli_abort(
+    "CEP n\u00e3o deve conter mais de 8 d\u00edgitos.",
+    class = "cep_com_digitos_demais",
+    call = rlang::caller_env()
+  )
 }
