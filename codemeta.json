@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "enderecopadrao",
-  "description": "Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos de padronização incluem apenas manipulações básicas de strings, não oferecendo suporte a correspondências probabilísticas entre strings. (Standardadizes brazilian addresses using different criteria. Standardization methods include only basic string manipulation, not supporting probabilistic matches between strings.)",
+  "description": "Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos de padronização incluem apenas manipulações básicas de strings, não oferecendo suporte a correspondências probabilísticas entre strings. (Standardizes brazilian addresses using different criteria. Standardization methods include only basic string manipulation, not supporting probabilistic matches between strings.)",
   "name": "enderecopadrao: Padronizador de Endereços Brasileiros (Brazilian Addresses\n    Standardizer)",
   "codeRepository": "https://github.com/ipeaGIT/enderecopadrao",
   "issueTracker": "https://github.com/ipeaGIT/enderecopadrao/issues",
@@ -74,7 +74,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "6.204KB",
+  "fileSize": "5.66KB",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"

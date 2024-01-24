@@ -6,15 +6,9 @@
 \alias{_PACKAGE}
 \alias{enderecopadrao-package}
 \alias{pacote-enderecopadrao}
-\title{enderecopadrao: Padronizador de Endereços Brasileiros (Brazilian Addresses
-Standardizer)}
+\title{enderecopadrao: Padronizador de Endereços Brasileiros (Brazilian Addresses Standardizer)}
 \description{
-Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos
-de padronização incluem apenas manipulações básicas de strings, não
-oferecendo suporte a correspondências probabilísticas entre strings.
-(Standardadizes brazilian addresses using different criteria. Standardization
-methods include only basic string manipulation, not supporting probabilistic
-matches between strings.)
+Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos de padronização incluem apenas manipulações básicas de strings, não oferecendo suporte a correspondências probabilísticas entre strings. (Standardizes brazilian addresses using different criteria. Standardization methods include only basic string manipulation, not supporting probabilistic matches between strings.)
 }
 \seealso{
 Useful links:
