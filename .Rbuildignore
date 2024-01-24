@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.pre-commit-config\.yaml$
+^LICENSE\.md$
+^README\.Rmd$
+^README\.html$
+^codemeta\.json$
+^\.github$
+^_pkgdown\.yml$
+^cran-comments\.md$
+^CRAN-SUBMISSION$
+^codecov\.yml$
