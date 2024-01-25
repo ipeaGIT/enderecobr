@@ -1,8 +1,12 @@
 reference:
-  - title: "Campos individuais"
+  - title: "Padronização de campos individuais"
   - contents:
     - padronizar_ceps
     - padronizar_numeros
+  - title: "Tabelas de códigos"
+  - contents:
+    - codigos_municipios
+    - codigos_estados
 
 development:
   mode: auto

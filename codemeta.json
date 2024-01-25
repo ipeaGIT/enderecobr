@@ -96,9 +96,15 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 2.10"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "8.585KB",
+  "fileSize": "60.577KB",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"
