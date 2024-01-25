@@ -34,16 +34,14 @@ padronizar_ceps <- function(ceps) {
   # alguns ceps podem vir vazios e devem permanecer vazios ao final. nesse caso,
   # a chamada da str_pad() abaixo faz com que esses ceps virem '00000000'. para
   # evitar que o resultado contenha esses valores, identificamos o indice dos
-  # ceps vazios para ao final "reesvazia-los"
+  # ceps vazios para "reesvazia-los" ao final
 
   indice_cep_vazio <- which(ceps == "" | is.na(ceps))
 
   if (is.numeric(ceps)) {
     ceps_padrao <- formatC(ceps, width = 8, format = "d", flag = 0)
   } else {
-    if (any(stringr::str_detect(ceps[!is.na(ceps)], "[a-zA-Z]"))) {
-      erro_letra_presente()
-    }
+    erro_se_letra_presente(ceps)
 
     ceps_padrao <- ceps
   }
@@ -57,23 +55,54 @@ padronizar_ceps <- function(ceps) {
 
   ceps_padrao[indice_cep_vazio] <- ""
 
-  if (any(nchar(ceps_padrao) > 9)) erro_digitos_demais()
+  erro_se_digitos_demais(ceps_padrao)
 
   return(ceps_padrao)
 }
 
-erro_letra_presente <- function() {
-  cli::cli_abort(
-    "CEP n\u00e3o deve conter letras.",
-    class = "cep_com_letra",
-    call = rlang::caller_env()
-  )
+erro_se_letra_presente <- function(ceps) {
+  possui_letras <- stringr::str_detect(ceps, "[a-zA-Z]")
+
+  if (any(possui_letras[!is.na(possui_letras)])) {
+    indice_com_letras <- which(possui_letras)
+    indice_com_letras <- as.character(indice_com_letras)
+
+    lista_indices <- cli::cli_vec(indice_com_letras, list("vec-trunc" = 5))
+
+    cli::cli_abort(
+      c(
+        "CEP n\u00e3o deve conter letras.",
+        "i" = paste0(
+          "O{?s} elemento{?s} com \u00edndice{?s} ",
+          "{lista_indices} possu{?i/em} letras."
+        )
+      ),
+      class = "cep_com_letra",
+      call = rlang::caller_env()
+    )
+  }
 }
 
-erro_digitos_demais <- function() {
-  cli::cli_abort(
-    "CEP n\u00e3o deve conter mais de 8 d\u00edgitos.",
-    class = "cep_com_digitos_demais",
-    call = rlang::caller_env()
-  )
+erro_se_digitos_demais <- function(ceps_padrao) {
+  possui_digitos_demais <- nchar(ceps_padrao) > 9
+
+  if (any(possui_digitos_demais)) {
+    indice_muitos_digitos <- which(possui_digitos_demais)
+    indice_muitos_digitos <- as.character(indice_muitos_digitos)
+
+    lista_indices <- cli::cli_vec(indice_muitos_digitos, list("vec-trunc" = 5))
+
+    cli::cli_abort(
+      c(
+        "CEP n\u00e3o deve conter mais que 8 d\u00edgitos.",
+        "i" = paste0(
+          "O{?s} elemento{?s} com \u00edndice{?s} ",
+          "{lista_indices} possu{?i/em} mais que 8 d\u00edgitos ",
+          "ap\u00f3s padroniza\u00e7\u00e3o."
+        )
+      ),
+      class = "cep_com_digitos_demais",
+      call = rlang::caller_env()
+    )
+  }
 }
