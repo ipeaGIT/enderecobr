@@ -4,3 +4,5 @@
 #'
 #' @keywords internal
 "_PACKAGE"
+
+utils::globalVariables("codigos_estados")

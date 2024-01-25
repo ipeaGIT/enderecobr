@@ -14,18 +14,19 @@ Description: Padroniza endereços brasileiros a partir de diferentes
 License: MIT + file LICENSE
 URL: https://github.com/ipeaGIT/enderecopadrao
 BugReports: https://github.com/ipeaGIT/enderecopadrao/issues
+Depends: 
+    R (>= 2.10)
 Imports: 
     checkmate,
     cli,
     rlang,
+    stringi,
     stringr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: pt
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Depends: 
-    R (>= 2.10)
-LazyData: true

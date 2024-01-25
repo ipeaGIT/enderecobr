@@ -1,6 +1,7 @@
 reference:
   - title: "Padronização de campos individuais"
   - contents:
+    - padronizar_estados
     - padronizar_ceps
     - padronizar_numeros
   - title: "Tabelas de códigos"
