@@ -2,6 +2,7 @@ reference:
   - title: "Campos individuais"
   - contents:
     - padronizar_ceps
+    - padronizar_numeros
 
 development:
   mode: auto
