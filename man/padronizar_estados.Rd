@@ -14,28 +14,32 @@ padronizados.}
 Um vetor de caracteres com os estados padronizados.
 }
 \description{
-Padroniza um vetor de estados. Veja a seção \emph{Detalhes} para mais informações
-sobre a padronização.
+Padroniza um vetor de caracteres ou número representando estados brasileiros.
+Veja a seção \emph{Detalhes} para mais informações sobre a padronização.
 }
 \section{Detalhes}{
 
-TODO: revisar isso aqui
 Operações realizadas durante a padronização:
 \enumerate{
 \item conversão para caracter, se o input for numérico;
-\item remoção de espaços em branco antes e depois dos números e de espaços em
-branco em excesso entre números;
+\item remoção de espaços em branco antes e depois dos valores e remoção de
+espaços em excesso entre palavras;
+\item conversão de caracteres para caixa alta;
 \item remoção de zeros à esquerda;
-\item substituição de números vazios e de variações de SN (SN, S N, S.N., S./N.,
-etc) por S/N.
+\item busca, a partir do código numérico ou da abreviação da UF, do nome
+completo de cada estado;
+\item caso a busca não tenha encontrado determinado valor, remoção de acentos e
+caracteres não ASCII - esta etapa, de manipulação de strings, pode ser
+incrementada para adequação futura a bases de dados com as quais as etapas
+anteriores não resultem em valores padronizados.
 }
 }
 
 \examples{
-numeros <- c("0210", "001", "1", "", "S N", "S/N", "SN", "0180  0181")
-padronizar_numeros(numeros)
+estados <- c("21", "021", "MA", " 21", " MA ", "ma", "", NA)
+padronizar_estados(estados)
 
-numeros <- c(210, 1, 10000, NA)
-padronizar_numeros(numeros)
+estados <- c(21, NA)
+padronizar_estados(estados)
 
 }
