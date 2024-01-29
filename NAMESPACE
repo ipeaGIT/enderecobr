@@ -2,4 +2,5 @@
 
 export(padronizar_ceps)
 export(padronizar_estados)
+export(padronizar_municipios)
 export(padronizar_numeros)

@@ -5,4 +5,4 @@
 #' @keywords internal
 "_PACKAGE"
 
-utils::globalVariables("codigos_estados")
+utils::globalVariables(c("codigos_estados", "codigos_municipios"))
