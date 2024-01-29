@@ -1,7 +1,8 @@
 #' Padronizar estados
 #'
-#' Padroniza um vetor de caracteres ou número representando estados brasileiros.
-#' Veja a seção *Detalhes* para mais informações sobre a padronização.
+#' Padroniza um vetor de caracteres ou números representando estados
+#' brasileiros. Veja a seção *Detalhes* para mais informações sobre a
+#' padronização.
 #'
 #' @param estados Um vetor de caracteres ou números. Os estados a serem
 #'   padronizados.

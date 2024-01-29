@@ -1,7 +1,8 @@
 #' Padronizar números de logradouros
 #'
-#' Padroniza um vetor de números de logradouros. Veja a seção *Detalhes* para
-#' mais informações sobre a padronização.
+#' Padroniza um vetor de caracteres ou números representando números de
+#' logradouros. Veja a seção *Detalhes* para mais informações sobre a
+#' padronização.
 #'
 #' @param numeros Um vetor de caracteres ou números. Os números de logradouro a
 #'   serem padronizados.

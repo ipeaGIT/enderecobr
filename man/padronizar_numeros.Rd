@@ -14,8 +14,9 @@ serem padronizados.}
 Um vetor de caracteres com os números de logradouros padronizados.
 }
 \description{
-Padroniza um vetor de números de logradouros. Veja a seção \emph{Detalhes} para
-mais informações sobre a padronização.
+Padroniza um vetor de caracteres ou números representando números de
+logradouros. Veja a seção \emph{Detalhes} para mais informações sobre a
+padronização.
 }
 \section{Detalhes}{
 

@@ -1,7 +1,7 @@
 #' Padronizar CEPs
 #'
-#' Padroniza um vetor de CEPs. Veja a seção *Detalhes* para mais informações
-#' sobre a padronização.
+#' Padroniza um vetor de caracteres ou números representando CEPs. Veja a seção
+#' *Detalhes* para mais informações sobre a padronização.
 #'
 #' @param ceps Um vetor de caracteres ou números. Os CEPs a serem padronizados.
 #'

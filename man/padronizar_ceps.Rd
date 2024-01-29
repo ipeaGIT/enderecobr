@@ -13,8 +13,8 @@ padronizar_ceps(ceps)
 Um vetor de caracteres com os CEPs padronizados.
 }
 \description{
-Padroniza um vetor de CEPs. Veja a seção \emph{Detalhes} para mais informações
-sobre a padronização.
+Padroniza um vetor de caracteres ou números representando CEPs. Veja a seção
+\emph{Detalhes} para mais informações sobre a padronização.
 }
 \section{Detalhes}{
 

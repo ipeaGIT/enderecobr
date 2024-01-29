@@ -14,8 +14,9 @@ padronizados.}
 Um vetor de caracteres com os estados padronizados.
 }
 \description{
-Padroniza um vetor de caracteres ou número representando estados brasileiros.
-Veja a seção \emph{Detalhes} para mais informações sobre a padronização.
+Padroniza um vetor de caracteres ou números representando estados
+brasileiros. Veja a seção \emph{Detalhes} para mais informações sobre a
+padronização.
 }
 \section{Detalhes}{
 
