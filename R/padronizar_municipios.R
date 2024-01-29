@@ -19,9 +19,8 @@
 #' 4. remoção de zeros à esquerda;
 #' 5. busca, a partir do código numérico, do nome completo de cada município;
 #' 6. caso a busca não tenha encontrado determinado valor, remoção de acentos e
-#' caracteres não ASCII - esta etapa, de manipulação de strings, pode ser
-#' incrementada para adequação futura a bases de dados com as quais as etapas
-#' anteriores não resultem em valores padronizados.
+#' caracteres não ASCII, correção de erros ortográficos frequentes e atualização
+#' de nomes conforme listagem de municípios do IBGE de 2022.
 #'
 #' @examples
 #' municipios <- c(
@@ -32,6 +31,9 @@
 #' padronizar_municipios(municipios)
 #'
 #' municipios <- c(21, NA)
+#' padronizar_municipios(municipios)
+#'
+#' municipios <- c("PARATI", "AUGUSTO SEVERO", "SAO VALERIO DA NATIVIDADE")
 #' padronizar_municipios(municipios)
 #'
 #' @export
@@ -60,13 +62,24 @@ padronizar_municipios <- function(municipios) {
   }
 
   # em uma primeira etapa, fazemos uma busca dos nomes completos dos municipios
-  # a partir de seus códigos numericos. apos essa etapa, se ainda houver algum
-  # registro de valor diferente dos nomes completos padroes, fazemos uma serie
-  # de manipulacoes de string que tomam um pouco mais de tempo
+  # a partir de seus códigos numericos. esses codigos aparecem tanto em sua
+  # versao com 7 quanto com 6 digitos, logo usamos as duas opcoes na busca. apos
+  # essa etapa, se ainda houver algum registro de valor diferente dos nomes
+  # completos padroes, fazemos uma serie de manipulacoes de string que tomam um
+  # pouco mais de tempo
 
-  vetor_busca_com_cod <- codigos_municipios$nome_muni
-  names(vetor_busca_com_cod) <- codigos_municipios$codigo_muni
-  result_busca_com_cod <- vetor_busca_com_cod[municipios_padrao]
+  vetor_busca_com_cod7 <- vetor_busca_com_cod6 <- codigos_municipios$nome_muni
+  names(vetor_busca_com_cod7) <- codigos_municipios$codigo_muni
+  names(vetor_busca_com_cod6) <- substr(codigos_municipios$codigo_muni, 1, 6)
+
+  result_busca_com_cod7 <- vetor_busca_com_cod7[municipios_padrao]
+  result_busca_com_cod6 <- vetor_busca_com_cod6[municipios_padrao]
+
+  result_busca_com_cod <- ifelse(
+    is.na(result_busca_com_cod7),
+    result_busca_com_cod6,
+    result_busca_com_cod7
+  )
 
   municipios_padrao <- ifelse(
     is.na(result_busca_com_cod),
@@ -92,6 +105,38 @@ padronizar_municipios <- function(municipios) {
 
 manipular_nome_muni <- function(muni) {
   muni <- stringi::stri_trans_general(muni, "Latin-ASCII")
+
+  muni <- stringr::str_replace_all(
+    muni,
+    c(
+      "^MOJI MIRIM$" = "MOGI MIRIM",
+      "^GRAO PARA$" = "GRAO-PARA",
+      "^BIRITIBA-MIRIM$" = "BIRITIBA MIRIM",
+      "^SAO LUIS DO PARAITINGA$" = "SAO LUIZ DO PARAITINGA",
+      "^TRAJANO DE MORAIS$" = "TRAJANO DE MORAES",
+      "^PARATI$" = "PARATY",
+      "^LAGOA DO ITAENGA$" = "LAGOA DE ITAENGA",
+      "^ELDORADO DOS CARAJAS$" = "ELDORADO DO CARAJAS",
+      "^SANTANA DO LIVRAMENTO$" = "SANT'ANA DO LIVRAMENTO",
+      "^BELEM DE SAO FRANCISCO$" = "BELEM DO SAO FRANCISCO",
+      "^SANTO ANTONIO DO LEVERGER$" = "SANTO ANTONIO DE LEVERGER",
+      "^POXOREO$" = "POXOREU",
+      "^SAO THOME DAS LETRAS$" = "SAO TOME DAS LETRAS",
+      "^OLHO-D'AGUA DO BORGES$" = "OLHO D'AGUA DO BORGES",
+      "^ITAPAGE$" = "ITAPAJE",
+      "^MUQUEM DE SAO FRANCISCO$" = "MUQUEM DO SAO FRANCISCO",
+      "^DONA EUSEBIA$" = "DONA EUZEBIA",
+      "^PASSA-VINTE$" = "PASSA VINTE",
+      "^AMPARO DE SAO FRANCISCO$" = "AMPARO DO SAO FRANCISCO",
+      "^BRASOPOLIS$" = "BRAZOPOLIS",
+      "^SERIDO$" = "SAO VICENTE DO SERIDO",
+      "^IGUARACI$" = "IGUARACY",
+      "^AUGUSTO SEVERO$" = "CAMPO GRANDE",
+      "^FLORINIA$" = "FLORINEA",
+      "^FORTALEZA DO TABOCAO$" = "TABOCAO",
+      "^SAO VALERIO DA NATIVIDADE$" = "SAO VALERIO"
+    )
+  )
 
   return(muni)
 }

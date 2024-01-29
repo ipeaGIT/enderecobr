@@ -29,9 +29,8 @@ espaços em excesso entre palavras;
 \item remoção de zeros à esquerda;
 \item busca, a partir do código numérico, do nome completo de cada município;
 \item caso a busca não tenha encontrado determinado valor, remoção de acentos e
-caracteres não ASCII - esta etapa, de manipulação de strings, pode ser
-incrementada para adequação futura a bases de dados com as quais as etapas
-anteriores não resultem em valores padronizados.
+caracteres não ASCII, correção de erros ortográficos frequentes e atualização
+de nomes conforme listagem de municípios do IBGE de 2022.
 }
 }
 
@@ -44,6 +43,9 @@ municipios <- c(
 padronizar_municipios(municipios)
 
 municipios <- c(21, NA)
+padronizar_municipios(municipios)
+
+municipios <- c("PARATI", "AUGUSTO SEVERO", "SAO VALERIO DA NATIVIDADE")
 padronizar_municipios(municipios)
 
 }
