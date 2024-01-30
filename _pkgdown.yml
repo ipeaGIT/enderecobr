@@ -3,6 +3,7 @@ reference:
   - contents:
     - padronizar_estados
     - padronizar_municipios
+    - padronizar_bairros
     - padronizar_ceps
     - padronizar_numeros
   - title: "Tabelas de códigos"
