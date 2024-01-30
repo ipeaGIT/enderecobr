@@ -44,9 +44,10 @@ padronizar_bairros <- function(bairros) {
 
       # localidades
       "\\bRES(I?D)?\\b\\.?" = "RESIDENCIAL",
-      "\\bJ(DM?|A?RD)\\b\\.?" = "JARDIM",
+      "\\bJ(D(I?M)?|A?RD)\\b\\.?" = "JARDIM",
       "\\b(PCA|PRC)\\b\\.?" = "PRACA",
-      "\\bP(R?Q|QUE)\\b\\.?" = "PARQUE",
+      "\\bP((A?R)?Q|QU?E)\\b\\.?" = "PARQUE",
+      "\\bP\\.? RESIDENCIAL\\b" = "PARQUE RESIDENCIAL",
       "^VL?\\b\\.?" = "VILA", # melhor restringir ao comeco dos nomes, caso contrario pode ser algarismo romano ou nome abreviado
       "\\bCID\\b\\.?" = "CIDADE",
       "\\bCIDADE UNI(VERS)?\\b\\.?" = "CIDADE UNIVERSITARIA",
@@ -55,21 +56,34 @@ padronizar_bairros <- function(bairros) {
       "^DIS\\b\\.?" = "DISTRITO",
       "\\bCHAC\\b\\.?" = "CHACARA",
       "^CH\\b\\.?" = "CHACARA",
-      "\\bC(ON)?J\\b\\.?" = "CONJUNTO",
-      "\\bCONJUNTO (H(B|AB(IT)?)?)\\b\\.?" = "CONJUNTO HABITACIONAL",
+      "\\bC(ON?)?J\\b\\.?" = "CONJUNTO",
+      "^C\\.? J\\b\\.?" = "CONJUNTO",
+      "\\bC(ONJUNTO)? (H(B|AB(IT)?)?)\\b\\.?" = "CONJUNTO HABITACIONAL",
       "\\bSTR\\b\\.?" = "SETOR", # ST pode ser setor ou santo/santa, talvez melhor manter só STR mesmo e fazer mudanças mais específicas com ST
       "\\bIND(L|TRL|UST?)?\\b\\.?" = "INDUSTRIAL",
+      "\\bD\\.? INDUSTRIAL\\b" = "DISTRITO INDUSTRIAL",
+      "\\bS\\.? INDUSTRIAL\\b" = "SETOR INDUSTRIAL",
+      "\\b(P\\.? INDUSTRIAL|PARQUE IN)\\b\\.?" = "PARQUE INDUSTRIAL",
       "\\bLOT\\b\\.?[^$]" = "LOTEAMENTO",
       "^LT\\b\\.?" = "LOTEAMENTO",
       "\\bZN\\b\\.?" = "ZONA",
       "^Z\\b\\.?" = "ZONA",
+      "\\bZONA R(UR?)?\\b\\.?" = "ZONAL RURAL",
       "^POV\\b\\.?" = "POVOADO",
+      "\\bNUCL?\\b\\.?" = "NUCLEO",
+      "\\b(NUCLEO|N\\.?) H(AB)?\\b\\.?" = "NUCLEO HABITACIONAL",
+      "\\b(NUCLEO|N\\.?) C(OL)?\\b\\.?" = "NUCLEO COLONIAL",
+      "\\bN\\.? INDUSTRIAL\\b" = "NUCLEO INDUSTRIAL",
+      "\\bBALN?\\b\\.?" = "BALNEARIO",
+      "\\bFAZ?\\b\\.?" = "FAZENDA",
 
       # titulos
       "\\bSTO\\b\\.?" = "SANTO",
+      "\\bSTOS\\b\\.?" = "SANTOS",
       "\\bSTA\\b\\.?" = "SANTA",
       "\\bSRA\\b\\.?" = "SENHORA",
-      "\\b(N(S|SA)?\\.? SENHORA|(NOSSA|NSA\\.?) (SR?|SEN))\\b\\.?" = "NOSSA SENHORA",
+      "\\b(N(S|SA)?\\.? SENHORA|(NOSSA|NSA\\.?) (SR?|SEN(H(OR)?)?))\\b\\.?" = "NOSSA SENHORA",
+      "\\bNOSSO (SR?|SEN)\\b\\.?" = "NOSSO SENHOR",
 
       "\\bALMTE\\b\\.?" = "ALMIRANTE",
       "\\bMAL\\b\\.?[^$]" = "MARECHAL",
@@ -82,7 +96,16 @@ padronizar_bairros <- function(bairros) {
       "\\bPRES(ID)?\\b\\.?[^$]" = "PRESIDENTE",
       "\\bGOV\\b\\.?" = "GOVERNADOR", # pode acabar com GOV. - e.g. ilha do gov.
       "\\bPREF\\b\\.?[^$]" = "PREFEITO",
-      "\\bDEP\\b\\.?[^$]" = "DEPUTADO"
+      "\\bDEP\\b\\.?[^$]" = "DEPUTADO",
+
+      "\\bDR\\b\\.?" = "DOUTOR",
+      "\\bDRA\\b\\.?" = "DOUTORA",
+      "\\bPROF\\b\\.?" = "PROFESSOR",
+      "\\bPROFA\\b\\.?" = "PROFESSORA",
+      "\\bPE\\b\\.[^$]" = "PADRE",
+
+      "\\bD\\b\\.? (PEDRO|JOAO|HENRIQUE)" = "DOM \\1",
+      "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM"
     )
   )
 
