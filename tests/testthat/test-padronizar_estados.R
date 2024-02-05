@@ -13,6 +13,8 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_estados(21), "MARANHAO")
   expect_equal(padronizar_estados(NA_integer_), "")
   expect_equal(padronizar_estados(c(21, NA)), c("MARANHAO", ""))
+
+  expect_equal(padronizar_estados("MARANHÃO"), "MARANHAO")
 })
 
 test_that("lida com vetores vazios corretamente", {

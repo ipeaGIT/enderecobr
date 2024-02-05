@@ -75,6 +75,12 @@ padronizar_estados <- function(estados) {
   )
   names(estados_padrao) <- NULL
 
+  estados_padrao <- ifelse(
+    is.na(estados_padrao),
+    estados,
+    estados_padrao
+  )
+
   estados_padrao[indice_estado_vazio] <- ""
 
   if (any(! estados_padrao %in% c(codigos_estados$nome_estado, ""))) {
