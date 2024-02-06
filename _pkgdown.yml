@@ -6,6 +6,7 @@ reference:
     - padronizar_bairros
     - padronizar_ceps
     - padronizar_numeros
+    - padronizar_logradouros
   - title: "Tabelas de códigos"
   - contents:
     - codigos_municipios
