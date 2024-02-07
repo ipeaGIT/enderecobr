@@ -29,7 +29,7 @@ padronizar_bairros <- function(bairros) {
   # identificamos o indice dos bairros vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_bairro_vazio <- which(bairros == "" | is.na(bairros))
+  indice_bairro_vazio <- which(is.na(bairros))
 
   bairros_padrao <- stringr::str_squish(bairros)
   bairros_padrao <- toupper(bairros_padrao)
@@ -137,6 +137,8 @@ padronizar_bairros <- function(bairros) {
       "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM"
     )
   )
+
+  bairros_padrao[indice_bairro_vazio] <- ""
 
   return(bairros_padrao)
 }
