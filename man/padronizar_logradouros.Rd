@@ -31,7 +31,7 @@ espaços em excesso entre palavras;
 }
 
 \examples{
-bairros <- c("PRQ IND", "NSA SEN DE FATIMA", "ILHA DO GOV")
-padronizar_bairros(bairros)
+logradouros <- c("r. gen.. glicério")
+padronizar_logradouros(logradouros)
 
 }

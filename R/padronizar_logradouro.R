@@ -19,8 +19,8 @@
 #' 4. adição de espaços após abreviações sinalizadas por pontos.
 #'
 #' @examples
-#' bairros <- c("PRQ IND", "NSA SEN DE FATIMA", "ILHA DO GOV")
-#' padronizar_bairros(bairros)
+#' logradouros <- c("r. gen.. glicério")
+#' padronizar_logradouros(logradouros)
 #'
 #' @export
 padronizar_logradouros <- function(logradouros) {
@@ -30,7 +30,7 @@ padronizar_logradouros <- function(logradouros) {
   # identificamos o indice dos logradouros vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_logradouro_vazio <- which(logradouros == "" | is.na(logradouros))
+  indice_logradouro_vazio <- which(is.na(logradouros))
 
   logradouros_padrao <- stringr::str_squish(logradouros)
   logradouros_padrao <- toupper(logradouros_padrao)
@@ -100,14 +100,31 @@ padronizar_logradouros <- function(logradouros) {
       "^(LOCALIDADE|RUA) LOC\\b(\\.|,)?" = "LOCALIDADE",
       "^LOCALIDADE?\\b(-|,|\\.) *" = "LOCALIDADE ",
 
+      "^VL\\b(\\.|,)?" = "VILA",
+      "^VILA VILA\\b(\\.|,)?" = "VILA",
+      "^VILA?\\b(-|,|\\.) *" = "VILA ",
+
       "^LAD\\b(\\.|,)?" = "LADEIRA",
       "^LADEIRA LADEIRA\\b(\\.|,)?" = "LADEIRA",
       "^LADEIRA?\\b(-|,|\\.) *" = "LADEIRA ",
 
+      "^DT\\b(\\.|,)?" = "DISTRITO",
+      "\\bDISTR?\\b\\.?" = "DISTRITO",
+      "^DISTRITO DISTRITO\\b(\\.|,)?" = "DISTRITO",
+      "^DISTRITO?\\b(-|,|\\.) *" = "DISTRITO ",
+
+      "^NUC\\b(\\.|,)?" = "NUCLEO",
+      "^NUCLEO NUCLEO\\b(\\.|,)?" = "NUCLEO",
+      "^NUCLEO?\\b(-|,|\\.) *" = "NUCLEO ",
+
+      "^L(RG|GO)\\b(\\.|,)?" = "LARGO",
+      "^LARGO L(RG|GO)\\b(\\.|,)?" = "LARGO",
+      "^LARGO?\\b(-|,|\\.) *" = "LARGO ",
+
       # estabelecimentos
-      "^AER\\b(\\.|,)?" = "AEROPORTO", # sera que vale? tem uns casos estranhos aqui, e.g. "AER GUANANDY, 1", "AER WASHINGTON LUIZ, 3318"
+      "^AER(OP)?\\b(\\.|,)?" = "AEROPORTO", # sera que vale? tem uns casos estranhos aqui, e.g. "AER GUANANDY, 1", "AER WASHINGTON LUIZ, 3318"
       "^AEROPORTO (AEROPORTO|AER)\\b(\\.|,)?" = "AEROPORTO",
-      "^AEROPORTO (INT|INTER)\\b(\\.|,)?" = "AEROPORTO INTERNACIONAL",
+      "^AEROPORTO INT(ERN?)?\\b(\\.|,)?" = "AEROPORTO INTERNACIONAL",
 
       "^COND\\b(\\.|,)?" = "CONDOMINIO",
       "^(CONDOMINIO|RODOVIA) (CONDOMINIO|COND)\\b(\\.|,)?" = "CONDOMINIO",
@@ -147,6 +164,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\b(PRIMEIRO|PRIM\\.?) TENENTE\\b" = "PRIMEIRO-TENENTE",
       "\\b(SEGUNDO|SEG\\.?) TENENTE\\b" = "SEGUNDO-TENENTE",
       "\\bSOLD\\b\\.?" = "SOLDADO",
+      "\\bMAJ\\b\\.?" = "MAJOR",
 
       "\\bPROF\\b\\.?" = "PROFESSOR",
       "\\bPROFA\\b\\.?" = "PROFESSORA",
@@ -163,6 +181,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\bPREF\\b\\.?" = "PREFEITO",
       "\\bDEP\\b\\.?" = "DEPUTADO",
       "\\bVER\\b\\.?[^$ ]" = "VEREADOR",
+      "\\bESPL?\\.? (DOS )?MIN(IST(ERIOS?)?)?\\b\\.?" = "ESPLANADA DOS MINISTERIOS",
       "\\bMIN\\b\\.?[^$ ]" = "MINISTRO",
 
       # abreviacoes
@@ -170,7 +189,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\b(CJ|CONJ)\\b\\.?" = "CONJUNTO",
       "\\bLT\\b\\.?" = "LOTE",
       "\\bLTS\\b\\.?" = "LOTES",
-      "\\bQD\\b\\.?" = "QUADRA",
+      "\\bQDA?\\b\\.?" = "QUADRA",
       "\\bLJ\\b\\.?" = "LOJA",
       "\\bLJS\\b\\.?" = "LOJAS",
       "\\bAPTO?\\b\\.?" = "APARTAMENTO",
@@ -180,6 +199,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\bEDI?F\\b\\.?" = "EDIFICIO",
       "\\bCOND\\b\\.?" = "CONDOMINIO", # apareceu antes mas como tipo de logradouro
       "\\bKM\\b\\." = "KM",
+      "\\bS\\.? ?N\\b\\.?" = "S/N",
       # SL pode ser sobreloja ou sala
 
       # intersecao entre nomes e titulos
@@ -218,6 +238,8 @@ padronizar_logradouros <- function(logradouros) {
       # ALM é um caso complicado, pode ser alameda ou almirante. inclusive no mesmo endereço podem aparecer os dois rs
     )
   )
+
+  logradouros_padrao[indice_logradouro_vazio] <- ""
 
   return(logradouros_padrao)
 }
