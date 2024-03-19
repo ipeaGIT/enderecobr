@@ -82,6 +82,61 @@
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="utilização">Utilização<a class="anchor" aria-label="anchor" href="#utiliza%C3%A7%C3%A3o"></a>
+</h2>
+<p>O pacote atualmente fornece funções para padronizar diferentes campos de um endereço. São elas:</p>
+<ul>
+<li><code><a href="reference/padronizar_estados.html">padronizar_estados()</a></code></li>
+<li><code><a href="reference/padronizar_municipios.html">padronizar_municipios()</a></code></li>
+<li><code><a href="reference/padronizar_bairros.html">padronizar_bairros()</a></code></li>
+<li><code><a href="reference/padronizar_ceps.html">padronizar_ceps()</a></code></li>
+<li><code><a href="reference/padronizar_logradouros.html">padronizar_logradouros()</a></code></li>
+<li><code><a href="reference/padronizar_numeros.html">padronizar_numeros()</a></code></li>
+</ul>
+<p>Cada uma dessas funções recebe um vetor com valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos valores padronizados.</p>
+<p>A <code><a href="reference/padronizar_estados.html">padronizar_estados()</a></code> aceita vetores de caracteres e números. Caso numérico, o vetor deve conter o <a href="https://www.ibge.gov.br/explica/codigos-dos-municipios.php" class="external-link">código do IBGE</a> de cada estado. Caso seja composto de caracteres, o vetor pode conter a sigla do estado, seu código ou seu nome por extenso. Neste caso, a função ainda aplica diversas manipulações para chegar a um valor padronizado, como a conversão de caracteres para caixa alta, remoção de acentos e caracteres não ASCII e remoção de espaços em branco antes e depois dos valores e de espaços em excesso entre palavras. O código abaixo apresenta exemplos de aplicação da função com vetores numéricos e de caracteres.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ipeaGIT/enderecopadrao" class="external-link">enderecopadrao</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"21"</span>, <span class="st">" 21"</span>, <span class="st">"MA"</span>, <span class="st">" MA "</span>, <span class="st">"ma"</span>, <span class="st">"MARANHÃO"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO"</span></span>
+<span></span>
+<span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">32</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "MARANHAO"       "ESPIRITO SANTO"</span></span></code></pre></div>
+<p>A <code><a href="reference/padronizar_municipios.html">padronizar_municipios()</a></code> funciona de forma muito semelhante, aceitando também valores numéricos representando os códigos dos municípios e valores numéricos. As mesmas manipulações de remoção de espaços, conversão para caixa alta são aplicadas e conversão para caracteres são aplicadas (assim como nos demais tratamentos de vetores de caracteres que serão apresentados a seguir), mas a função também verifica erros ortográficos frequentemente observados nos nomes dos municípios (e.g. Moji Mirim -&gt; Mogi Mirim, Parati -&gt; Paraty).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"3304557"</span>, <span class="st">"003304557"</span>, <span class="st">" 3304557 "</span>, <span class="st">"RIO DE JANEIRO"</span>, <span class="st">"rio de janeiro"</span>,</span>
+<span>  <span class="st">"SÃO PAULO"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "RIO DE JANEIRO" "RIO DE JANEIRO" "RIO DE JANEIRO" "RIO DE JANEIRO"</span></span>
+<span><span class="co">#&gt; [5] "RIO DE JANEIRO" "SAO PAULO"</span></span>
+<span></span>
+<span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fl">3304557</span></span>
+<span><span class="fu"><a href="reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "RIO DE JANEIRO"</span></span>
+<span></span>
+<span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PARATI"</span>, <span class="st">"MOJI MIRIM"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "PARATY"     "MOGI MIRIM"</span></span></code></pre></div>
+<p>A <code><a href="reference/padronizar_bairros.html">padronizar_bairros()</a></code> trabalha exclusivamente com vetores de caracteres. Como os nomes de bairros são muito mais variados e, consequentemente, menos rigidamente controlados do que os de estados e municípios, a função se atém a corrigir erros ortográficos e a expandir abreviações frequentemente utilizadas através de diversas <a href="https://en.wikipedia.org/wiki/Regular_expression" class="external-link">expressões regulares (regexes)</a>. O exemplo abaixo mostra algumas das muitas abreviações usualmente empregadas no preenchimento de endereços.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bairros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"PRQ IND"</span>,</span>
+<span>  <span class="st">"NSA SEN DE FATIMA"</span>,</span>
+<span>  <span class="st">"ILHA DO GOV"</span>,</span>
+<span>  <span class="st">"VL OLIMPICA"</span>,</span>
+<span>  <span class="st">"NUC RES"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/padronizar_bairros.html">padronizar_bairros</a></span><span class="op">(</span><span class="va">bairros</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "PARQUE INDUSTRIAL"       "NOSSA SENHORA DE FATIMA"</span></span>
+<span><span class="co">#&gt; [3] "ILHA DO GOVERNADOR"      "VILA OLIMPICA"          </span></span>
+<span><span class="co">#&gt; [5] "NUCLEO RESIDENCIAL"</span></span></code></pre></div>
+</div>
 </div>
   </div>
 
