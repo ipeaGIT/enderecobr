@@ -44,19 +44,21 @@ padronizar_municipios <- function(municipios) {
     combine = "or"
   )
 
+  municipios_dedup <- unique(municipios)
+
   # alguns municipios podem vir vazios e devem permanecer vazios ao final.
   # identificamos o indice dos municipios vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
   indice_municipio_vazio <- which(municipios == "" | is.na(municipios))
 
-  if (is.numeric(municipios)) {
-    municipios_padrao <- formatC(municipios, format = "d")
+  if (is.numeric(municipios_dedup)) {
+    municipios_padrao_dedup <- formatC(municipios_dedup, format = "d")
   } else {
-    municipios_padrao <- stringr::str_squish(municipios)
-    municipios_padrao <- toupper(municipios_padrao)
-    municipios_padrao <- stringr::str_replace_all(
-      municipios_padrao,
+    municipios_padrao_dedup <- stringr::str_squish(municipios_dedup)
+    municipios_padrao_dedup <- toupper(municipios_padrao_dedup)
+    municipios_padrao_dedup <- stringr::str_replace_all(
+      municipios_padrao_dedup,
       c("\\b0+(\\d+)\\b" = "\\1")
     )
   }
@@ -72,8 +74,8 @@ padronizar_municipios <- function(municipios) {
   names(vetor_busca_com_cod7) <- codigos_municipios$codigo_muni
   names(vetor_busca_com_cod6) <- substr(codigos_municipios$codigo_muni, 1, 6)
 
-  result_busca_com_cod7 <- vetor_busca_com_cod7[municipios_padrao]
-  result_busca_com_cod6 <- vetor_busca_com_cod6[municipios_padrao]
+  result_busca_com_cod7 <- vetor_busca_com_cod7[municipios_padrao_dedup]
+  result_busca_com_cod6 <- vetor_busca_com_cod6[municipios_padrao_dedup]
 
   result_busca_com_cod <- ifelse(
     is.na(result_busca_com_cod7),
@@ -81,24 +83,28 @@ padronizar_municipios <- function(municipios) {
     result_busca_com_cod7
   )
 
-  municipios_padrao <- ifelse(
+  municipios_padrao_dedup <- ifelse(
     is.na(result_busca_com_cod),
-    municipios_padrao,
+    municipios_padrao_dedup,
     result_busca_com_cod
   )
-  names(municipios_padrao) <- NULL
-
-  municipios_padrao[indice_municipio_vazio] <- ""
+  names(municipios_padrao_dedup) <- NULL
 
   municipio_nao_padrao <- !(
-    municipios_padrao %in% c(codigos_municipios$nome_muni, "")
+    municipios_padrao_dedup %in% c(codigos_municipios$nome_muni, "", NA)
   )
 
   if (any(municipio_nao_padrao)) {
-    municipios_padrao[municipio_nao_padrao] <- manipular_nome_muni(
-      municipios_padrao[municipio_nao_padrao]
+    municipios_padrao_dedup[municipio_nao_padrao] <- manipular_nome_muni(
+      municipios_padrao_dedup[municipio_nao_padrao]
     )
   }
+
+  names(municipios_padrao_dedup) <- municipios_dedup
+  municipios_padrao <- municipios_padrao_dedup[as.character(municipios)]
+  names(municipios_padrao) <- NULL
+
+  municipios_padrao[indice_municipio_vazio] <- ""
 
   return(municipios_padrao)
 }

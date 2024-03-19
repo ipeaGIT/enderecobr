@@ -26,18 +26,23 @@
 padronizar_logradouros <- function(logradouros) {
   checkmate::assert_character(logradouros)
 
+  logradouros_dedup <- unique(logradouros)
+
   # alguns logradouros podem vir vazios e devem permanecer vazios ao final.
   # identificamos o indice dos logradouros vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_logradouro_vazio <- which(is.na(logradouros))
+  indice_logradouro_vazio <- which(is.na(logradouros) | logradouros == "")
 
-  logradouros_padrao <- stringr::str_squish(logradouros)
-  logradouros_padrao <- toupper(logradouros_padrao)
-  logradouros_padrao <- stringi::stri_trans_general(logradouros_padrao, "Latin-ASCII")
+  logradouros_padrao_dedup <- stringr::str_squish(logradouros_dedup)
+  logradouros_padrao_dedup <- toupper(logradouros_padrao_dedup)
+  logradouros_padrao_dedup <- stringi::stri_trans_general(
+    logradouros_padrao_dedup,
+    "Latin-ASCII"
+  )
 
-  logradouros_padrao <- stringr::str_replace_all(
-    logradouros_padrao,
+  logradouros_padrao_dedup <- stringr::str_replace_all(
+    logradouros_padrao_dedup,
     c(
       # pontuacao
       "\\.\\.+" = ".",         # ponto repetido
@@ -238,6 +243,10 @@ padronizar_logradouros <- function(logradouros) {
       # ALM é um caso complicado, pode ser alameda ou almirante. inclusive no mesmo endereço podem aparecer os dois rs
     )
   )
+
+  names(logradouros_padrao_dedup) <- logradouros_dedup
+  logradouros_padrao <- logradouros_padrao_dedup[logradouros]
+  names(logradouros_padrao) <- NULL
 
   logradouros_padrao[indice_logradouro_vazio] <- ""
 

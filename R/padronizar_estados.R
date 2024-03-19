@@ -39,19 +39,21 @@ padronizar_estados <- function(estados) {
     combine = "or"
   )
 
+  estados_dedup <- unique(estados)
+
   # alguns estados podem vir vazios e devem permanecer vazios ao final.
   # identificamos o indice dos estados vazios para "reesvazia-los" ao final, ja
   # que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
   indice_estado_vazio <- which(estados == "" | is.na(estados))
 
-  if (is.numeric(estados)) {
-    estados_padrao <- formatC(estados, format = "d")
+  if (is.numeric(estados_dedup)) {
+    estados_padrao_dedup <- formatC(estados_dedup, format = "d")
   } else {
-    estados_padrao <- stringr::str_squish(estados)
-    estados_padrao <- toupper(estados_padrao)
-    estados_padrao <- stringr::str_replace_all(
-      estados_padrao,
+    estados_padrao_dedup <- stringr::str_squish(estados_dedup)
+    estados_padrao_dedup <- toupper(estados_padrao_dedup)
+    estados_padrao_dedup <- stringr::str_replace_all(
+      estados_padrao_dedup,
       c("\\b0+(\\d+)\\b" = "\\1")
     )
   }
@@ -65,33 +67,40 @@ padronizar_estados <- function(estados) {
   names(vetor_busca_com_cod) <- codigos_estados$codigo_estado
   names(vetor_busca_com_abrev) <- codigos_estados$abrev_estado
 
-  result_busca_com_cod <- vetor_busca_com_cod[estados_padrao]
-  result_busca_com_abrev <- vetor_busca_com_abrev[estados_padrao]
+  result_busca_com_cod <- vetor_busca_com_cod[estados_padrao_dedup]
+  result_busca_com_abrev <- vetor_busca_com_abrev[estados_padrao_dedup]
 
-  estados_padrao <- ifelse(
+  estados_padrao_dedup <- ifelse(
     is.na(result_busca_com_cod),
     result_busca_com_abrev,
     result_busca_com_cod
   )
-  names(estados_padrao) <- NULL
+  names(estados_padrao_dedup) <- NULL
 
-  estados_padrao <- ifelse(
-    is.na(estados_padrao),
+  estados_padrao_dedup <- ifelse(
+    is.na(estados_padrao_dedup),
     estados,
-    estados_padrao
+    estados_padrao_dedup
   )
 
-  estados_padrao[indice_estado_vazio] <- ""
-
-  if (any(! estados_padrao %in% c(codigos_estados$nome_estado, ""))) {
+  if (any(! estados_padrao_dedup %in% c(codigos_estados$nome_estado, "", NA))) {
     # aqui com certeza podem entrar outras manipulacoes, como substituir GDE por
     # GRANDE (em RIO GDE DO SUL, por exemplo), corrigir registros com ortografia
     # errada, etc. mas ainda nao encontrei nenhuma base com esse problemas,
     # entao optei por deixar apenas o comando abaixo como exemplo de manipulacao
     # a ser feita, e a medida que forem surgindo problemas vou atualizando aqui.
 
-    estados_padrao <- stringi::stri_trans_general(estados_padrao, "Latin-ASCII")
+    estados_padrao_dedup <- stringi::stri_trans_general(
+      estados_padrao_dedup,
+      "Latin-ASCII"
+    )
   }
+
+  names(estados_padrao_dedup) <- estados_dedup
+  estados_padrao <- estados_padrao_dedup[as.character(estados)]
+  names(estados_padrao) <- NULL
+
+  estados_padrao[indice_estado_vazio] <- ""
 
   return(estados_padrao)
 }

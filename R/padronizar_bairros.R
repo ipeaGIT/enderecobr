@@ -25,18 +25,23 @@
 padronizar_bairros <- function(bairros) {
   checkmate::assert_character(bairros)
 
+  bairros_dedup <- unique(bairros)
+
   # alguns bairros podem vir vazios e devem permanecer vazios ao final.
   # identificamos o indice dos bairros vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_bairro_vazio <- which(is.na(bairros))
+  indice_bairro_vazio <- which(is.na(bairros) | bairros == "")
 
-  bairros_padrao <- stringr::str_squish(bairros)
-  bairros_padrao <- toupper(bairros_padrao)
-  bairros_padrao <- stringi::stri_trans_general(bairros_padrao, "Latin-ASCII")
+  bairros_padrao_dedup <- stringr::str_squish(bairros_dedup)
+  bairros_padrao_dedup <- toupper(bairros_padrao_dedup)
+  bairros_padrao_dedup <- stringi::stri_trans_general(
+    bairros_padrao_dedup,
+    "Latin-ASCII"
+  )
 
-  bairros_padrao <- stringr::str_replace_all(
-    bairros_padrao,
+  bairros_padrao_dedup <- stringr::str_replace_all(
+    bairros_padrao_dedup,
     c(
       # pontuacao
       "\\.\\.+" = ".",         # remover pontos repetidos
@@ -137,6 +142,10 @@ padronizar_bairros <- function(bairros) {
       "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM"
     )
   )
+
+  names(bairros_padrao_dedup) <- bairros_dedup
+  bairros_padrao <- bairros_padrao_dedup[bairros]
+  names(bairros_padrao) <- NULL
 
   bairros_padrao[indice_bairro_vazio] <- ""
 

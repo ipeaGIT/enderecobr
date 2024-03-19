@@ -31,6 +31,8 @@ padronizar_ceps <- function(ceps) {
     combine = "or"
   )
 
+  ceps_dedup <- unique(ceps)
+
   # alguns ceps podem vir vazios e devem permanecer vazios ao final. nesse caso,
   # a chamada da str_pad() abaixo faz com que esses ceps virem '00000000'. para
   # evitar que o resultado contenha esses valores, identificamos o indice dos
@@ -39,19 +41,23 @@ padronizar_ceps <- function(ceps) {
   indice_cep_vazio <- which(ceps == "" | is.na(ceps))
 
   if (is.numeric(ceps)) {
-    ceps_padrao <- formatC(ceps, width = 8, format = "d", flag = 0)
+    ceps_padrao_dedup <- formatC(ceps_dedup, width = 8, format = "d", flag = 0)
   } else {
     erro_se_letra_presente(ceps)
 
-    ceps_padrao <- ceps
+    ceps_padrao_dedup <- ceps_dedup
   }
 
-  ceps_padrao <- stringr::str_replace_all(ceps_padrao, c("\\.|,| " = ""))
-  ceps_padrao <- stringr::str_pad(ceps_padrao, width = 8, pad = "0")
-  ceps_padrao <- stringr::str_replace_all(
-    ceps_padrao,
+  ceps_padrao_dedup <- stringr::str_replace_all(ceps_padrao_dedup, c("\\.|,| " = ""))
+  ceps_padrao_dedup <- stringr::str_pad(ceps_padrao_dedup, width = 8, pad = "0")
+  ceps_padrao_dedup <- stringr::str_replace_all(
+    ceps_padrao_dedup,
     c("(\\d{5})(\\d{3})" = "\\1-\\2")
   )
+
+  names(ceps_padrao_dedup) <- ceps_dedup
+  ceps_padrao <- ceps_padrao_dedup[as.character(ceps)]
+  names(ceps_padrao) <- NULL
 
   ceps_padrao[indice_cep_vazio] <- ""
 

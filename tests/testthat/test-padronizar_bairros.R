@@ -11,6 +11,7 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_bairros("jardim botanico"), "JARDIM BOTANICO")
   expect_equal(padronizar_bairros("jd..botanico"), "JARDIM BOTANICO")
   expect_equal(padronizar_bairros(NA_character_), "")
+  expect_equal(padronizar_bairros(""), "")
 })
 
 test_that("lida com vetores vazios corretamente", {

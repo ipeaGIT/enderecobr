@@ -9,6 +9,7 @@ test_that("padroniza corretamente", {
 
   expect_equal(padronizar_logradouros("r. gen.. glicério"), "RUA GENERAL GLICERIO")
   expect_equal(padronizar_logradouros(NA_character_), "")
+  expect_equal(padronizar_logradouros(""), "")
 })
 
 test_that("lida com vetores vazios corretamente", {
