@@ -30,7 +30,7 @@
 #' )
 #' padronizar_municipios(municipios)
 #'
-#' municipios <- c(21, NA)
+#' municipios <- c(3304557, NA)
 #' padronizar_municipios(municipios)
 #'
 #' municipios <- c("PARATI", "AUGUSTO SEVERO", "SAO VALERIO DA NATIVIDADE")
