@@ -2,6 +2,7 @@
 
 export(padronizar_bairros)
 export(padronizar_ceps)
+export(padronizar_complementos)
 export(padronizar_estados)
 export(padronizar_logradouros)
 export(padronizar_municipios)
