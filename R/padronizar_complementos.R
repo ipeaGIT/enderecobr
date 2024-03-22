@@ -52,6 +52,7 @@ padronizar_complementos <- function(complementos) {
       r"{ - }" = " ",
 
       # localidades
+      r"{\bAPT0\b}" = "APTO",
       r"{\bAP(T(O|\u00BA)?|ART)?\.?(\d)}" = "APARTAMENTO \\3", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
       r"{(\d)AP(T(O|\u00BA)?|ART(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
       r"{\bAP(T(O|\u00BA)?|ART)?\b\.?}" = "APARTAMENTO",
@@ -62,14 +63,17 @@ padronizar_complementos <- function(complementos) {
       r"{\bBLC?\b\.?}" = "BLOCO",
       r"{\bBLOCO\b: ?}" = "BLOCO ",
 
-      r"{\bQD\.?(\d)}" = "QUADRA \\1",
-      r"{(\d)QD\b\.?}" = "\\1 QUADRA",
-      r"{\bQD\b\.?}" = "QUADRA",
-      r"{\bQUADRA\b: ?}" = "QUADRA ",
+      # lidar com Q07L02C51
 
-      r"{\bLT\.?(\d)}" = "LOTE \\1",
-      r"{(\d)LT\b\.?}" = "\\1 LOTE",
-      r"{\bLT\b\.?}" = "LOTE",
+      r"{\bQD(RA?)?\.?(\d)}" = "QUADRA \\1", # QDA pode ser QUADRA A. da tipo 1%~ das observacoes, pelo que vi aqui. vale a pena errar nesses 1% e transformar?
+      r"{(\d)QD(RA?)?\b\.?}" = "\\1 QUADRA",
+      r"{\bQD(RA?)?\b\.?}" = "QUADRA",
+      r"{\bQUADRA\b: ?}" = "QUADRA ",
+      r"{\bQ\.? ?(\d)}" = "QUADRA \\1",
+
+      r"{\bLTE?\.?(\d)}" = "LOTE \\1",
+      r"{(\d)LTE?\b\.?}" = "\\1 LOTE",
+      r"{\bLTE?\b\.?}" = "LOTE",
       r"{\bLOTE\b: ?}" = "LOTE ",
 
       r"{\bCS\.?(\d)}" = "CASA \\1", # CSA?     o que quer dizer FDS? talvez FUNDOS
@@ -80,7 +84,26 @@ padronizar_complementos <- function(complementos) {
       r"{\bC(ON)?J\.?(\d)}" = "CONJUNTO \\2",
       r"{(\d)C(ON)?J\b\.?}" = "\\1 CONJUNTO",
       r"{\bC(ON)?J\b\.?}" = "CONJUNTO",
-      r"{\bC(ON)?J\b: ?}" = "CONJUNTO "
+      r"{\bC(ON)?J\b: ?}" = "CONJUNTO ",
+
+      r"{\bC(O?N)?D\.?(\d)}" = "CONDOMINIO \\2", # "LOTE 4 RUA 06 COND263"? "COND3 T7 APARTAMENTO 13"? "BLOCO 07 APARTAMENTO 204 CD2"?
+      r"{(\d)C(O?N)?D\b\.?}" = "\\1 CONDOMINIO",
+      r"{\bC(O?N)?D\b\.?}" = "CONDOMINIO",
+      r"{\bC(O?N)?D\b: ?}" = "CONDOMINIO ",
+
+      r"{\bAND\.?(\d)}" = "ANDAR \\1",
+      r"{(\d)AND\b\.?}" = "\\1 ANDAR",
+      r"{\bAND\b\.?}" = "ANDAR",
+      r"{\bAND\b: ?}" = "ANDAR ",
+
+      # abreviacoes
+      r"{\bS\.? ?N\b\.?}" = "S/N",
+      r"{\bPROX\b\.?}" = "PROXIMO",
+      # r"{\bESQ\b\.?}" = "ESQUINA" # tem uns casos que ESQ = ESQUERDA, não ESQUINA - e.g. "LD ESQ", "A ESQ ENT XIQUITIM", "ULTIMA CASA LADO ESQ"
+      r"{\bLOTEAM\b\.?}" = "LOTEAMENTO",
+      r"{\bCX\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL",
+      r"{\bEDI?F?\b\.?}" = "EDIFICIO",
+      r"{\bN(O|\u00BA)?\. (\d)}" = "NUMERO \\2"
     )
   )
 
