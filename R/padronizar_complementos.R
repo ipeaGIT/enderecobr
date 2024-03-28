@@ -53,81 +53,92 @@ padronizar_complementos <- function(complementos) {
 
       # "LT-04-BL-07-APTO-110" maravilha tb
 
-      r"{\b(QD?(\d+))(LT?(\d+))(C(\d+))\b}" = "QUADRA \\2 LOTE \\4 CASA \\6",
-      r"{\b(QD?(\d+))(C(\d+))(L(\d+))\b}" = "QUADRA \\2 LOTE \\6 CASA \\4",
-      r"{\b(C(\d+))(L(\d+))(QD?(\d+))\b}" = "QUADRA \\6 LOTE \\4 CASA \\2",
-      r"{\b(C(\d+))(QD?(\d+))(L(\d+))\b}" = "QUADRA \\4 LOTE \\6 CASA \\2",
-      r"{\b(L(\d+))(QD?(\d+))(C(\d+))\b}" = "QUADRA \\4 LOTE \\2 CASA \\6",
-      r"{\b(L(\d+))(C(\d+))(QD?(\d+))\b}" = "QUADRA \\6 LOTE \\2 CASA \\4",
+      r"{\bQD?-?(\d+)-?LT?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 CASA \\3",
+      r"{\bQD?-?(\d+)-?C-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\3 CASA \\2",
+      r"{\bC-?(\d+)-?LT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\2 CASA \\1",
+      r"{\bC-?(\d+)-?QD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\2 LOTE \\3 CASA \\1",
+      r"{\bLT?-?(\d+)-?QD?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\2 LOTE \\1 CASA \\3",
+      r"{\bLT?-?(\d+)-?C-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\1 CASA \\2",
 
-      r"{\bFDSQD?(\d+)LT?(\d+)\b}" = "QUADRA \\1 LOTE \\2 FUNDOS",
-      r"{\bQD?(\d+)LT?(\d+)\b}" = "QUADRA \\1 LOTE \\2",
-      r"{\bFDSLT?(\d+)QD?(\d+)\b}" = "QUADRA \\2 LOTE \\1 FUNDOS",
-      r"{\bLT?(\d+)QD?(\d+)\b}" = "QUADRA \\2 LOTE \\1",
+      r"{\bFDS-?QD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 FUNDOS",
+      r"{\bQD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2",
+      r"{\bFDS-?LT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\2 LOTE \\1 FUNDOS",
+      r"{\bLT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\2 LOTE \\1",
 
-      r"{\bQD?(\d+)C(\d+)\b}" = "QUADRA \\1 CASA \\2",
+      r"{\bQD?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\1 CASA \\2",
 
-      r"{\bLT?(\d+)C(\d+)\b}" = "LOTE \\1 CASA \\2",
-      r"{\bC(\d+)LT?(\d+)\b}" = "LOTE \\2 CASA \\1",
+      r"{\bLT?-?(\d+)-?C-?(\d+)\b}" = "LOTE \\1 CASA \\2",
+      r"{\bC-?(\d+)-?LT?-?(\d+)\b}" = "LOTE \\2 CASA \\1",
 
-      r"{\bQD?(\d+)BL?(\d+)AP(TO?)?(\d+)\b}" = "QUADRA \\1 BLOCO \\2 APARTAMENTO \\4",
+      r"{\bQD?-?(\d+)-?BL?-?(\d+)-?AP(TO?)?-?(\d+)\b}" = "QUADRA \\1 BLOCO \\2 APARTAMENTO \\4",
 
-      r"{\bBL?(\d+)C(\d+)\b}" = "BLOCO \\1 CASA \\2",
+      r"{\bBL?-?(\d+)-?C-?(\d+)\b}" = "BLOCO \\1 CASA \\2",
 
-      r"{\bBL?(\d+)AP(TO?)?(\d+)\b}" = "BLOCO \\1 APARTAMENTO \\3",
-      r"{\bAP(TO?)?(\d+)BL?(\d+)\b}" = "BLOCO \\3 APARTAMENTO \\2",
+      # APARTAMENTO33ABLOCO1, BLOCO1APARTAMENTO103, BLOCO38APT13
+      r"{\bBL?-?(\d+)-?AP(TO?)?-?(\d+)\b}" = "BLOCO \\1 APARTAMENTO \\3",
+      r"{\bAP(TO?)?-?(\d+)-?BL?-?(\d+)\b}" = "BLOCO \\3 APARTAMENTO \\2",
 
       # localidades
+      # APRT
       r"{\bAPT0\b}" = "APTO",
-      r"{\bAP(T(O|\u00BA)?|ART)?\.?(\d)}" = "APARTAMENTO \\3", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
-      r"{(\d)AP(T(O|\u00BA)?|ART(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
-      r"{\bAP(T(O|\u00BA)?|ART)?\b\.?}" = "APARTAMENTO",
+      r"{\bAP(T(O|\u00BA)?|AR?T(AMENTO)?)?\.?(\d)}" = "APARTAMENTO \\4", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
+      r"{(\d)AP(T(O|\u00BA)?|AR?T(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
+      r"{\bAP(T(O|\u00BA)?|AR?T)?\b\.?}" = "APARTAMENTO",
       r"{\bAPARTAMENTO\b: ?}" = "APARTAMENTO ",
       r"{\bAPARTAMENTO-(\d+)}" = "APARTAMENTO \\1",
 
-      r"{\bBLC?\.?(\d)}" = "BLOCO \\1",
-      r"{(\d)BLC?\b\.?}" = "\\1 BLOCO",
+      r"{\b(BLOCO|BLC?)\.?(\d+)}" = "BLOCO \\2",
+      r"{(\d)(BLOCO|BLC?)\b\.?}" = "\\1 BLOCO",
       r"{\bBLC?\b\.?}" = "BLOCO",
       r"{\bBLOCO\b: ?}" = "BLOCO ",
       r"{\bBLOCO-(\d+)}" = "BLOCO \\1",
 
-      r"{\bQD(RA?)?\.?(\d)}" = "QUADRA \\1", # QDA pode ser QUADRA A. da tipo 1%~ das observacoes, pelo que vi aqui. vale a pena errar nesses 1% e transformar?
-      r"{(\d)QD(RA?)?\b\.?}" = "\\1 QUADRA",
+      # muita coisa pode ser quadra... Q A LOTE 2, Q I LOTE 45, QI, Q I, etc etc. tem que ver o que faz sentido
+      r"{QU ADRA}" = "QUADRA",
+      r"{\bQ(U(ADRA)?|D(RA?)?)\.?(\d)}" = "QUADRA \\4", # QDA pode ser QUADRA A. da tipo 1%~ das observacoes, pelo que vi aqui. vale a pena errar nesses 1% e transformar?
+      r"{(\d+)Q(U(ADRA)?|D(RA?)?)\b\.?}" = "\\1 QUADRA",
       r"{\bQD(RA?)?\b\.?}" = "QUADRA",
+      r"{\bQU\b\.? }" = "QUADRA ", # espaco no final pra evitar casos como "EDIFICIO RES M LUIZA QU" e "BLOCO 3A APARTAMENTO 201 E M QU"
       r"{\bQUADRA\b: ?}" = "QUADRA ",
-      r"{\bQ\.? ?(\d)}" = "QUADRA \\1",
       r"{\bQUADRA-(\d+)}" = "QUADRA \\1",
+      r"{\bQ\.? ?(\d)}" = "QUADRA \\1",
+      r"{\bQ-(\d+)}" = "QUADRA \\1",
 
-      r"{\bLTE?\.?(\d)}" = "LOTE \\1",
-      r"{(\d)LTE?\b\.?}" = "\\1 LOTE",
+      r"{\b(LOTE|LTE?)\.?(\d)}" = "LOTE \\2",
+      r"{\b(?<!RUA |S\/)L\.? (\d)}" = "LOTE \\1", # o \\1 ta certo mesmo, os (?...) nao contam. transforma L 5 em LOTE 5, mas evita que RUA L 5 LOTE 45 vire RUA LOTE 5 LOTE 45 e que S/L 205 vire S/LOTE 205
+      r"{(\d)(LTE?|LOTE)\b\.?}" = "\\1 LOTE",
       r"{\bLTE?\b\.?}" = "LOTE",
       r"{\bLOTE\b: ?}" = "LOTE ",
       r"{\bLOTE-(\d+)}" = "LOTE \\1",
+      r"{\b(?<!(TV|TRAVESSA|QUADRA) )L-(\d+)}" = "LOTE \\2", # "L-21-NOVO HORIZONTE" ? "L-36" ?
 
-      r"{\bCS\.?(\d)}" = "CASA \\1", # CSA?     o que quer dizer FDS? talvez FUNDOS
-      r"{(\d)CS\b\.?}" = "\\1 CASA",
+      r"{\b(CASA|CS)\.?(\d)}" = "CASA \\2", # CSA?     o que quer dizer FDS? talvez FUNDOS
+      r"{(\d)(CASA|CS)\b\.?}" = "\\1 CASA",
       r"{\bCS\b\.?}" = "CASA",
       r"{\bCASA\b: ?}" = "CASA ",
       r"{\bCASA-(\d+)}" = "CASA \\1",
+      #r"{[^^]\b(?<!(APARTAMENTO|CONJUNTO|BLOCO|QUADRA) )C-(\d+)}" = "CASA \\1", # ESSE TEM MUITA VARIACAO, COMPLICADO #### Q-10 C-03 = Q-10 CASA 03, mas APARTAMENTO C-03 nao eh mexido, nem soh C-03 (pode ser soh C-03 mesmo)
 
-      r"{\bC(ON)?J\.?(\d)}" = "CONJUNTO \\2",
-      r"{(\d)C(ON)?J\b\.?}" = "\\1 CONJUNTO",
-      r"{\bC(ON)?J\b\.?}" = "CONJUNTO",
+      r"{\b(C(ON)?JT?|CONJUNTO)\.?(\d)}" = "CONJUNTO \\3",
+      r"{(\d)(C(ON)?JT?|CONJUNTO)\b\.?}" = "\\1 CONJUNTO",
+      r"{\bC(ON)?JT?\b\.?}" = "CONJUNTO",
       r"{\bCONJUNTO\b: ?}" = "CONJUNTO ",
-      r"{\bCONJUNTO-(\d+)}" = "CONJUNTO \\1",
+      r"{\bCONJUNTO-(\d)}" = "CONJUNTO \\1",
 
-      r"{\bC(O?N)?D\.?(\d)}" = "CONDOMINIO \\2", # "LOTE 4 RUA 06 COND263"? "COND3 T7 APARTAMENTO 13"? "BLOCO 07 APARTAMENTO 204 CD2"?
-      r"{(\d)C(O?N)?D\b\.?}" = "\\1 CONDOMINIO",
+      r"{\b(CONDOMINIO|C(O?N)?D)\.?(\d)}" = "CONDOMINIO \\3", # "LOTE 4 RUA 06 COND263"? "COND3 T7 APARTAMENTO 13"? "BLOCO 07 APARTAMENTO 204 CD2"?
+      r"{(\d)(CONDOMINIO|C(O?N)?D)\b\.?}" = "\\1 CONDOMINIO",
       r"{\bC(O?N)?D\b\.?}" = "CONDOMINIO",
       r"{\bCONDOMINIO\b: ?}" = "CONDOMINIO ",
+      r"{\bCONDOMINIO-(\d)}" = "CONDOMINIO \\1",
 
-      r"{\bAND\.?(\d)}" = "ANDAR \\1",
-      r"{(\d)AND\b\.?}" = "\\1 ANDAR",
+      r"{\bAND(AR)?\.?(\d)}" = "ANDAR \\2",
+      r"{(\d)AND(AR)?\b\.?}" = "\\1 ANDAR",
       r"{\bAND\b\.?}" = "ANDAR",
       r"{\bANDAR\b: ?}" = "ANDAR ",
+      r"{\bANDAR-(\d+)}" = "ANDAR \\1",
 
-      r"{\bCOB\.?(\d)}" = "COBERTURA \\1",
-      r"{(\d)COB\b\.?}" = "\\1 COBERTURA",
+      r"{\bCOB(ERTURA)?\.?(\d)}" = "COBERTURA \\2",
+      r"{(\d)COB(ERTURA)?\b\.?}" = "\\1 COBERTURA",
       r"{\bCOB\b\.?}" = "COBERTURA",
       r"{\bCOBERTURA\b: ?}" = "COBERTURA ",
       r"{\bCOBERTURA-(\d+)}" = "COBERTURA \\1",
