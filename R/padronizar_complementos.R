@@ -53,45 +53,50 @@ padronizar_complementos <- function(complementos) {
 
       # "LT-04-BL-07-APTO-110" maravilha tb
 
-      r"{\bQD?-?(\d+)-?LT?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 CASA \\3",
-      r"{\bQD?-?(\d+)-?C-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\3 CASA \\2",
-      r"{\bC-?(\d+)-?LT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\2 CASA \\1",
-      r"{\bC-?(\d+)-?QD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\2 LOTE \\3 CASA \\1",
-      r"{\bLT?-?(\d+)-?QD?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\2 LOTE \\1 CASA \\3",
-      r"{\bLT?-?(\d+)-?C-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\1 CASA \\2",
+      r"{\bQD?-?(\d+)-?LT?-?(\d+)-?CS?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 CASA \\3",
+      r"{\bQD?-?(\d+)-?CS?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\3 CASA \\2",
+      r"{\bCS?-?(\d+)-?LT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\2 CASA \\1",
+      r"{\bCS?-?(\d+)-?QD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\2 LOTE \\3 CASA \\1",
+      r"{\bLT?-?(\d+)-?QD?-?(\d+)-?CS?-?(\d+)\b}" = "QUADRA \\2 LOTE \\1 CASA \\3",
+      r"{\bLT?-?(\d+)-?CS?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\3 LOTE \\1 CASA \\2",
 
       r"{\bFDS-?QD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 FUNDOS",
       r"{\bQD?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2",
       r"{\bFDS-?LT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\2 LOTE \\1 FUNDOS",
       r"{\bLT?-?(\d+)-?QD?-?(\d+)\b}" = "QUADRA \\2 LOTE \\1",
 
-      r"{\bQD?-?(\d+)-?C-?(\d+)\b}" = "QUADRA \\1 CASA \\2",
+      r"{\bQD?-?(\d+)-?CS?-?(\d+)\b}" = "QUADRA \\1 CASA \\2",
 
       r"{\bLT?-?(\d+)-?C-?(\d+)\b}" = "LOTE \\1 CASA \\2",
       r"{\bC-?(\d+)-?LT?-?(\d+)\b}" = "LOTE \\2 CASA \\1",
 
       r"{\bQD?-?(\d+)-?BL?-?(\d+)-?AP(TO?)?-?(\d+)\b}" = "QUADRA \\1 BLOCO \\2 APARTAMENTO \\4",
 
-      r"{\bBL?-?(\d+)-?C-?(\d+)\b}" = "BLOCO \\1 CASA \\2",
+      r"{\bLT?-?(\d+)-?BL?-?(\d+)-?AP(TO?)?-?(\d+)\b}" = "LOTE \\1 BLOCO \\2 APARTAMENTO \\4",
+
+      r"{\bB(LOCO|L)?-?(\d+)-?C(ASA|S)?-?(\d+)\b}" = "BLOCO \\2 CASA \\4",
 
       # APARTAMENTO33ABLOCO1, BLOCO1APARTAMENTO103, BLOCO38APT13
-      r"{\bBL?-?(\d+)-?AP(TO?)?-?(\d+)\b}" = "BLOCO \\1 APARTAMENTO \\3",
-      r"{\bAP(TO?)?-?(\d+)-?BL?-?(\d+)\b}" = "BLOCO \\3 APARTAMENTO \\2",
+      r"{\bB(LOCO|L)?-?(\d+([A-Z]{1})?)-?AP(ARTAMENTO|TO?)?-?(\d+([A-Z]{1})?)\b}" = "BLOCO \\2 APARTAMENTO \\5",
+      r"{\bAP(ARTAMENTO|TO?)?-?(\d+([A-Z]{1})?)-?B(LOCO|L)?-?(\d+([A-Z]{1})?)\b}" = "BLOCO \\5 APARTAMENTO \\2",
 
       # localidades
-      # APRT
-      r"{\bAPT0\b}" = "APTO",
-      r"{\bAP(T(O|\u00BA)?|AR?T(AMENTO)?)?\.?(\d)}" = "APARTAMENTO \\4", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
-      r"{(\d)AP(T(O|\u00BA)?|AR?T(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
-      r"{\bAP(T(O|\u00BA)?|AR?T)?\b\.?}" = "APARTAMENTO",
+      r"{\bAPR?T0\b}" = "APTO",
+      r"{\bAP(R?T(O|\u00BA)?|AR?T(AMENTO)?)?\.?(\d)}" = "APARTAMENTO \\4", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
+      r"{(\d)AP(R?T(O|\u00BA)?|AR?T(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
+      r"{\bAP(R?T(O|\u00BA)?|AR?T)?\b\.?}" = "APARTAMENTO",
       r"{\bAPARTAMENTO\b: ?}" = "APARTAMENTO ",
       r"{\bAPARTAMENTO-(\d+)}" = "APARTAMENTO \\1",
+      r"{ ?-APARTAMENTO}" = " APARTAMENTO",
 
-      r"{\b(BLOCO|BLC?)\.?(\d+)}" = "BLOCO \\2",
-      r"{(\d)(BLOCO|BLC?)\b\.?}" = "\\1 BLOCO",
-      r"{\bBLC?\b\.?}" = "BLOCO",
+      r"{\b(BLO CO|BLOC0|BLOO(CO)?|BLOQ)\b}" = "BLOCO",
+      r"{\b(BLOCO|BL(OC|Q|C?O?)?)\.?(\d+)}" = "BLOCO \\3",
+      r"{(\d)(BLOCO|BL(OC|Q|C?O?)?)\b\.?}" = "\\1 BLOCO",
+      r"{\bBL(OC|Q|C?O?)?\b\.?}" = "BLOCO", # "BLO CASA 03"? "CASA 07 BLO"? soh truncado talvez; vi alguns BLQ que nao parecem BLOCO Q, mas sim BLOCO mesmo. e.g. "QUADRA 19 BLQ A", "BLQ 40 APARTAMENTO 504", "BLQ 01"
       r"{\bBLOCO\b: ?}" = "BLOCO ",
       r"{\bBLOCO-(\d+)}" = "BLOCO \\1",
+      r"{ ?-BLOCO}" = " BLOCO",
+      r"{\b(BLOCO|BL(Q|C?O?)?)\.?-?([A-Z]{1}(\d{1})?)\b}" = "BLOCO \\2", # e.g. "APARTAMENTO 402 BLA", "BLOCO-C-42 APARTAMENTO 11", "C3 BLB1 APARTAMENTO 43"
 
       # muita coisa pode ser quadra... Q A LOTE 2, Q I LOTE 45, QI, Q I, etc etc. tem que ver o que faz sentido
       r"{QU ADRA}" = "QUADRA",
@@ -103,6 +108,7 @@ padronizar_complementos <- function(complementos) {
       r"{\bQUADRA-(\d+)}" = "QUADRA \\1",
       r"{\bQ\.? ?(\d)}" = "QUADRA \\1",
       r"{\bQ-(\d+)}" = "QUADRA \\1",
+      r"{ ?-QUADRA}" = " QUADRA",
 
       r"{\b(LOTE|LTE?)\.?(\d)}" = "LOTE \\2",
       r"{\b(?<!RUA |S\/)L\.? (\d)}" = "LOTE \\1", # o \\1 ta certo mesmo, os (?...) nao contam. transforma L 5 em LOTE 5, mas evita que RUA L 5 LOTE 45 vire RUA LOTE 5 LOTE 45 e que S/L 205 vire S/LOTE 205
@@ -111,37 +117,48 @@ padronizar_complementos <- function(complementos) {
       r"{\bLOTE\b: ?}" = "LOTE ",
       r"{\bLOTE-(\d+)}" = "LOTE \\1",
       r"{\b(?<!(TV|TRAVESSA|QUADRA) )L-(\d+)}" = "LOTE \\2", # "L-21-NOVO HORIZONTE" ? "L-36" ?
+      r"{ ?-LOTE}" = " LOTE",
 
-      r"{\b(CASA|CS)\.?(\d)}" = "CASA \\2", # CSA?     o que quer dizer FDS? talvez FUNDOS
+      r"{\b(CASA|CS)\.?(\d)}" = "CASA \\2", # CSA?
       r"{(\d)(CASA|CS)\b\.?}" = "\\1 CASA",
       r"{\bCS\b\.?}" = "CASA",
       r"{\bCASA\b: ?}" = "CASA ",
       r"{\bCASA-(\d+)}" = "CASA \\1",
       #r"{[^^]\b(?<!(APARTAMENTO|CONJUNTO|BLOCO|QUADRA) )C-(\d+)}" = "CASA \\1", # ESSE TEM MUITA VARIACAO, COMPLICADO #### Q-10 C-03 = Q-10 CASA 03, mas APARTAMENTO C-03 nao eh mexido, nem soh C-03 (pode ser soh C-03 mesmo)
+      r"{ ?-CASA}" = " CASA",
 
       r"{\b(C(ON)?JT?|CONJUNTO)\.?(\d)}" = "CONJUNTO \\3",
       r"{(\d)(C(ON)?JT?|CONJUNTO)\b\.?}" = "\\1 CONJUNTO",
       r"{\bC(ON)?JT?\b\.?}" = "CONJUNTO",
       r"{\bCONJUNTO\b: ?}" = "CONJUNTO ",
       r"{\bCONJUNTO-(\d)}" = "CONJUNTO \\1",
+      r"{ ?-CONJUNTO}" = " CONJUNTO",
 
       r"{\b(CONDOMINIO|C(O?N)?D)\.?(\d)}" = "CONDOMINIO \\3", # "LOTE 4 RUA 06 COND263"? "COND3 T7 APARTAMENTO 13"? "BLOCO 07 APARTAMENTO 204 CD2"?
       r"{(\d)(CONDOMINIO|C(O?N)?D)\b\.?}" = "\\1 CONDOMINIO",
       r"{\bC(O?N)?D\b\.?}" = "CONDOMINIO",
       r"{\bCONDOMINIO\b: ?}" = "CONDOMINIO ",
       r"{\bCONDOMINIO-(\d)}" = "CONDOMINIO \\1",
+      r"{ ?-CONDOMINIO}" = " CONDOMINIO",
 
       r"{\bAND(AR)?\.?(\d)}" = "ANDAR \\2",
       r"{(\d)AND(AR)?\b\.?}" = "\\1 ANDAR",
       r"{\bAND\b\.?}" = "ANDAR",
       r"{\bANDAR\b: ?}" = "ANDAR ",
       r"{\bANDAR-(\d+)}" = "ANDAR \\1",
+      r"{ ?-ANDAR}" = " ANDAR",
 
       r"{\bCOB(ERTURA)?\.?(\d)}" = "COBERTURA \\2",
       r"{(\d)COB(ERTURA)?\b\.?}" = "\\1 COBERTURA",
       r"{\bCOB\b\.?}" = "COBERTURA",
       r"{\bCOBERTURA\b: ?}" = "COBERTURA ",
       r"{\bCOBERTURA-(\d+)}" = "COBERTURA \\1",
+      r"{ ?-COBERTURA}" = " COBERTURA",
+
+      r"{\b(FDS|FUNDOS)\.?(\d)}" = "FUNDOS \\2",
+      r"{(\d)(FDS|FUNDOS)\b\.?}" = "\\1 FUNDOS",
+      r"{\bFDS\b\.?}" = "FUNDOS",
+      r"{-FUNDOS}" = " FUNDOS",
 
       # abreviacoes
       r"{\bS\.? ?N\b\.?}" = "S/N",
@@ -149,17 +166,41 @@ padronizar_complementos <- function(complementos) {
       # r"{\bESQ\b\.?}" = "ESQUINA" # tem uns casos que ESQ = ESQUERDA, não ESQUINA - e.g. "LD ESQ", "A ESQ ENT XIQUITIM", "ULTIMA CASA LADO ESQ"
       r"{\bLOTEAM\b\.?}" = "LOTEAMENTO",
       r"{\bCX\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL",
+      r"{\bC\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL", # separado pq nao tenho certeza. varios parecem ser caixa postal mesmo, mas tem bastante coisas como "A C CP 113". o que é esse A C/AC/etc que se repete antes?
+
       r"{\bEDI?F?\b\.?}" = "EDIFICIO",
       r"{\bN(O|\u00BA)?\. (\d)}" = "NUMERO \\2",
+      r"{\b(PX|PROXI)\b\.?}" = "PROXIMO", # vale tentar ajustar a preposição? tem varios "PX AO FINAL DA LINHA" mas tb tem "PX VIADUTO" e "PX A CX DAGUA"
+      r"{\bLJ\b\.?}" = "LOJA",
+      r"{\bLJS\b\.?}" = "LOJAS",
+      r"{\bSLS\b\.?}" = "SALAS",
+      r"{\bFAZ(EN?)?\b\.?}" = "FAZENDA",
+      r"{\bPCA\b\.?}" = "PRACA",
+      r"{\bP((A?R)?Q|QU?E)\b\.?}" = "PARQUE",
+      r"{\bL(RG|GO)\b\.?}" = "LARGO",
+      r"{\bSIT\b\.?}" = "SITIO",
 
       r"{\b(N(OS|SS?A?)?\.? S(RA|ENHORA)|(NOSSA|NSA\.?) (S(RA?)?|SEN(H(OR)?)?))\b\.?}" = "NOSSA SENHORA",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( DE?)?|NOSSA SENHORA) (FAT.*|LO?UR.*|SANTANA|GUADALUPE|NAZ.*|COP*)\b}" = "NOSSA SENHORA DE \\4",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( D(A|E)?)?|NOSSA SENHORA) (GRACA|VITORIA|PENHA|CONCEICAO|PAZ|GUIA|AJUDA|CANDELARIA|PURIFICACAO|SAUDE|PIEDADE|ABADIA|GLORIA|SALETE|APRESENTACAO)\b}" = "NOSSA SENHORA DA \\5",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( D(A|E)?)?|NOSSA SENHORA D(A|E)) (APA.*|AUX.*|MEDIANEIRA|CONSOLADORA)\b}" = "NOSSA SENHORA \\6",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( D(OS?)?)?|NOSSA SENHORA) (NAVEGANTES)\b}" = "NOSSA SENHORA DOS \\5",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( DO?)?|NOSSA SENHORA) (CARMO|LIVRAMENTO|RETIRO|SION|ROSARIO|PILAR|ROCIO|CAMINHO|DESTERRO|BOM CONSELHO|AMPARO|PERP.*|P.* S.*)\b}" = "NOSSA SENHORA DO \\4",
-      r"{\b(NS?\.? S(R|ENH?)?\.?( D(AS?)?)?|NOSSA SENHORA) (GRACAS|DORES)\b}" = "NOSSA SENHORA DAS \\5",
-      r"{\bNOSSO (SR?|SEN)\b\.?}" = "NOSSO SENHOR"
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( DE?)?|NOSSA SENHORA|NS) (FAT.*|LO?UR.*|SANTANA|GUADALUPE|NAZ.*|COP*)\b}" = "NOSSA SENHORA DE \\4",
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( D(A|E)?)?|NOSSA SENHORA|NS) (GRACA|VITORIA|PENHA|CONCEICAO|PAZ|GUIA|AJUDA|CANDELARIA|PURIFICACAO|SAUDE|PIEDADE|ABADIA|GLORIA|SALETE|APRESENTACAO)\b}" = "NOSSA SENHORA DA \\5",
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( D(A|E)?)?|NOSSA SENHORA D(A|E)|NS) (APA.*|AUX.*|MEDIANEIRA|CONSOLADORA)\b}" = "NOSSA SENHORA \\6",
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( D(OS?)?)?|NOSSA SENHORA|NS) (NAVEGANTES)\b}" = "NOSSA SENHORA DOS \\5",
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( DO?)?|NOSSA SENHORA|NS) (CARMO|LIVRAMENTO|RETIRO|SION|ROSARIO|PILAR|ROCIO|CAMINHO|DESTERRO|BOM CONSELHO|AMPARO|PERP.*|P.* S.*)\b}" = "NOSSA SENHORA DO \\4",
+      r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( D(AS?)?)?|NOSSA SENHORA|NS) (GRACAS|DORES)\b}" = "NOSSA SENHORA DAS \\5",
+      r"{\bNOSSO (SR?|SEN)\b\.?}" = "NOSSO SENHOR",
+
+      r"{\bSTA\b\.?}" = "SANTA",
+      r"{\bSTO\b\.?}" = "SANTO",
+      r"{\bSRA\b\.?}" = "SENHORA",
+      r"{\bSR\b\.?}" = "SENHOR", # "Q SR LOTE 1"?
+
+      r"{\bPROF\b\.?}" = "PROFESSOR",
+      # r"{\bDR\b\.?}" = "DOUTOR", # tem varios DR que nao parecem ser DOUTOR... e.g. "DR 16", "AREA DR", "1O DR DER DF"
+      r"{\bMONS\b\.?}" = "MONSENHOR",
+      r"{\bPRES(ID)?\b\.?}" = "PRESIDENTE",
+      r"{\bGOV\b\.?}" = "GOVERNADOR",
+
+      r"{\b(\d+)\. O\b}" = "\\1O" # o que fazer com "6O ANDAR"? transformar em "6 ANDAR"? de forma geral, o que fazer com numeros ordinais
     )
   )
 
