@@ -49,7 +49,7 @@ padronizar_complementos <- function(complementos) {
       r"{(\d+)\.(\d{3})}" = "\\1\\2", # pontos usados como separador de milhares
       # r"{(\d+)\.(\d+)}" = "\\1,\\2", # pontos usados como separador de decimais (nao sei se esse vale, tem muitas poucas observacoes e ela sao meio ambiguas. no caso do cpf, por exemplo, tem so "BL 3.1 APTO 204", "KM 7.5", "2.2 BLOCO G" e "34.5KV" no primeiro milhao de observacoes)
       r"{\.([^ ])}" = "\\. \\1", # garantir que haja espaco depois do ponto
-      r"{ - }" = " ",
+      r"{ (-|\.) }" = " ",
 
       # "LT-04-BL-07-APTO-110" maravilha tb
 
@@ -76,15 +76,14 @@ padronizar_complementos <- function(complementos) {
 
       r"{\bB(LOCO|L)?-?(\d+)-?C(ASA|S)?-?(\d+)\b}" = "BLOCO \\2 CASA \\4",
 
-      # APARTAMENTO33ABLOCO1, BLOCO1APARTAMENTO103, BLOCO38APT13
       r"{\bB(LOCO|L)?-?(\d+([A-Z]{1})?)-?AP(ARTAMENTO|TO?)?-?(\d+([A-Z]{1})?)\b}" = "BLOCO \\2 APARTAMENTO \\5",
       r"{\bAP(ARTAMENTO|TO?)?-?(\d+([A-Z]{1})?)-?B(LOCO|L)?-?(\d+([A-Z]{1})?)\b}" = "BLOCO \\5 APARTAMENTO \\2",
 
       # localidades
       r"{\bAPR?T0\b}" = "APTO",
-      r"{\bAP(R?T(O|\u00BA)?|AR?T(AMENTO)?)?\.?(\d)}" = "APARTAMENTO \\4", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
-      r"{(\d)AP(R?T(O|\u00BA)?|AR?T(AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO",
-      r"{\bAP(R?T(O|\u00BA)?|AR?T)?\b\.?}" = "APARTAMENTO",
+      r"{\bAP(R?T(O|\u00BA)?|AR?T(O|AMENTO)?)?\.?(\d)}" = "APARTAMENTO \\4", # \u00BA = º, usado pro check não reclamar da presença de caracteres não-ascii
+      r"{(\d)AP(R?T(O|\u00BA)?|AR?T(O|AMENTO)?)?\b\.?}" = "\\1 APARTAMENTO", # "FUJIKAWA APATO"
+      r"{\bAP(R?T(O|\u00BA)?|AR?TO?)?\b\.?}" = "APARTAMENTO",
       r"{\bAPARTAMENTO\b: ?}" = "APARTAMENTO ",
       r"{\bAPARTAMENTO-(\d+)}" = "APARTAMENTO \\1",
       r"{ ?-APARTAMENTO}" = " APARTAMENTO",
@@ -108,6 +107,7 @@ padronizar_complementos <- function(complementos) {
       r"{\bQUADRA-(\d+)}" = "QUADRA \\1",
       r"{\bQ\.? ?(\d)}" = "QUADRA \\1",
       r"{\bQ-(\d+)}" = "QUADRA \\1",
+      r"{\bQ-([A-Z])\b}" = "QUADRA \\1",
       r"{ ?-QUADRA}" = " QUADRA",
 
       r"{\b(LOTE|LTE?)\.?(\d)}" = "LOTE \\2",
@@ -118,6 +118,11 @@ padronizar_complementos <- function(complementos) {
       r"{\bLOTE-(\d+)}" = "LOTE \\1",
       r"{\b(?<!(TV|TRAVESSA|QUADRA) )L-(\d+)}" = "LOTE \\2", # "L-21-NOVO HORIZONTE" ? "L-36" ?
       r"{ ?-LOTE}" = " LOTE",
+      r"{\b(LOTES|LTS)\.?(\d)}" = "LOTES \\2",
+      r"{(\d)(LTS|LOTES)\b\.?}" = "\\1 LOTES",
+      r"{\bLTS\b\.?}" = "LOTES",
+      # r"{\bLOT\.? ?(\d)}" = "LOTE \\1", # LOT seguido de numero tende a ser LOTE, mas seguido de palavra tende a ser LOTEAMENTO? tem excecoes e.g. "LOT 28 AGOSTO", "LOT 1 DE MAIO", "LOT 2 IRMAS", "LOT 3 COQUEIROS"
+      r"{\bLOT\.? ([A-Z]{2,})}" = "LOTEAMENTO \\1",
 
       r"{\b(CASA|CS)\.?(\d)}" = "CASA \\2", # CSA?
       r"{(\d)(CASA|CS)\b\.?}" = "\\1 CASA",
@@ -142,7 +147,7 @@ padronizar_complementos <- function(complementos) {
       r"{ ?-CONDOMINIO}" = " CONDOMINIO",
 
       r"{\bAND(AR)?\.?(\d)}" = "ANDAR \\2",
-      r"{(\d)AND(AR)?\b\.?}" = "\\1 ANDAR",
+      r"{(\dO?)AND(AR)?\b\.?}" = "\\1 ANDAR",
       r"{\bAND\b\.?}" = "ANDAR",
       r"{\bANDAR\b: ?}" = "ANDAR ",
       r"{\bANDAR-(\d+)}" = "ANDAR \\1",
@@ -160,16 +165,28 @@ padronizar_complementos <- function(complementos) {
       r"{\bFDS\b\.?}" = "FUNDOS",
       r"{-FUNDOS}" = " FUNDOS",
 
+      # tipos de logradouro
+
+      r"{\bAV\b\.?}" = "AVENIDA", # "APARTAMENTO 401 EDIFICIO RES 5O AV"? "GUARABU AV"? "TRAVESSA AV JOAO XXIII"?
+      r"{\bAVENIDA\b(:|-) ?}" = "AVENIDA ",
+
+      r"{\bROD\b\.?}" = "RODOVIA", # "FAZENDA FIRMESA ROD CRIO"
+      r"{\bRODOVIA (BR|RO|AC|AM|RR|PA|AP|TO|MA|PI|CE|RN|PB|PE|AL|SE|BA|MG|ES|RJ|SP|PR|SC|RS|MS|MT|GO|DF) ?(\d{3})\b}" = "\\1-\\2",
+      r"{\b(BR|RO|AC|AM|RR|PA|AP|TO|MA|PI|CE|RN|PB|PE|AL|SE|BA|MG|ES|RJ|SP|PR|SC|RS|MS|MT|GO|DF) ?(\d{3}) KM}" = "\\1-\\2 KM",
+      r"{^(BR|RO|AC|AM|RR|PA|AP|TO|MA|PI|CE|RN|PB|PE|AL|SE|BA|MG|ES|RJ|SP|PR|SC|RS|MS|MT|GO|DF) ?(\d{3})$}" = "\\1-\\2",
+
+      r"{\bESTR\b\.?}" = "ESTRADA",
+
       # abreviacoes
       r"{\bS\.? ?N\b\.?}" = "S/N",
-      r"{\bPROX\b\.?}" = "PROXIMO",
+      r"{\bPRO?X\b\.?}" = "PROXIMO",
       # r"{\bESQ\b\.?}" = "ESQUINA" # tem uns casos que ESQ = ESQUERDA, não ESQUINA - e.g. "LD ESQ", "A ESQ ENT XIQUITIM", "ULTIMA CASA LADO ESQ"
-      r"{\bLOTEAM\b\.?}" = "LOTEAMENTO",
+      r"{\bLOTEAM?\b\.?}" = "LOTEAMENTO",
       r"{\bCX\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL",
       r"{\bC\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL", # separado pq nao tenho certeza. varios parecem ser caixa postal mesmo, mas tem bastante coisas como "A C CP 113". o que é esse A C/AC/etc que se repete antes?
 
       r"{\bEDI?F?\b\.?}" = "EDIFICIO",
-      r"{\bN(O|\u00BA)?\. (\d)}" = "NUMERO \\2",
+      r"{\bN((O|\u00BA)?\.|\. (O|\u00BA)) (\d)}" = "NUMERO \\4",
       r"{\b(PX|PROXI)\b\.?}" = "PROXIMO", # vale tentar ajustar a preposição? tem varios "PX AO FINAL DA LINHA" mas tb tem "PX VIADUTO" e "PX A CX DAGUA"
       r"{\bLJ\b\.?}" = "LOJA",
       r"{\bLJS\b\.?}" = "LOJAS",
@@ -179,6 +196,16 @@ padronizar_complementos <- function(complementos) {
       r"{\bP((A?R)?Q|QU?E)\b\.?}" = "PARQUE",
       r"{\bL(RG|GO)\b\.?}" = "LARGO",
       r"{\bSIT\b\.?}" = "SITIO",
+      r"{\bCHAC\b\.?}" = "CHACARA",
+      r"{\bT(RA?)?V\b\.?}" = "TRAVESSA", # "3º TRV"? "TRV WE 40"? "TV. WE 49"? "TV WE 07"? o que é esse WE?
+      r"{\bJ(D(I?M)?|A?RD)\b\.?}" = "JARDIM", # tendo a achar que JD tb eh jardim, mas tem uns mais estranhos e.g. "JD WALDES". sera que poderia ser abreviacao de um nome tb?
+      r"{\bVL\b\.?}" = "VILA",
+      r"{\bNUC\b\.?}" = "NUCLEO",
+      r"{\bNUCLEO H(AB)?\b\.?}" = "NUCLEO HABITACIONAL",
+      r"{\bNUCLEO COL\b\.?}" = "NUCLEO COLONIAL",
+      r"{\b(NUCLEO RES|(?<!S/)N\.? RES(IDENCIAL)?)\b\.?}" = "NUCLEO RESIDENCIAL",
+      r"{\b(NUCLEO RUR|(?<!S/)N\.? RURAL)\b\.?}" = "NUCLEO RURAL", # evita coisas como "S/N RURAL"
+      r"{\bASSENT\b\.?}" = "ASSENTAMENTO",
 
       r"{\b(N(OS|SS?A?)?\.? S(RA|ENHORA)|(NOSSA|NSA\.?) (S(RA?)?|SEN(H(OR)?)?))\b\.?}" = "NOSSA SENHORA",
       r"{\b(N(O?S)?\.? S(R|ENH?)?\.?( DE?)?|NOSSA SENHORA|NS) (FAT.*|LO?UR.*|SANTANA|GUADALUPE|NAZ.*|COP*)\b}" = "NOSSA SENHORA DE \\4",
@@ -194,13 +221,18 @@ padronizar_complementos <- function(complementos) {
       r"{\bSRA\b\.?}" = "SENHORA",
       r"{\bSR\b\.?}" = "SENHOR", # "Q SR LOTE 1"?
 
+      r"{\bS\.? (JOSE|JOAO)\b}" = "SAO \\1",
+
+      # VISC
       r"{\bPROF\b\.?}" = "PROFESSOR",
       # r"{\bDR\b\.?}" = "DOUTOR", # tem varios DR que nao parecem ser DOUTOR... e.g. "DR 16", "AREA DR", "1O DR DER DF"
       r"{\bMONS\b\.?}" = "MONSENHOR",
       r"{\bPRES(ID)?\b\.?}" = "PRESIDENTE",
       r"{\bGOV\b\.?}" = "GOVERNADOR",
+      r"{\bVISC\b\.?}" = "VISCONDE",
 
-      r"{\b(\d+)\. O\b}" = "\\1O" # o que fazer com "6O ANDAR"? transformar em "6 ANDAR"? de forma geral, o que fazer com numeros ordinais
+      r"{\b(\d+)\. (O|\u00BA)\b}" = "\\1O", # o que fazer com "6O ANDAR"? transformar em "6 ANDAR"? de forma geral, o que fazer com numeros ordinais
+      r"{\b(\d+)(O|\u00BA)\b\.}" = "\\1O"
     )
   )
 
