@@ -52,6 +52,9 @@ padronizar_logradouros <- function(logradouros) {
       " \\." = "\\.",          # garantir que não haja um espaco antes dos pontos
       " ," = ",",          # garantir que não haja um espaco antes dos pontos
 
+      # valores non-sense
+      r"{^(.)\1{1,}$}" = "",
+
       # tipos de logradouro
       "^RU?\\b(\\.|,)?" = "RUA",                                 # R. AZUL -> RUA AZUL
       "^(RUA|RODOVIA|ROD(\\.|,)?) (RUA|RU?)\\b(\\.|,)?" = "RUA", # RUA R. AZUL -> RUA AZUL

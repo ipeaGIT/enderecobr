@@ -47,6 +47,9 @@ padronizar_bairros <- function(bairros) {
       "\\.\\.+" = ".",         # remover pontos repetidos
       "\\.([^ ])" = "\\. \\1", # garantir que haja espaco depois do ponto
 
+      # valores non-sense
+      r"{^(.)\1{1,}$}" = "", # fiquei na duvida se ja tirava repetindo "soh" duas vezes ou se precisava de mais, mas dois ja parece o suficiente. esses sao os que aparecem: "00" "XX" "CC" "RR" "PP" "NN" "FF" "II" "11" "HH" "22" "KK" "44" "SS" "AA" "--" (total de 157 observacoes em 2 milhoes, sendo a maioria "00")
+
       # localidades
       "\\bRES(I?D)?\\b\\.?" = "RESIDENCIAL",
       "\\bJ(D(I?M)?|A?RD)\\b\\.?" = "JARDIM",

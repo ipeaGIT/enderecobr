@@ -51,7 +51,10 @@ padronizar_complementos <- function(complementos) {
       r"{\.([^ ])}" = "\\. \\1", # garantir que haja espaco depois do ponto
       r"{ (-|\.) }" = " ",
 
-      # "LT-04-BL-07-APTO-110" maravilha tb
+      # valores non-sense
+      r"{^([^\d])\1{1,}$}" = "",
+      r"{^(\d)\1{3,}$}" = "", # assumindo que qualquer numero que apareca 4 ou mais vezes repetido eh um erro de digitacao
+      r"{^00+$}" = "0", # faz sentido manter o "0"? soh "0" aparece 1950 vezes em 2 MI de observacoes. "00" aparece 1086. "000" 194.
 
       r"{\bQD?-?(\d+)-?LT?-?(\d+)-?CS?-?(\d+)\b}" = "QUADRA \\1 LOTE \\2 CASA \\3",
       r"{\bQD?-?(\d+)-?CS?-?(\d+)-?LT?-?(\d+)\b}" = "QUADRA \\1 LOTE \\3 CASA \\2",
