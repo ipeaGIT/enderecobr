@@ -228,7 +228,6 @@ padronizar_complementos <- function(complementos) {
 
       r"{\bS\.? (JOSE|JOAO)\b}" = "SAO \\1",
 
-      # VISC
       r"{\bPROF\b\.?}" = "PROFESSOR",
       # r"{\bDR\b\.?}" = "DOUTOR", # tem varios DR que nao parecem ser DOUTOR... e.g. "DR 16", "AREA DR", "1O DR DER DF"
       r"{\bMONS\b\.?}" = "MONSENHOR",
@@ -237,7 +236,22 @@ padronizar_complementos <- function(complementos) {
       r"{\bVISC\b\.?}" = "VISCONDE",
 
       r"{\b(\d+)\. (O|\u00BA)\b}" = "\\1O", # o que fazer com "6O ANDAR"? transformar em "6 ANDAR"? de forma geral, o que fazer com numeros ordinais
-      r"{\b(\d+)(O|\u00BA)\b\.}" = "\\1O"
+      r"{\b(\d+)(O|\u00BA)\b\.}" = "\\1O",
+
+      # datas
+
+      r"{\b(\d+) DE? JAN(?!EIRO)\b}" = "\\1 DE JANEIRO",
+      r"{\b(\d+) DE? FEV(?!EREIRO)\b}" = "\\1 DE FEVEREIRO",
+      r"{\b(\d+) DE? MAR(?!CO)\b}" = "\\1 DE MARCO",
+      r"{\b(\d+) DE? ABR(?!IL)\b}" = "\\1 DE ABRIL",
+      r"{\b(\d+) DE? MAI(?!O)\b}" = "\\1 DE MAIO",
+      r"{\b(\d+) DE? JUN(?!HO)\b}" = "\\1 DE JUNHO",
+      r"{\b(\d+) DE? JUL(?!HO)\b}" = "\\1 DE JULHO",
+      r"{\b(\d+) DE? AGO(?!STO)\b}" = "\\1 DE AGOSTO",
+      r"{\b(\d+) DE? SET(?!EMBRO)\b}" = "\\1 DE SETEMBRO",
+      r"{\b(\d+) DE? OUT(?!UBRO)\b}" = "\\1 DE OUTUBRO",
+      r"{\b(\d+) DE? NOV(?!EMBRO)\b}" = "\\1 DE NOVEMBRO",
+      r"{\b(\d+) DE? DEZ(?!EMBRO)\b}" = "\\1 DE DEZEMBRO"
     )
   )
 

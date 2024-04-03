@@ -144,7 +144,22 @@ padronizar_bairros <- function(bairros) {
       "\\bPE\\b\\.[^$]" = "PADRE",
 
       "\\bD\\b\\.? (PEDRO|JOAO|HENRIQUE)" = "DOM \\1",
-      "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM"
+      "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM",
+
+      # datas
+
+      r"{\b(\d+) DE? JAN(?!EIRO)\b}" = "\\1 DE JANEIRO",
+      r"{\b(\d+) DE? FEV(?!EREIRO)\b}" = "\\1 DE FEVEREIRO",
+      r"{\b(\d+) DE? MAR(?!CO)\b}" = "\\1 DE MARCO",
+      r"{\b(\d+) DE? ABR(?!IL)\b}" = "\\1 DE ABRIL",
+      r"{\b(\d+) DE? MAI(?!O)\b}" = "\\1 DE MAIO",
+      r"{\b(\d+) DE? JUN(?!HO)\b}" = "\\1 DE JUNHO",
+      r"{\b(\d+) DE? JUL(?!HO)\b}" = "\\1 DE JULHO",
+      r"{\b(\d+) DE? AGO(?!STO)\b}" = "\\1 DE AGOSTO",
+      r"{\b(\d+) DE? SET(?!EMBRO)\b}" = "\\1 DE SETEMBRO",
+      r"{\b(\d+) DE? OUT(?!UBRO)\b}" = "\\1 DE OUTUBRO",
+      r"{\b(\d+) DE? NOV(?!EMBRO)\b}" = "\\1 DE NOVEMBRO",
+      r"{\b(\d+) DE? DEZ(?!EMBRO)\b}" = "\\1 DE DEZEMBRO"
     )
   )
 

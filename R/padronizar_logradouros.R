@@ -243,7 +243,22 @@ padronizar_logradouros <- function(logradouros) {
 
       # correcoes de problemas ocasionados pelos filtros acima
       "\\bTENENTE SHI\\b" = "TEN SHI",
-      "\\bHO SHI MINISTRO\\b" = "HO SHI MIN"
+      "\\bHO SHI MINISTRO\\b" = "HO SHI MIN",
+
+      # datas
+
+      r"{\b(\d+) DE? JAN(?!EIRO)\b}" = "\\1 DE JANEIRO",
+      r"{\b(\d+) DE? FEV(?!EREIRO)\b}" = "\\1 DE FEVEREIRO",
+      r"{\b(\d+) DE? MAR(?!CO)\b}" = "\\1 DE MARCO",
+      r"{\b(\d+) DE? ABR(?!IL)\b}" = "\\1 DE ABRIL",
+      r"{\b(\d+) DE? MAI(?!O)\b}" = "\\1 DE MAIO",
+      r"{\b(\d+) DE? JUN(?!HO)\b}" = "\\1 DE JUNHO",
+      r"{\b(\d+) DE? JUL(?!HO)\b}" = "\\1 DE JULHO",
+      r"{\b(\d+) DE? AGO(?!STO)\b}" = "\\1 DE AGOSTO",
+      r"{\b(\d+) DE? SET(?!EMBRO)\b}" = "\\1 DE SETEMBRO",
+      r"{\b(\d+) DE? OUT(?!UBRO)\b}" = "\\1 DE OUTUBRO",
+      r"{\b(\d+) DE? NOV(?!EMBRO)\b}" = "\\1 DE NOVEMBRO",
+      r"{\b(\d+) DE? DEZ(?!EMBRO)\b}" = "\\1 DE DEZEMBRO"
 
       # ALM é um caso complicado, pode ser alameda ou almirante. inclusive no mesmo endereço podem aparecer os dois rs
     )
