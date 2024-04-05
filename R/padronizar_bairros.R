@@ -76,7 +76,7 @@ padronizar_bairros <- function(bairros) {
       "\\bD\\.? INDUSTRIAL\\b" = "DISTRITO INDUSTRIAL",
       "\\bS\\.? INDUSTRIAL\\b" = "SETOR INDUSTRIAL",
       "\\b(P\\.? INDUSTRIAL|PARQUE IN)\\b\\.?" = "PARQUE INDUSTRIAL",
-      "\\bLOT(EAME?)?\\b\\.?[^$]" = "LOTEAMENTO",
+      "\\bLOT(EAME?)?\\b\\.?(?!$)" = "LOTEAMENTO",
       "^LT\\b\\.?" = "LOTEAMENTO",
       "\\bZN\\b\\.?" = "ZONA",
       "^Z\\b\\.?" = "ZONA",
@@ -102,8 +102,8 @@ padronizar_bairros <- function(bairros) {
       "^SIT\\b\\.?" = "SITIO",
       "^CAM\\b\\.?" = "CAMINHO",
       "\\bCERQ\\b\\.?" = "CERQUEIRA",
-      "\\bCONS\\b\\.?[^$]" = "CONSELHEIRO",
-      "\\bPROL\\b\\.?[^$]" = "PROLONGAMENTO",
+      "\\bCONS\\b\\.?(?!$)" = "CONSELHEIRO", # CONS COMUN => CONSELHO COMUNITARIO, provavelmente
+      "\\bPROL\\b\\.?(?!$)" = "PROLONGAMENTO",
 
       # titulos
       "\\bSTO\\b\\.?" = "SANTO",
@@ -128,23 +128,24 @@ padronizar_bairros <- function(bairros) {
       "\\bS\\.? (PAULO|VICENTE|FRANCISCO|DOMINGOS?|CRISTOVAO)\\b" = "SAO \\1",
 
       "\\bALMTE\\b\\.?" = "ALMIRANTE",
-      "\\bMAL\\b\\.?[^$]" = "MARECHAL",
+      "\\bMAL\\b\\.?(?!$)" = "MARECHAL",
       "\\bSGTO?\\b\\.?" = "SARGENTO",
       "\\bCEL\\b\\.?" = "CORONEL",
       "\\bBRIG\\b\\.?" = "BRIGADEIRO",
       "\\bTEN\\b\\.?" = "TENENTE",
       "\\bBRIGADEIRO (F\\.?|FARIA) (L|LIMA)\\b\\.?" = "BRIGADEIRO FARIA LIMA",
 
-      "\\bPRES(ID)?\\b\\.?[^$]" = "PRESIDENTE",
+      # consertar esse presidente
+      "\\bPRES(ID)?\\b\\.?(?!$)" = "PRESIDENTE",
       "\\bGOV\\b\\.?" = "GOVERNADOR", # pode acabar com GOV. - e.g. ilha do gov.
-      "\\bPREF\\b\\.?[^$]" = "PREFEITO",
-      "\\bDEP\\b\\.?[^$]" = "DEPUTADO",
+      "\\bPREF\\b\\.?(?!$)" = "PREFEITO",
+      "\\bDEP\\b\\.?(?!$)" = "DEPUTADO",
 
       "\\bDR\\b\\.?" = "DOUTOR",
       "\\bDRA\\b\\.?" = "DOUTORA",
       "\\bPROF\\b\\.?" = "PROFESSOR",
       "\\bPROFA\\b\\.?" = "PROFESSORA",
-      "\\bPE\\b\\.[^$]" = "PADRE",
+      "\\bPE\\b\\.(?!$)" = "PADRE",
 
       "\\bD\\b\\.? (PEDRO|JOAO|HENRIQUE)" = "DOM \\1",
       "\\bI(NF)?\\.? DOM\\b" = "INFANTE DOM",

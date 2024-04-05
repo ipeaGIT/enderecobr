@@ -193,9 +193,9 @@ padronizar_logradouros <- function(logradouros) {
       "\\bSEN\\b\\.?" = "SENADOR",
       "\\bPREF\\b\\.?" = "PREFEITO",
       "\\bDEP\\b\\.?" = "DEPUTADO",
-      "\\bVER\\b\\.?[^$ ]" = "VEREADOR",
+      "\\bVER\\b\\.?(?!$)" = "VEREADOR",
       "\\bESPL?\\.? (DOS )?MIN(IST(ERIOS?)?)?\\b\\.?" = "ESPLANADA DOS MINISTERIOS",
-      "\\bMIN\\b\\.?[^$ ]" = "MINISTRO",
+      "\\bMIN\\b\\.?(?!$)" = "MINISTRO",
 
       # abreviacoes
       "\\bUNID\\b\\.?" = "UNIDADE",
