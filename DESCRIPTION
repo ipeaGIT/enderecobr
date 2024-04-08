@@ -19,6 +19,7 @@ Depends:
 Imports: 
     checkmate,
     cli,
+    data.table,
     rlang,
     stringi,
     stringr

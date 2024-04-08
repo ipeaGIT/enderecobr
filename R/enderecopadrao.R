@@ -2,6 +2,8 @@
 #' @name enderecopadrao
 #' @aliases enderecopadrao-package pacote-enderecopadrao
 #'
+#' @importFrom data.table ":="
+#'
 #' @keywords internal
 "_PACKAGE"
 

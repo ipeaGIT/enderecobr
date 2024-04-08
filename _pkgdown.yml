@@ -1,4 +1,7 @@
 reference:
+  - title: "Padronização de endereços"
+  - contents:
+    - padronizar_enderecos
   - title: "Padronização de campos individuais"
   - contents:
     - padronizar_estados
@@ -8,6 +11,9 @@ reference:
     - padronizar_logradouros
     - padronizar_numeros
     - padronizar_complementos
+  - title: "Funções auxiliares"
+  - contents:
+    - correspondencia_campos
   - title: "Tabelas de códigos"
   - contents:
     - codigos_municipios

@@ -13,7 +13,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.2 (2023-10-31 ucrt)",
+  "runtimePlatform": "R version 4.2.2 (2022-10-31 ucrt)",
   "author": [
     {
       "@type": "Person",
@@ -104,6 +104,18 @@
     },
     "4": {
       "@type": "SoftwareApplication",
+      "identifier": "data.table",
+      "name": "data.table",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=data.table"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
       "provider": {
@@ -114,7 +126,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "stringi",
       "name": "stringi",
@@ -126,7 +138,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringi"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
@@ -140,8 +152,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "143.744KB",
-  "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
+  "fileSize": "168.857KB",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"
 }
