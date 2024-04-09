@@ -17,11 +17,15 @@
 #' @return Um dataframe com os campos de endereço padronizados.
 #'
 #' @examples
-#' path <- file.path(
-#'   Sys.getenv("RESTRICTED_DATA_PATH"),
-#'   "B_CADASTRO/CPF/20230816_cpf.csv"
+#' enderecos <- data.frame(
+#'   logradouro = "r ns sra da piedade",
+#'   nroLogradouro = 20,
+#'   complemento = "qd 20",
+#'   cep = 25220020,
+#'   bairro = "jd botanico",
+#'   codmun_dom = 3304557,
+#'   uf_dom = "rj"
 #' )
-#' cpf <- data.table::fread(path, nrows = 1000)
 #'
 #' campos <- correspondencia_campos(
 #'   logradouro = "logradouro",
@@ -33,7 +37,8 @@
 #'   estado = "uf_dom"
 #' )
 #'
-#' enderecos_padronizados <- padronizar_enderecos(cpf, campos)
+#' enderecos_padronizados <- padronizar_enderecos(enderecos, campos)
+#' enderecos_padronizados
 #'
 #' @export
 padronizar_enderecos <- function(
