@@ -21,18 +21,65 @@ probabilísticas entre strings.
 
 ## Instalação
 
-O pacote ainda não se encontra no CRAN. Para baixar a versão em desenvolvimento,
-use o código abaixo:
+O pacote ainda não se encontra no CRAN. Para baixar a última versão estável, use
+o código abaixo:
 
 ```r
 # install.packages("remotes")
+remotes::install_github("ipeaGIT/enderecopadrao@v0.1.0")
+```
+
+Para baixar a versão em desenvolvimento, use o seguinte código:
+
+```r
 remotes::install_github("ipeaGIT/enderecopadrao")
 ```
 
 ## Utilização
 
-O pacote atualmente fornece funções para padronizar diferentes campos de um
-endereço. São elas:
+O pacote fornece funções para padronizar diferentes campos de um endereço. A
+`padronizar_enderecos()` padroniza diversos campos simultaneamente, recebendo,
+para isso, um dataframe e uma relação de correspondência entre as colunas desse
+dataframe e os campos a serem padronizados:
+
+```{r}
+library(enderecopadrao)
+
+enderecos <- data.frame(
+  logradouro = "r ns sra da piedade",
+  nroLogradouro = 20,
+  complemento = "qd 20",
+  cep = 25220020,
+  bairro = "jd botanico",
+  codmun_dom = 3304557,
+  uf_dom = "rj"
+)
+
+campos <- correspondencia_campos(
+  logradouro = "logradouro",
+  numero = "nroLogradouro",
+  complemento = "complemento",
+  cep = "cep",
+  bairro = "bairro",
+  municipio = "codmun_dom",
+  estado = "uf_dom"
+)
+
+padronizar_enderecos(enderecos, campos_do_endereco = campos)
+```
+
+Note que no exemplo acima nós também utiliza a função
+`correspondencia_campos()`, que facilita o processo de especificação de
+correspondência entre as colunas do dataframe e os campos do endereço a serem
+padronizados. Na prática, no entanto, essa função é opcional, e poderíamos
+passar um vetor de caracteres no argumento `campos_do_endereco` (a
+`correspondencia_campos()` realiza alguns testes no input, garantindo que o
+vetor a ser passado pra `padronizar_enderecos()` esteja corretamente formatado).
+
+Por trás dos panos, a `padronizar_enderecos()` utiliza diversas outras funções
+que padronizam campos de forma individual. Cada uma delas recebe um vetor com
+valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos
+valores padronizados. As funções atualmente disponíveis são:
 
 - `padronizar_estados()`
 - `padronizar_municipios()`
@@ -40,15 +87,13 @@ endereço. São elas:
 - `padronizar_ceps()`
 - `padronizar_logradouros()`
 - `padronizar_numeros()`
-
-Cada uma dessas funções recebe um vetor com valores não padronizados e retorna
-um vetor de mesmo tamanho com os respectivos valores padronizados.
+- `padronizar_complementos()`
 
 A `padronizar_estados()` aceita vetores de strings e números. Caso numérico, o
 vetor deve conter o [código do
 IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php) de cada
 estado. Caso seja composto de strings, o vetor pode conter a sigla do estado,
-seu código ou seu nome por extenso. Neste caso, a função ainda aplica diversas
+seu código ou seu nome por extenso. Nese caso, a função ainda aplica diversas
 manipulações para chegar a um valor padronizado, como a conversão de caracteres
 para caixa alta, remoção de acentos e caracteres não ASCII e remoção de espaços
 em branco antes e depois dos valores e de espaços em excesso entre palavras. O
@@ -56,8 +101,6 @@ código abaixo apresenta exemplos de aplicação da função com vetores numéri
 de strings.
 
 ```{r}
-library(enderecopadrao)
-
 estados <- c("21", " 21", "MA", " MA ", "ma", "MARANHÃO")
 padronizar_estados(estados)
 
@@ -150,17 +193,26 @@ logradouros <- c(
 padronizar_logradouros(logradouros)
 ```
 
-Por fim, a `padronizar_numeros()` tem como objetivo padronizar o número do
-logradouro, caso este esteja em um campo separado do logradouro propriamente
-dito. A função aceita vetores de números e strings e retorna um vetor de
-strings. Os tratamentos incluem a remoção de zeros à esquerda, remoção de
-espaços em branco em excesso e a substituição de valores em branco e de
-variações de SN (sem número) por "S/N".
+A `padronizar_numeros()` tem como objetivo padronizar o número do logradouro,
+caso este esteja em um campo separado do logradouro propriamente dito. A função
+aceita vetores de números e strings e retorna um vetor de strings. Os
+tratamentos incluem a remoção de zeros à esquerda, remoção de espaços em branco
+em excesso e a substituição de variações de SN (sem número) por "S/N".
 
 ```{r}
-numeros <- c("0210", "001", "1", "", "S N", "S/N", "SN", "0180  0181")
+numeros <- c("0210", "001", "1", "S N", "S/N", "SN", "0180  0181")
 padronizar_numeros(numeros)
 
-numeros <- c(210, 1, 10000, NA)
+numeros <- c(210, 1, 10000)
 padronizar_numeros(numeros)
+```
+
+Por fim, a `padronizar_complementos()` age de forma similar às funções de
+padronização de logradouros e bairros, porém agindo de forma mais específica em
+abreviações e observações frequentemente observados na especificação de
+complementos de logradouros.
+
+```{r}
+complementos <- c("QD1 LT2 CS3", "APTO. 405", "PRX CX POST 450")
+padronizar_complementos(complementos)
 ```
