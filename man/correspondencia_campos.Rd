@@ -28,3 +28,15 @@ do endereço e os valores as colunas que os descrevem no dataframe.
 Cria um vetor de caracteres que especifica as colunas que representam cada
 campo de endereço em um dataframe.
 }
+\examples{
+correspondencia_campos(
+  logradouro = "logradouro",
+  numero = "nroLogradouro",
+  complemento = "complemento",
+  cep = "cep",
+  bairro = "bairro",
+  municipio = "codmun_dom",
+  estado = "uf_dom"
+)
+
+}

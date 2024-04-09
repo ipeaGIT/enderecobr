@@ -11,6 +11,17 @@
 #' @return Um vetor nomeado de caracteres, em que os nomes representam os campos
 #'   do endereço e os valores as colunas que os descrevem no dataframe.
 #'
+#' @examples
+#' correspondencia_campos(
+#'   logradouro = "logradouro",
+#'   numero = "nroLogradouro",
+#'   complemento = "complemento",
+#'   cep = "cep",
+#'   bairro = "bairro",
+#'   municipio = "codmun_dom",
+#'   estado = "uf_dom"
+#' )
+#'
 #' @export
 correspondencia_campos <- function(logradouro = NULL,
                                    numero = NULL,
