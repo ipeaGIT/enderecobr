@@ -50,7 +50,7 @@ padronizar_municipios <- function(municipios) {
   # identificamos o indice dos municipios vazios para "reesvazia-los" ao final,
   # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_municipio_vazio <- which(municipios == "" | is.na(municipios))
+  indice_municipio_vazio <- which(is.na(municipios))
 
   if (is.numeric(municipios_dedup)) {
     municipios_padrao_dedup <- formatC(municipios_dedup, format = "d")
@@ -104,7 +104,7 @@ padronizar_municipios <- function(municipios) {
   municipios_padrao <- municipios_padrao_dedup[as.character(municipios)]
   names(municipios_padrao) <- NULL
 
-  municipios_padrao[indice_municipio_vazio] <- ""
+  municipios_padrao[indice_municipio_vazio] <- NA_character_
 
   return(municipios_padrao)
 }

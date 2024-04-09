@@ -38,7 +38,7 @@ padronizar_numeros <- function(numeros) {
     numeros_na <- which(is.na(numeros))
 
     numeros_padrao <- formatC(numeros, format = "d")
-    numeros_padrao[numeros_na] <- "S/N"
+    numeros_padrao[numeros_na] <- NA_character_
 
     return(numeros_padrao)
   }
@@ -46,8 +46,6 @@ padronizar_numeros <- function(numeros) {
   # alguns numeros podem vir vazios ou como NAs, fazendo com que as operacoes
   # abaixo nao convertam seus valores adequadamente. nesses casos, identificamos
   # seus indices para manualmente imputar "S/N" ao final
-
-  indice_num_vazio <- which(numeros == "" | is.na(numeros))
 
   numeros_padrao <- stringr::str_squish(numeros)
   numeros_padrao <- stringr::str_replace_all(
@@ -58,7 +56,7 @@ padronizar_numeros <- function(numeros) {
     )
   )
 
-  numeros_padrao[indice_num_vazio] <- "S/N"
+  numeros_padrao[numeros_padrao == ""] <- NA_character_
 
   return(numeros_padrao)
 }

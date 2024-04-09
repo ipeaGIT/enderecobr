@@ -45,7 +45,7 @@ padronizar_estados <- function(estados) {
   # identificamos o indice dos estados vazios para "reesvazia-los" ao final, ja
   # que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
 
-  indice_estado_vazio <- which(estados == "" | is.na(estados))
+  indice_estado_vazio <- which(is.na(estados))
 
   if (is.numeric(estados_dedup)) {
     estados_padrao_dedup <- formatC(estados_dedup, format = "d")
@@ -100,7 +100,7 @@ padronizar_estados <- function(estados) {
   estados_padrao <- estados_padrao_dedup[as.character(estados)]
   names(estados_padrao) <- NULL
 
-  estados_padrao[indice_estado_vazio] <- ""
+  estados_padrao[indice_estado_vazio] <- NA_character_
 
   return(estados_padrao)
 }

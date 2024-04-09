@@ -9,12 +9,12 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_municipios("0330455"), "RIO DE JANEIRO")
   expect_equal(padronizar_municipios(" 3304557 "), "RIO DE JANEIRO")
   expect_equal(padronizar_municipios("rio de janeiro"), "RIO DE JANEIRO")
-  expect_equal(padronizar_municipios(NA_character_), "")
-  expect_equal(padronizar_municipios(""), "")
+  expect_equal(padronizar_municipios(NA_character_), NA_character_)
+  expect_equal(padronizar_municipios(""), NA_character_)
 
   expect_equal(padronizar_municipios(3304557), "RIO DE JANEIRO")
-  expect_equal(padronizar_municipios(NA_integer_), "")
-  expect_equal(padronizar_municipios(c(3304557, NA)), c("RIO DE JANEIRO", ""))
+  expect_equal(padronizar_municipios(NA_integer_), NA_character_)
+  expect_equal(padronizar_municipios(c(3304557, NA)), c("RIO DE JANEIRO", NA_character_))
 
   # manipulacao de strings
   expect_equal(padronizar_municipios("SÃO PAULO"), "SAO PAULO")

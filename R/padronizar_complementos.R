@@ -28,12 +28,6 @@ padronizar_complementos <- function(complementos) {
 
   complementos_dedup <- unique(complementos)
 
-  # alguns complementos podem vir vazios e devem permanecer vazios ao final.
-  # identificamos o indice dos complementos vazios para "reesvazia-los" ao final,
-  # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
-
-  indice_complemento_vazio <- which(is.na(complementos) | complementos == "")
-
   complementos_padrao_dedup <- stringr::str_squish(complementos_dedup)
   complementos_padrao_dedup <- toupper(complementos_padrao_dedup)
   complementos_padrao_dedup <- stringi::stri_trans_general(
@@ -262,7 +256,7 @@ padronizar_complementos <- function(complementos) {
   complementos_padrao <- complementos_padrao_dedup[complementos]
   names(complementos_padrao) <- NULL
 
-  complementos_padrao[indice_complemento_vazio] <- NA_character_
+  complementos_padrao[complementos_padrao == ""] <- NA_character_
 
   return(complementos_padrao)
 }

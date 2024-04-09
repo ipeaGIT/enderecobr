@@ -59,7 +59,7 @@ padronizar_ceps <- function(ceps) {
   ceps_padrao <- ceps_padrao_dedup[as.character(ceps)]
   names(ceps_padrao) <- NULL
 
-  ceps_padrao[indice_cep_vazio] <- ""
+  ceps_padrao[indice_cep_vazio] <- NA_character_
 
   erro_se_digitos_demais(ceps_padrao)
 
@@ -92,7 +92,7 @@ erro_se_letra_presente <- function(ceps) {
 erro_se_digitos_demais <- function(ceps_padrao) {
   possui_digitos_demais <- nchar(ceps_padrao) > 9
 
-  if (any(possui_digitos_demais)) {
+  if (any(possui_digitos_demais[!is.na(possui_digitos_demais)])) {
     indice_muitos_digitos <- which(possui_digitos_demais)
     indice_muitos_digitos <- as.character(indice_muitos_digitos)
 

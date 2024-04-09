@@ -8,8 +8,8 @@ test_that("padroniza corretamente", {
   # teste pra cada regex ou não
 
   expect_equal(padronizar_logradouros("r. gen.. glicério"), "RUA GENERAL GLICERIO")
-  expect_equal(padronizar_logradouros(NA_character_), "")
-  expect_equal(padronizar_logradouros(""), "")
+  expect_equal(padronizar_logradouros(NA_character_), NA_character_)
+  expect_equal(padronizar_logradouros(""), NA_character_)
 })
 
 test_that("lida com vetores vazios corretamente", {

@@ -43,9 +43,9 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_ceps("1000000"), "01000-000")
   expect_equal(padronizar_ceps(" 1000000"), "01000-000")
   expect_equal(padronizar_ceps(1000000), "01000-000")
-  expect_equal(padronizar_ceps(NA_character_), "")
-  expect_equal(padronizar_ceps(NA_integer_), "")
-  expect_equal(padronizar_ceps(""), "")
+  expect_equal(padronizar_ceps(NA_character_), NA_character_)
+  expect_equal(padronizar_ceps(NA_integer_), NA_character_)
+  expect_equal(padronizar_ceps(""), NA_character_)
 
   expect_equal(
     padronizar_ceps(c(22290140, 1000000)),

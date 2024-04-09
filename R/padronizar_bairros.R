@@ -27,12 +27,6 @@ padronizar_bairros <- function(bairros) {
 
   bairros_dedup <- unique(bairros)
 
-  # alguns bairros podem vir vazios e devem permanecer vazios ao final.
-  # identificamos o indice dos bairros vazios para "reesvazia-los" ao final,
-  # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
-
-  indice_bairro_vazio <- which(is.na(bairros) | bairros == "")
-
   bairros_padrao_dedup <- stringr::str_squish(bairros_dedup)
   bairros_padrao_dedup <- toupper(bairros_padrao_dedup)
   bairros_padrao_dedup <- stringi::stri_trans_general(
@@ -171,7 +165,7 @@ padronizar_bairros <- function(bairros) {
   bairros_padrao <- bairros_padrao_dedup[bairros]
   names(bairros_padrao) <- NULL
 
-  bairros_padrao[indice_bairro_vazio] <- ""
+  bairros_padrao[bairros_padrao == ""] <- NA_character_
 
   return(bairros_padrao)
 }

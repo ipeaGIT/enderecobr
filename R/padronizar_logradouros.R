@@ -28,12 +28,6 @@ padronizar_logradouros <- function(logradouros) {
 
   logradouros_dedup <- unique(logradouros)
 
-  # alguns logradouros podem vir vazios e devem permanecer vazios ao final.
-  # identificamos o indice dos logradouros vazios para "reesvazia-los" ao final,
-  # ja que a sequencia de operacoes abaixo acabaria atribuindo um valor a eles
-
-  indice_logradouro_vazio <- which(is.na(logradouros) | logradouros == "")
-
   logradouros_padrao_dedup <- stringr::str_squish(logradouros_dedup)
   logradouros_padrao_dedup <- toupper(logradouros_padrao_dedup)
   logradouros_padrao_dedup <- stringi::stri_trans_general(
@@ -271,7 +265,7 @@ padronizar_logradouros <- function(logradouros) {
   logradouros_padrao <- logradouros_padrao_dedup[logradouros]
   names(logradouros_padrao) <- NULL
 
-  logradouros_padrao[indice_logradouro_vazio] <- ""
+  logradouros_padrao[logradouros_padrao == ""] <- NA_character_
 
   return(logradouros_padrao)
 }
