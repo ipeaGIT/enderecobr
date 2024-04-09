@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/ipeaGIT/enderecopadrao",
   "issueTracker": "https://github.com/ipeaGIT/enderecopadrao/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.0",
+  "version": "0.1.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -152,7 +152,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "176.05KB",
+  "fileSize": "176.019KB",
   "releaseNotes": "https://github.com/ipeaGIT/enderecopadrao/blob/master/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],

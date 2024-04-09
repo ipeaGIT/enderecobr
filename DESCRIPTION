@@ -1,7 +1,7 @@
 Package: enderecopadrao
 Title: Padronizador de Endereços Brasileiros (Brazilian Addresses
     Standardizer)
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person("Daniel", "Herszenhut", , "dhersz@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-8066-1105"))
