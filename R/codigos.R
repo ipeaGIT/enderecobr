@@ -13,6 +13,9 @@
 #' @source <https://www.ibge.gov.br/explica/codigos-dos-municipios.php>
 #'
 #' @seealso [codigos_municipios]
+#'
+#' @name codigos_estados
+#' @export
 "codigos_estados"
 
 #' Códigos e nomes dos municípios brasileiros (2022)
@@ -30,4 +33,7 @@
 #' @source <https://www.ibge.gov.br/explica/codigos-dos-municipios.php>
 #'
 #' @seealso [codigos_estados]
+#'
+#' @name codigos_municipios
+#' @export
 "codigos_municipios"

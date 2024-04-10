@@ -152,7 +152,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "176.019KB",
+  "fileSize": "176.079KB",
   "releaseNotes": "https://github.com/ipeaGIT/enderecopadrao/blob/master/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],

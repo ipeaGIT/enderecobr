@@ -39,7 +39,6 @@ codigos <- dplyr::mutate(
 # codigos_municipios
 
 codigos_municipios <- dplyr::select(codigos, -nome_estado)
-usethis::use_data(codigos_municipios, overwrite = TRUE)
 
 # codigos_estados
 
@@ -58,4 +57,9 @@ codigos_estados <- dplyr::left_join(
 )
 codigos_estados <- dplyr::rename(codigos_estados, abrev_estado = abbrev_state)
 
-usethis::use_data(codigos_estados, overwrite = TRUE)
+usethis::use_data(
+  codigos_estados,
+  codigos_municipios,
+  internal = TRUE,
+  overwrite = TRUE
+)
