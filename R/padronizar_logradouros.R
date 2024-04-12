@@ -46,6 +46,9 @@ padronizar_logradouros <- function(logradouros) {
       " \\." = "\\.",          # garantir que não haja um espaco antes dos pontos
       " ," = ",",          # garantir que não haja um espaco antes dos pontos
 
+      # sinalizacao
+      r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
+
       # valores non-sense
       r"{^(.)\1{1,}$}" = "",
 

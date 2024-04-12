@@ -45,6 +45,9 @@ padronizar_complementos <- function(complementos) {
       r"{\.([^ ])}" = "\\. \\1", # garantir que haja espaco depois do ponto
       r"{ (-|\.) }" = " ",
 
+      # sinalizacao
+      r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
+
       # valores non-sense
       r"{^([^\d])\1{1,}$}" = "",
       r"{^(\d)\1{3,}$}" = "", # assumindo que qualquer numero que apareca 4 ou mais vezes repetido eh um erro de digitacao
