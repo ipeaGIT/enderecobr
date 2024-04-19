@@ -44,7 +44,8 @@ padronizar_logradouros <- function(logradouros) {
       "\\.([^ ])" = "\\. \\1", # garantir que haja um espaco depois dos pontos
       ",([^ ])" = ", \\1",     # garantir que haja um espaco depois das virgulas
       " \\." = "\\.",          # garantir que não haja um espaco antes dos pontos
-      " ," = ",",          # garantir que não haja um espaco antes dos pontos
+      " ," = ",",              # garantir que não haja um espaco antes dos pontos
+      r"{\.$}" = "",           # remocao de ponto final
 
       # sinalizacao
       r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
@@ -136,6 +137,7 @@ padronizar_logradouros <- function(logradouros) {
 
       "^FAZ(EN?)?\\b\\.?" = "FAZENDA",
       "^(FAZENDA|RODOVIA) (FAZ(EN?)?|FAZENDA)\\b(\\.|,)?" = "FAZENDA",
+      r"{\bFAZ(EN?)?\b\.?}" = "FAZENDA",
 
       "^COL\\b\\.?" = "COLONIA",
       "\\bCOLONIA AGRI?C?\\b\\.?" = "COLONIA AGRICOLA",
@@ -182,7 +184,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\bDRA\\b\\.?" = "DOUTORA",
       "\\bENG\\b\\.?" = "ENGENHEIRO",
       "\\bENGA\\b\\.?" = "ENGENHEIRA",
-      "\\bPE\\b\\." = "PADRE", # PE pode ser só pe mesmo, entao forcando o PE. (com ponto) pra ser PADRE
+      "\\bPD?E\\b\\." = "PADRE", # PE pode ser só pe mesmo, entao forcando o PE. (com ponto) pra ser PADRE
       "\\bMONS\\b\\.?" = "MONSENHOR",
 
       "\\bPRES(ID)?\\b\\.?" = "PRESIDENTE",
@@ -210,6 +212,11 @@ padronizar_logradouros <- function(logradouros) {
       "\\bCOND\\b\\.?" = "CONDOMINIO", # apareceu antes mas como tipo de logradouro
       "\\bKM\\b\\." = "KM",
       "\\bS\\.? ?N\\b\\.?" = "S/N",
+      r"{(\d)\.( O)? A(ND(AR)?)?\b\.?}" = "\\1 ANDAR",
+      r"{(\d)\.( O)? ANDARES\b}" = "\\1 ANDARES",
+      r"{(\d)( O)? AND\b\.?}" = "\\1 ANDAR",
+      r"{\bCX\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL",
+      r"{\bC\.? ?P(T|(OST(AL)?))?\b\.?}" = "CAIXA POSTAL",
       # SL pode ser sobreloja ou sala
 
       # intersecao entre nomes e titulos
