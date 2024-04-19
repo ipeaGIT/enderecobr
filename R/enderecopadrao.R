@@ -7,4 +7,16 @@
 #' @keywords internal
 "_PACKAGE"
 
-utils::globalVariables(c("codigos_estados", "codigos_municipios"))
+utils::globalVariables(
+  c(
+    "codigos_estados",
+    "codigos_municipios",
+    "logradouro",
+    "numero",
+    "complemento",
+    "cep",
+    "bairro",
+    "municipio",
+    "estado"
+  )
+)

@@ -13,11 +13,15 @@
 #'   valor `NULL` são ignorados, e ao menos um valor diferente de nulo deve ser
 #'   fornecido. Caso deseje criar o vetor manualmente, note que seus nomes devem
 #'   ser os mesmos nomes dos parâmetros da função `correspondencia_campos()`.
+#' @param manter_cols_extras Um logical. Se colunas não especificadas em
+#'   `campos_do_endereco` devem ser mantidas ou não (por exemplo, uma coluna de
+#'   id do conjunto de dados sendo padronizado). Por padrão, `TRUE`.
 #'
 #' @return Um dataframe com os campos de endereço padronizados.
 #'
 #' @examples
 #' enderecos <- data.frame(
+#'   id = 1,
 #'   logradouro = "r ns sra da piedade",
 #'   nroLogradouro = 20,
 #'   complemento = "qd 20",
@@ -37,68 +41,103 @@
 #'   estado = "uf_dom"
 #' )
 #'
-#' enderecos_padronizados <- padronizar_enderecos(enderecos, campos)
-#' enderecos_padronizados
+#' padronizar_enderecos(enderecos, campos)
+#'
+#' padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
 #'
 #' @export
 padronizar_enderecos <- function(
   enderecos,
-  campos_do_endereco = correspondencia_campos()
+  campos_do_endereco = correspondencia_campos(),
+  manter_cols_extras = TRUE
 ) {
   checkmate::assert_data_frame(enderecos)
+  checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
   checa_campos_do_endereco(campos_do_endereco, enderecos)
 
-  campos_presentes <- names(campos_do_endereco)[!is.null(campos_do_endereco)]
+  enderecos_padrao <- data.table::as.data.table(enderecos)
 
-  enderecos_padrao <- data.table::data.table()
-  enderecos_padrao[
-    ,
-    (names(campos_do_endereco)) := character(nrow(enderecos))
-  ]
-
-  if ("logradouro" %in% campos_presentes) {
-    enderecos_padrao$logradouro <- padronizar_logradouros(
-      enderecos[[campos_do_endereco["logradouro"]]]
-    )
+  campos_extras <- setdiff(
+    names(enderecos),
+    c(campos_do_endereco, names(campos_do_endereco))
+  )
+  campos_finais <- if (manter_cols_extras) {
+    c(campos_extras, names(campos_do_endereco))
+  } else {
+    names(campos_do_endereco)
   }
 
-  if ("numero" %in% campos_presentes) {
-    enderecos_padrao$numero <- padronizar_numeros(
-      enderecos[[campos_do_endereco["numero"]]]
-    )
+  if ("logradouro" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      logradouro := padronizar_logradouros(
+        enderecos[[campos_do_endereco["logradouro"]]]
+      )
+    ]
   }
 
-  if ("complemento" %in% campos_presentes) {
-    enderecos_padrao$complemento <- padronizar_complementos(
-      enderecos[[campos_do_endereco["complemento"]]]
-    )
+  if ("numero" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      numero := padronizar_numeros(
+        enderecos[[campos_do_endereco["numero"]]]
+      )
+    ]
   }
 
-  if ("cep" %in% campos_presentes) {
-    enderecos_padrao$cep <- padronizar_ceps(
-      enderecos[[campos_do_endereco["cep"]]]
-    )
+  if ("complemento" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      complemento := padronizar_complementos(
+        enderecos[[campos_do_endereco["complemento"]]]
+      )
+    ]
   }
 
-  if ("bairro" %in% campos_presentes) {
-    enderecos_padrao$bairro <- padronizar_bairros(
-      enderecos[[campos_do_endereco["bairro"]]]
-    )
+  if ("cep" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      cep := padronizar_ceps(
+        enderecos[[campos_do_endereco["cep"]]]
+      )
+    ]
   }
 
-  if ("municipio" %in% campos_presentes) {
-    enderecos_padrao$municipio <- padronizar_municipios(
-      enderecos[[campos_do_endereco["municipio"]]]
-    )
+  if ("bairro" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      bairro := padronizar_bairros(
+        enderecos[[campos_do_endereco["bairro"]]]
+      )
+    ]
   }
 
-  if ("estado" %in% campos_presentes) {
-    enderecos_padrao$estado <- padronizar_estados(
-      enderecos[[campos_do_endereco["estado"]]]
-    )
+  if ("municipio" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      municipio := padronizar_municipios(
+        enderecos[[campos_do_endereco["municipio"]]]
+      )
+    ]
   }
 
-  return(enderecos_padrao)
+  if ("estado" %in% campos_finais) {
+    enderecos_padrao[
+      ,
+      estado := padronizar_estados(
+        enderecos[[campos_do_endereco["estado"]]]
+      )
+    ]
+  }
+
+  campos_a_remover <- setdiff(names(enderecos), campos_finais)
+  enderecos_padrao[, (campos_a_remover) := NULL]
+
+  if (manter_cols_extras) {
+    data.table::setcolorder(enderecos_padrao, campos_extras)
+  }
+
+  return(enderecos_padrao[])
 }
 
 checa_campos_do_endereco <- function(campos_do_endereco, enderecos) {

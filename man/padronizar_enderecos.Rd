@@ -4,7 +4,11 @@
 \alias{padronizar_enderecos}
 \title{Padronizar endereços}
 \usage{
-padronizar_enderecos(enderecos, campos_do_endereco = correspondencia_campos())
+padronizar_enderecos(
+  enderecos,
+  campos_do_endereco = correspondencia_campos(),
+  manter_cols_extras = TRUE
+)
 }
 \arguments{
 \item{enderecos}{Um dataframe. Os endereços a serem padronizados. Cada uma de
@@ -19,6 +23,10 @@ algumas verificações do conteúdo imputado. Argumentos dessa função com
 valor \code{NULL} são ignorados, e ao menos um valor diferente de nulo deve ser
 fornecido. Caso deseje criar o vetor manualmente, note que seus nomes devem
 ser os mesmos nomes dos parâmetros da função \code{correspondencia_campos()}.}
+
+\item{manter_cols_extras}{Um logical. Se colunas não especificadas em
+\code{campos_do_endereco} devem ser mantidas ou não (por exemplo, uma coluna de
+id do conjunto de dados sendo padronizado). Por padrão, \code{TRUE}.}
 }
 \value{
 Um dataframe com os campos de endereço padronizados.
@@ -28,6 +36,7 @@ Padroniza um dataframe contendo diversos campos de um endereço.
 }
 \examples{
 enderecos <- data.frame(
+  id = 1,
   logradouro = "r ns sra da piedade",
   nroLogradouro = 20,
   complemento = "qd 20",
@@ -47,7 +56,8 @@ campos <- correspondencia_campos(
   estado = "uf_dom"
 )
 
-enderecos_padronizados <- padronizar_enderecos(enderecos, campos)
-enderecos_padronizados
+padronizar_enderecos(enderecos, campos)
+
+padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
 
 }
