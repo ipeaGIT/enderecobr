@@ -11,6 +11,7 @@ reference:
     - padronizar_logradouros
     - padronizar_numeros
     - padronizar_complementos
+    - padronizar_tipos_de_logradouro
   - title: "Funções auxiliares"
   - contents:
     - correspondencia_campos
