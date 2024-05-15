@@ -11,3 +11,4 @@
 ^CRAN-SUBMISSION$
 ^codecov\.yml$
 ^data-raw$
+tests/test-grandes_bases.R
