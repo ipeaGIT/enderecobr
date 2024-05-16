@@ -106,7 +106,7 @@ padronizar_tipos_de_logradouro <- function(tipos) {
       r"{\bBAI\b\.?}" = "BAIXA",
       r"{\bBLO\b\.?}" = "BLOCO",
       r"{\bBOS\b\.?}" = "BOSQUE",
-      r"{\b(BOU|BULEVAR)\b\.?}" = "BOULEVARD",
+      r"{\bBOU\b\.?}" = "BOULEVARD",
       r"{\bBUR\b\.?}" = "BURACO",
       r"{\bCAI\b\.?}" = "CAIS",
       r"{\bCAL\b\.?}" = "CALCADA",

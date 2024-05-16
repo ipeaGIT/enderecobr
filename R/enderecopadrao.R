@@ -17,6 +17,8 @@ utils::globalVariables(
     "cep",
     "bairro",
     "municipio",
-    "estado"
+    "estado",
+    ".tmp_tipo_padrao",
+    ".tmp_log_padrao"
   )
 )

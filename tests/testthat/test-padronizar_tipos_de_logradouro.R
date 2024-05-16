@@ -237,8 +237,6 @@ test_that("padroniza corretamente", {
     "BOS.",       "BOSQUE",
     "BOU",        "BOULEVARD",
     "BOU.",       "BOULEVARD",
-    "BULEVAR",    "BOULEVARD",
-    "BULEVAR.",   "BOULEVARD",
     "BUR",        "BURACO",
     "BUR.",       "BURACO",
     "CAI",        "CAIS",
