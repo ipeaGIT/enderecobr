@@ -172,8 +172,9 @@ de strings.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"21"</span>, <span class="st">" 21"</span>, <span class="st">"MA"</span>, <span class="st">" MA "</span>, <span class="st">"ma"</span>, <span class="st">"MARANHÃO"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO"</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">32</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "MARANHAO"       "ESPIRITO SANTO"</span></span></code></pre></div>
@@ -186,19 +187,21 @@ aplicadas (assim como nos demais tratamentos de vetores de strings que
 serão apresentados a seguir), mas a função também verifica erros
 ortográficos frequentemente observados nos nomes dos municípios
 (e.g. Moji Mirim -&gt; Mogi Mirim, Parati -&gt; Paraty).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"3304557"</span>, <span class="st">"003304557"</span>, <span class="st">" 3304557 "</span>, <span class="st">"RIO DE JANEIRO"</span>, <span class="st">"rio de janeiro"</span>,</span>
 <span>  <span class="st">"SÃO PAULO"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "RIO DE JANEIRO" "RIO DE JANEIRO" "RIO DE JANEIRO" "RIO DE JANEIRO"</span></span>
-<span><span class="co">#&gt; [5] "RIO DE JANEIRO" "SAO PAULO"</span></span>
-<span></span>
+<span><span class="co">#&gt; [5] "RIO DE JANEIRO" "SAO PAULO"</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fl">3304557</span></span>
 <span><span class="fu"><a href="../reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "RIO DE JANEIRO"</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] "RIO DE JANEIRO"</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PARATI"</span>, <span class="st">"MOJI MIRIM"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_municipios.html">padronizar_municipios</a></span><span class="op">(</span><span class="va">municipios</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "PARATY"     "MOGI MIRIM"</span></span></code></pre></div>
@@ -209,7 +212,7 @@ municípios, a função se atém a corrigir erros ortográficos e a expandir
 abreviações frequentemente utilizadas através de diversas <a href="https://en.wikipedia.org/wiki/Regular_expression" class="external-link">expressões
 regulares (regexes)</a>. O exemplo abaixo mostra algumas das muitas
 abreviações usualmente empregadas no preenchimento de endereços.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bairros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"PRQ IND"</span>,</span>
 <span>  <span class="st">"NSA SEN DE FATIMA"</span>,</span>
@@ -234,20 +237,23 @@ verifica se o hífen separando os cinco primeiros dígitos dos três
 produz erros se recebe como input valores que não podem ser corretamente
 convertidos em CEPs, como no caso de strings contendo caracteres não
 numéricos e de strings com caracteres em excesso.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ceps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"22290-140"</span>, <span class="st">"22.290-140"</span>, <span class="st">"22290 140"</span>, <span class="st">"22290140"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_ceps.html">padronizar_ceps</a></span><span class="op">(</span><span class="va">ceps</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "22290-140" "22290-140" "22290-140" "22290-140"</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] "22290-140" "22290-140" "22290-140" "22290-140"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">ceps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22290140</span>, <span class="fl">1000000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_ceps.html">padronizar_ceps</a></span><span class="op">(</span><span class="va">ceps</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "22290-140" "01000-000"</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] "22290-140" "01000-000"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/padronizar_ceps.html">padronizar_ceps</a></span><span class="op">(</span><span class="st">"2229014a"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `padronizar_ceps()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> CEP não deve conter letras.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> O elemento com índice 1 possui letras.</span></span>
-<span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> O elemento com índice 1 possui letras.</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/padronizar_ceps.html">padronizar_ceps</a></span><span class="op">(</span><span class="st">"022290140"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `padronizar_ceps()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> CEP não deve conter mais que 8 dígitos.</span></span>
@@ -260,7 +266,7 @@ padronização de bairros, se limita a expandir abreviações frequentemente
 utilizadas e a corrigir alguns poucos erros de digitação, fora o
 tratamento usual dado a strings, como conversão para caixa alta, remoção
 de espaços em excesso e antes e depois das strings, etc.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">logradouros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"r. gen.. glicério, 137"</span>,</span>
 <span>  <span class="st">"cond pres j. k., qd 05 lt 02 1"</span>,</span>
@@ -276,11 +282,12 @@ logradouro propriamente dito. A função aceita vetores de números e
 strings e retorna um vetor de strings. Os tratamentos incluem a remoção
 de zeros à esquerda, remoção de espaços em branco em excesso e a
 substituição de variações de SN (sem número) por “S/N”.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0210"</span>, <span class="st">"001"</span>, <span class="st">"1"</span>, <span class="st">"S N"</span>, <span class="st">"S/N"</span>, <span class="st">"SN"</span>, <span class="st">"0180  0181"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "210"     "1"       "1"       "S/N"     "S/N"     "S/N"     "180 181"</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] "210"     "1"       "1"       "S/N"     "S/N"     "S/N"     "180 181"</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">210</span>, <span class="fl">1</span>, <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "210"   "1"     "10000"</span></span></code></pre></div>
@@ -289,7 +296,7 @@ similar às funções de padronização de logradouros e bairros, porém
 agindo de forma mais específica em abreviações e observações
 frequentemente observados na especificação de complementos de
 logradouros.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">complementos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QD1 LT2 CS3"</span>, <span class="st">"APTO. 405"</span>, <span class="st">"PRX CX POST 450"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_complementos.html">padronizar_complementos</a></span><span class="op">(</span><span class="va">complementos</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "QUADRA 1 LOTE 2 CASA 3"   "APARTAMENTO 405"         </span></span>

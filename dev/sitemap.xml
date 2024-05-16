@@ -31,6 +31,9 @@
     <loc>/reference/correspondencia_campos.html</loc>
   </url>
   <url>
+    <loc>/reference/correspondencia_logradouro.html</loc>
+  </url>
+  <url>
     <loc>/reference/enderecopadrao.html</loc>
   </url>
   <url>
@@ -53,6 +56,9 @@
   </url>
   <url>
     <loc>/reference/padronizar_logradouros.html</loc>
+  </url>
+  <url>
+    <loc>/reference/padronizar_logradouros_com_tipo.html</loc>
   </url>
   <url>
     <loc>/reference/padronizar_municipios.html</loc>
