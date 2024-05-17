@@ -1,33 +1,32 @@
-#' Padronizar logradouros e tipos de logradouro simultaneamente
+#' Padronizar logradouros completos
 #'
-#' Padroniza o logradouro e seu tipo (dois campos diferentes) de forma
-#' simultânea, produzindo um novo campo (`logradouro_com_tipo`) que garante a
-#' consistência dos dados.
+#' Padroniza o logradouro completo a partir de diversos campos (tipo de
+#' logradouro, nome do logradouro e número), garantindo a consistência da
+#' informação.
 #'
-#' @param enderecos Um dataframe. Os endereços a serem padronizados, deve
-#'   incluir uma coluna com o tipo de logradouro e outra com o logradouro em si.
+#' @param enderecos Um dataframe. Os endereços a serem padronizados. Ao menos
+#'   uma de suas colunas deve corresponder a um campo do logradouro.
 #' @param campos_do_logradouro Um vetor nomeado de caracteres. A correspondência
 #'   entre os campos a serem padronizados (nomes do vetor) e as colunas que os
 #'   representam no dataframe (valores em si). a função
 #'   `correspondencia_logradouro()` facilita a criação deste vetor, fazendo
 #'   também algumas verificações do conteúdo imputado. caso deseje criar o vetor
-#'   manualmente, note que seus nomes devem ser `logradouros` e
-#'   `tipos_de_logradouro`.
+#'   manualmente, note que seus nomes devem ser os mesmos nomes dos parâmetros
+#'   da função `correspondencia_logradouro()`.
 #' @param manter_cols_extras Um logical. Se colunas não especificadas em
 #'   `campos_do_logradouro` devem ser mantidas no output ou não (por exemplo,
-#'   uma coluna com a informação de bairro ou de id do conjunto de dados sendo
-#'   padronizado). Por padrão, `TRUE`.
+#'   uma coluna com a informação de bairro ou com o id do conjunto de dados
+#'   sendo padronizado). Por padrão, `TRUE`.
 #'
 #' @return Caso `manter_cols_extras` seja `TRUE`, o mesmo dataframe de input,
-#'   mas sem as colunas descrevendo o logradouro e o tipo de logradouro e com
-#'   uma coluna padronizada adicional `logradouro_com_tipo`. Caso
-#'   `manter_cols_extras` seja `FALSE`, um dataframe de apenas uma coluna,
-#'   `logradouro_com_tipo`.
+#'   mas sem as colunas descrevendo o logradouro e com uma coluna padronizada
+#'   adicional `logradouro_completo`. Caso `manter_cols_extras` seja `FALSE`, um
+#'   dataframe de apenas uma coluna, `logradouro_completo`.
 #'
 #' @examples
 #' enderecos <- data.frame(
 #'   id = 1,
-#'   tipo_logradouro = "r",
+#'   tipoLogradouro = "r",
 #'   logradouro = "ns sra da piedade",
 #'   nroLogradouro = 20,
 #'   complemento = "qd 20",
@@ -38,20 +37,21 @@
 #' )
 #'
 #' campos <- correspondencia_logradouro(
-#'   tipo_de_logradouro = "tipo_logradouro",
-#'   logradouro = "logradouro"
+#'   tipo_de_logradouro = "tipoLogradouro",
+#'   logradouro = "logradouro",
+#'   numero = "nroLogradouro"
 #' )
 #'
-#' padronizar_logradouros_com_tipo(enderecos, campos)
+#' padronizar_logradouros_completos(enderecos, campos)
 #'
-#' padronizar_logradouros_com_tipo(
+#' padronizar_logradouros_completos(
 #'   enderecos,
 #'   campos,
 #'   manter_cols_extras = FALSE
 #' )
 #'
 #' @export
-padronizar_logradouros_com_tipo <- function(
+padronizar_logradouros_completos <- function(
     enderecos,
     campos_do_logradouro = correspondencia_logradouro(),
     manter_cols_extras = TRUE
@@ -64,9 +64,9 @@ padronizar_logradouros_com_tipo <- function(
 
   campos_extras <- setdiff(names(enderecos), campos_do_logradouro)
   campos_finais <- if (manter_cols_extras) {
-    c(campos_extras, "logradouro_com_tipo")
+    c(campos_extras, "logradouro_completo")
   } else {
-    "logradouro_com_tipo"
+    "logradouro_completo"
   }
 
   enderecos_padrao[
@@ -81,8 +81,33 @@ padronizar_logradouros_com_tipo <- function(
       enderecos[[campos_do_logradouro["logradouro"]]]
     )
   ]
+  enderecos_padrao[
+    ,
+    .tmp_num_padrao := padronizar_numeros(
+      enderecos[[campos_do_logradouro["numero"]]]
+    )
+  ]
 
-
+  enderecos_padrao[
+    ,
+    logradouro_completo := data.table::fcase(
+      is.na(.tmp_log_padrao), .tmp_num_padrao,
+      is.na(.tmp_num_padrao), .tmp_log_padrao,
+      !is.na(.tmp_log_padrao) & !is.na(.tmp_num_padrao), paste(.tmp_log_padrao, .tmp_num_padrao)
+    )
+  ]
+  enderecos_padrao[
+    ,
+    logradouro_completo := data.table::fcase(
+      is.na(.tmp_tipo_padrao), logradouro_completo,
+      is.na(logradouro_completo), .tmp_tipo_padrao,
+      !is.na(.tmp_tipo_padrao) & !is.na(logradouro_completo), paste(.tmp_tipo_padrao, logradouro_completo)
+    )
+  ]
+  enderecos_padrao[
+    ,
+    c(".tmp_tipo_padrao", ".tmp_log_padrao", ".tmp_num_padrao") := NULL
+  ]
 
   campos_a_remover <- setdiff(names(enderecos), campos_finais)
   enderecos_padrao[, (campos_a_remover) := NULL]
@@ -104,7 +129,7 @@ checa_campos_do_logradouro <- function(campos_do_logradouro, enderecos) {
   checkmate::assert_names(
     names(campos_do_logradouro),
     type = "unique",
-    subset.of = c("tipo_de_logradouro", "logradouro"),
+    subset.of = c("tipo_de_logradouro", "logradouro", "numero"),
     add = col
   )
   checkmate::assert_names(

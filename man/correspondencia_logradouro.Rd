@@ -2,31 +2,34 @@
 % Please edit documentation in R/correspondencia_logradouro.R
 \name{correspondencia_logradouro}
 \alias{correspondencia_logradouro}
-\title{Correspondência entre os campos de logradouro e tipo de logradouro e suas
-colunas}
+\title{Correspondência entre os campos do logradouro completo e as colunas que os
+descrevem}
 \usage{
-correspondencia_logradouro(tipo_de_logradouro, logradouro)
+correspondencia_logradouro(tipo_de_logradouro, logradouro, numero)
 }
 \arguments{
 \item{tipo_de_logradouro}{O nome da coluna que representa o tipo de
 logradouro no dataframe de endereços.}
 
-\item{logradouro}{O nome da coluna que representa o logradouro no dataframe
-de endereços.}
+\item{logradouro}{O nome da coluna que representa o nome do logradouro no
+dataframe de endereços.}
+
+\item{numero}{O nome da coluna que representa o numero do logradouro no
+dataframe de endereços.}
 }
 \value{
-Um vetor nomeado de caracteres, cujos nomes são \code{tipo_de_logradouro}
-e \code{logradouro} e os valores as respectivas colunas que os descrevem no
-dataframe de endereços.
+Um vetor nomeado de caracteres, em que os nomes representam os campos
+do logradouro e os valores as colunas que os descrevem no dataframe.
 }
 \description{
 Cria um vetor de caracteres que especifica as colunas que representam os
-campos de logradouro e tipo de logradouro em um dataframe.
+campos de logradouro (tipo, nome e número) em um dataframe de endereços.
 }
 \examples{
 correspondencia_logradouro(
   tipo_de_logradouro = "tipo_de_logradouro",
-  logradouro = "logradouro"
+  logradouro = "logradouro",
+  numero = "numero"
 )
 
 }
