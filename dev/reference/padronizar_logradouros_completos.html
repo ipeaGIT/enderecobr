@@ -5,7 +5,7 @@ informação."><meta name="robots" content="noindex"><!-- mathjax --><script src
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,20 +36,20 @@ informação."><meta name="robots" content="noindex"><!-- mathjax --><script src
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/ipeaGIT/enderecopadrao/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Padronizar logradouros completos</h1>
-    <small class="dont-index">Source: <a href="https://github.com/ipeaGIT/enderecopadrao/blob/HEAD/R/padronizar_logradouros_completos.R" class="external-link"><code>R/padronizar_logradouros_completos.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/ipeaGIT/enderecopadrao/blob/main/R/padronizar_logradouros_completos.R" class="external-link"><code>R/padronizar_logradouros_completos.R</code></a></small>
     <div class="hidden name"><code>padronizar_logradouros_completos.Rd</code></div>
     </div>
 
@@ -69,12 +69,14 @@ informação.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>enderecos</dt>
+
+
+<dl><dt id="arg-enderecos">enderecos<a class="anchor" aria-label="anchor" href="#arg-enderecos"></a></dt>
 <dd><p>Um dataframe. Os endereços a serem padronizados. Ao menos
 uma de suas colunas deve corresponder a um campo do logradouro.</p></dd>
 
 
-<dt>campos_do_logradouro</dt>
+<dt id="arg-campos-do-logradouro">campos_do_logradouro<a class="anchor" aria-label="anchor" href="#arg-campos-do-logradouro"></a></dt>
 <dd><p>Um vetor nomeado de caracteres. A correspondência
 entre os campos a serem padronizados (nomes do vetor) e as colunas que os
 representam no dataframe (valores em si). a função
@@ -84,7 +86,7 @@ manualmente, note que seus nomes devem ser os mesmos nomes dos parâmetros
 da função <code><a href="correspondencia_logradouro.html">correspondencia_logradouro()</a></code>.</p></dd>
 
 
-<dt>manter_cols_extras</dt>
+<dt id="arg-manter-cols-extras">manter_cols_extras<a class="anchor" aria-label="anchor" href="#arg-manter-cols-extras"></a></dt>
 <dd><p>Um logical. Se colunas não especificadas em
 <code>campos_do_logradouro</code> devem ser mantidas no output ou não (por exemplo,
 uma coluna com a informação de bairro ou com o id do conjunto de dados
@@ -93,9 +95,7 @@ sendo padronizado). Por padrão, <code>TRUE</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Caso <code>manter_cols_extras</code> seja <code>TRUE</code>, o mesmo dataframe de input,
+    <p>Caso <code>manter_cols_extras</code> seja <code>TRUE</code>, o mesmo dataframe de input,
 mas sem as colunas descrevendo o logradouro e com uma coluna padronizada
 adicional <code>logradouro_completo</code>. Caso <code>manter_cols_extras</code> seja <code>FALSE</code>, um
 dataframe de apenas uma coluna, <code>logradouro_completo</code>.</p>
@@ -152,15 +152,15 @@ dataframe de apenas uma coluna, <code>logradouro_completo</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
