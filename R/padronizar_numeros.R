@@ -48,11 +48,16 @@ padronizar_numeros <- function(numeros) {
   # seus indices para manualmente imputar "S/N" ao final
 
   numeros_padrao <- stringr::str_squish(numeros)
+  numeros_padrao <- toupper(numeros_padrao)
+  numeros_padrao <- stringi::stri_trans_general(numeros_padrao, "Latin-ASCII")
   numeros_padrao <- stringr::str_replace_all(
     numeros_padrao,
     c(
-      "\\b0+(\\d+)\\b" = "\\1",    # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181
-      "S\\.?( |\\/)?N\\.?" = "S/N" # SN ou S.N. ou S N ou .... -> S/N
+      r"{\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181
+
+      r"{S\.?( |\/)?N(O|\u00BA)?\.?}" = "S/N", # SN ou S.N. ou S N ou .... -> S/N
+      r"{SEM NUMERO}" = "S/N",
+      r"{^(X|0|-)+$}" = "S/N"
     )
   )
 
