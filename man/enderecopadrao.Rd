@@ -3,7 +3,6 @@
 \docType{package}
 \name{enderecopadrao}
 \alias{enderecopadrao}
-\alias{_PACKAGE}
 \alias{enderecopadrao-package}
 \alias{pacote-enderecopadrao}
 \title{enderecopadrao: Padronizador de Endereços Brasileiros (Brazilian Addresses Standardizer)}

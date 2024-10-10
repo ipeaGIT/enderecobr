@@ -13,7 +13,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.2 (2023-10-31 ucrt)",
+  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
   "author": [
     {
       "@type": "Person",
@@ -164,7 +164,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "199.882KB",
+  "fileSize": "211.815KB",
   "releaseNotes": "https://github.com/ipeaGIT/enderecopadrao/blob/master/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
