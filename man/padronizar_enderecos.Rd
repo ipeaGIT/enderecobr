@@ -29,7 +29,8 @@ ser os mesmos nomes dos parâmetros da função \code{correspondencia_campos()}.
 id do conjunto de dados sendo padronizado). Por padrão, \code{TRUE}.}
 }
 \value{
-Um dataframe com os campos de endereço padronizados.
+Um dataframe com colunas adicionais, representando os campos de
+endereço padronizados.
 }
 \description{
 Padroniza um dataframe contendo diversos campos de um endereço.

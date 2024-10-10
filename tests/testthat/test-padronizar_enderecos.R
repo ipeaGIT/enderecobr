@@ -42,13 +42,20 @@ test_that("retorna enderecos padronizados", {
     tester(),
     data.table::data.table(
       id = 1,
-      logradouro = "RUA NOSSA SENHORA DA PIEDADE",
-      numero = "20",
-      complemento = "QUADRA 20",
-      cep = "25220-020",
-      bairro = "JARDIM BOTANICO",
-      municipio = "RIO DE JANEIRO",
-      estado = "RIO DE JANEIRO"
+      logradouro = "r ns sra da piedade",
+      numero = 20,
+      complemento = "qd 20",
+      cep = 25220020,
+      bairro = "jd botanico",
+      municipio = 3304557,
+      estado = "rj",
+      logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE",
+      numero_padr = "20",
+      complemento_padr = "QUADRA 20",
+      cep_padr = "25220-020",
+      bairro_padr = "JARDIM BOTANICO",
+      municipio_padr = "RIO DE JANEIRO",
+      estado_padr = "RIO DE JANEIRO"
     )
   )
 })
@@ -58,11 +65,22 @@ test_that("respeita manter_cols_extras", {
   # se os valores estao de fato sendo padronizados ou nao
   expect_identical(
     names(tester(manter_cols_extras = TRUE)),
-    c("id", "logradouro", "numero", "complemento", "cep", "bairro", "municipio", "estado")
+    c(
+      "id",
+      "logradouro", "numero", "complemento", "cep", "bairro", "municipio",
+      "estado",
+      "logradouro_padr", "numero_padr", "complemento_padr", "cep_padr",
+      "bairro_padr", "municipio_padr", "estado_padr"
+    )
   )
 
   expect_identical(
     names(tester(manter_cols_extras = FALSE)),
-    c("logradouro", "numero", "complemento", "cep", "bairro", "municipio", "estado")
+    c(
+      "logradouro", "numero", "complemento", "cep", "bairro", "municipio",
+      "estado",
+      "logradouro_padr", "numero_padr", "complemento_padr", "cep_padr",
+      "bairro_padr", "municipio_padr", "estado_padr"
+    )
   )
 })
