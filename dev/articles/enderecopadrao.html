@@ -129,12 +129,15 @@ padronizados:</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/padronizar_enderecos.html">padronizar_enderecos</a></span><span class="op">(</span><span class="va">enderecos</span>, campos_do_endereco <span class="op">=</span> <span class="va">campos</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                      logradouro complemento       cep          bairro numero</span></span>
-<span><span class="co">#&gt;                          &lt;char&gt;      &lt;char&gt;    &lt;char&gt;          &lt;char&gt; &lt;char&gt;</span></span>
-<span><span class="co">#&gt; 1: RUA NOSSA SENHORA DA PIEDADE   QUADRA 20 25220-020 JARDIM BOTANICO     20</span></span>
-<span><span class="co">#&gt;         municipio         estado</span></span>
-<span><span class="co">#&gt;            &lt;char&gt;         &lt;char&gt;</span></span>
-<span><span class="co">#&gt; 1: RIO DE JANEIRO RIO DE JANEIRO</span></span></code></pre></div>
+<span><span class="co">#&gt;             logradouro nroLogradouro complemento      cep      bairro</span></span>
+<span><span class="co">#&gt;                 &lt;char&gt;         &lt;num&gt;      &lt;char&gt;    &lt;num&gt;      &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1: r ns sra da piedade            20       qd 20 25220020 jd botanico</span></span>
+<span><span class="co">#&gt;    codmun_dom uf_dom              logradouro_padr nroLogradouro_padr</span></span>
+<span><span class="co">#&gt;         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;             &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE                 20</span></span>
+<span><span class="co">#&gt;    complemento_padr  cep_padr     bairro_padr codmun_dom_padr    uf_dom_padr</span></span>
+<span><span class="co">#&gt;              &lt;char&gt;    &lt;char&gt;          &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:        QUADRA 20 25220-020 JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span></span></code></pre></div>
 <p>Note que no exemplo acima nós também utiliza a função
 <code><a href="../reference/correspondencia_campos.html">correspondencia_campos()</a></code>, que facilita o processo de
 especificação de correspondência entre as colunas do dataframe e os
