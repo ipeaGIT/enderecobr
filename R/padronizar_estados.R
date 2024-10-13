@@ -33,6 +33,7 @@
 #'
 #' @export
 padronizar_estados <- function(estados) {
+
   checkmate::assert(
     checkmate::check_character(estados),
     checkmate::check_numeric(estados),
@@ -75,6 +76,7 @@ padronizar_estados <- function(estados) {
     result_busca_com_abrev,
     result_busca_com_cod
   )
+
   names(estados_padrao_dedup) <- NULL
 
   estados_padrao_dedup <- ifelse(
@@ -90,6 +92,7 @@ padronizar_estados <- function(estados) {
     # entao optei por deixar apenas o comando abaixo como exemplo de manipulacao
     # a ser feita, e a medida que forem surgindo problemas vou atualizando aqui.
 
+    estados_padrao_dedup <- toupper(estados_padrao_dedup)
     estados_padrao_dedup <- stringi::stri_trans_general(
       estados_padrao_dedup,
       "Latin-ASCII"
