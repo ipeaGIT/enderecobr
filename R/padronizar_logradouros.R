@@ -39,13 +39,14 @@ padronizar_logradouros <- function(logradouros) {
     logradouros_padrao_dedup,
     c(
       # pontuacao
-      "\\.\\.+" = ".",         # ponto repetido
-      ",,+" = ",",             # virgula repetida
-      "\\.([^ ])" = "\\. \\1", # garantir que haja um espaco depois dos pontos
-      ",([^ ])" = ", \\1",     # garantir que haja um espaco depois das virgulas
-      " \\." = "\\.",          # garantir que não haja um espaco antes dos pontos
-      " ," = ",",              # garantir que não haja um espaco antes dos pontos
-      r"{\.$}" = "",           # remocao de ponto final
+      "\\.\\.+" = ".",               # ponto repetido
+      ",,+" = ",",                   # virgula repetida
+      r"{(\d)\.(\d{3})}" = "\\1\\2", # remocao de separador de milhar
+      "\\.([^ ,])" = "\\. \\1",      # garantir que haja um espaco depois dos pontos
+      ",([^ ])" = ", \\1",           # garantir que haja um espaco depois das virgulas
+      " \\." = "\\.",                # garantir que não haja um espaco antes dos pontos
+      " ," = ",",                    # garantir que não haja um espaco antes dos pontos
+      r"{\.$}" = "",                 # remocao de ponto final
 
       # sinalizacao
       r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.

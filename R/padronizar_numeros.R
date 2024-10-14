@@ -55,6 +55,8 @@ padronizar_numeros <- function(numeros) {
     c(
       r"{\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181
 
+      r"{(\d+)\.(\d{3})}" = "\\1\\2", # separador de milhar
+
       r"{S\.?( |\/)?N(O|\u00BA)?\.?}" = "S/N", # SN ou S.N. ou S N ou .... -> S/N
       r"{SEM NUMERO}" = "S/N",
       r"{^(X|0|-)+$}" = "S/N"
