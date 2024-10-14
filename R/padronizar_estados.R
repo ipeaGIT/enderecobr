@@ -33,7 +33,6 @@
 #'
 #' @export
 padronizar_estados <- function(estados) {
-
   checkmate::assert(
     checkmate::check_character(estados),
     checkmate::check_numeric(estados),
@@ -81,7 +80,7 @@ padronizar_estados <- function(estados) {
 
   estados_padrao_dedup <- ifelse(
     is.na(estados_padrao_dedup),
-    estados,
+    estados_dedup,
     estados_padrao_dedup
   )
 
