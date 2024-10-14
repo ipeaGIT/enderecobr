@@ -45,8 +45,11 @@ padronizar_bairros <- function(bairros) {
       r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
 
       # valores non-sense
-      r"{^(X|0|-)+$}" = "", # X XX+ 0 00+ - --+
-      r"{^(.)\1{1,}$}" = "", # fiquei na duvida se ja tirava repetindo "soh" duas vezes ou se precisava de mais, mas dois ja parece o suficiente. esses sao os que aparecem: "00" "XX" "CC" "RR" "PP" "NN" "FF" "II" "11" "HH" "22" "KK" "44" "SS" "AA" "--" (total de 157 observacoes em 2 milhoes, sendo a maioria "00")
+      r"{^(0|-)+$}" = "", # - --+ 0 00+
+      r"{^([^\dIX])\1{1,}$}" = "", # qualquer valor não numérico ou romano repetido 2+ vezes
+      r"{^(\d)\1{3,}$}" = "", # assumindo que qualquer numero que apareca 4 ou mais vezes repetido eh um erro de digitacao
+      r"{^I{4,}$}" = "", # IIII+
+      r"{^X{3,}$}" = "", # XXX+
 
       # localidades
       "\\bRES(I?D)?\\b\\.?" = "RESIDENCIAL",

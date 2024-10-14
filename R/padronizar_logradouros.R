@@ -52,8 +52,11 @@ padronizar_logradouros <- function(logradouros) {
       r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
 
       # valores non-sense
-      r"{^(X|0|-)+$}" = "", # X XX XXX - -- --- 0 00 000
-      r"{^(.)\1{1,}$}" = "", # valor composto apenas por um mesmo caracter repetido 2x ou mais
+      r"{^(0|-)+$}" = "", # - --+ 0 00+
+      r"{^([^\dIX])\1{1,}$}" = "", # qualquer valor não numérico ou romano repetido 2+ vezes
+      r"{^(\d)\1{3,}$}" = "", # assumindo que qualquer numero que apareca 4 ou mais vezes repetido eh um erro de digitacao
+      r"{^I{4,}$}" = "", # IIII+
+      r"{^X{3,}$}" = "", # XXX+
 
       # tipos de logradouro
       "^RU?\\b(\\.|,)?" = "RUA",                                 # R. AZUL -> RUA AZUL
