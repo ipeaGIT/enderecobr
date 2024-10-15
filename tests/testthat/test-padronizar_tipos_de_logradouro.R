@@ -200,6 +200,10 @@ test_that("padroniza corretamente", {
     "JRD.",       "JARDIM",
     "JARD",       "JARDIM",
     "JARD.",      "JARDIM",
+    "JAR",        "JARDIM",
+    "JAR.",       "JARDIM",
+    "JARDIN",     "JARDIM",
+    "JARDIN.",    "JARDIM",
 
     "FAV",        "FAVELA",
     "FAV.",       "FAVELA",

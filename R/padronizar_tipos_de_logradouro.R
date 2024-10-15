@@ -89,7 +89,7 @@ padronizar_tipos_de_logradouro <- function(tipos) {
       r"{\bCPO\b\.?}" = "CAMPO",
       r"{\bCOL\b\.?}" = "COLONIA",
       r"{\bC(ONJ|J)\b\.?}" = "CONJUNTO",
-      r"{\bJ(D(I?M)?|A?RD)\b\.?}" = "JARDIM",
+      r"{\bJ(D(I?M)?|A?RD|AR(DIN)?)\b\.?}" = "JARDIM",
       r"{\bFAV\b\.?}" = "FAVELA",
       r"{\bNUC\b\.?}" = "NUCLEO",
       r"{\bVIE\b\.?}" = "VIELA",

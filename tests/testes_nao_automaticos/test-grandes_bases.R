@@ -1,5 +1,10 @@
 # arquivo auxiliar para facilitar o teste manual com grandes bases de enderecos
 
+detectar_sem_na <- function(string, padrao) {
+  result <- string[str_detect(string, padrao)]
+  result[!is.na(result)]
+}
+
 # cad unico
 
 arquivo <- file.path(
@@ -15,7 +20,8 @@ colunas_a_manter <- c(
   "no_tit_logradouro_fam", # titulo (e.g. general, papa, santa, etc)
   "no_logradouro_fam", # logradouro
   "nu_logradouro_fam", # numero
-  "nu_cep_logradouro_fam" # cep
+  "nu_cep_logradouro_fam", # cep
+  "ds_complemento_fam" # complemento
 )
 
 original <- arrow::open_dataset(arquivo)

@@ -53,7 +53,8 @@ padronizar_bairros <- function(bairros) {
 
       # localidades
       "\\bRES(I?D)?\\b\\.?" = "RESIDENCIAL",
-      "\\bJ(D(I?M)?|A?RD)\\b\\.?" = "JARDIM",
+      r"{\bJAR DIM\b?}" = "JARDIM",
+      r"{\bJ(D(I?M)?|A?RD|AR(DIN)?)\b\.?}" = "JARDIM",
       "^JR\\b\\.?" = "JARDIM",
       "\\b(PCA|PRC)\\b\\.?" = "PRACA",
       "\\bP((A?R)?Q|QU?E)\\b\\.?" = "PARQUE",

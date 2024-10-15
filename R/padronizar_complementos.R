@@ -201,7 +201,8 @@ padronizar_complementos <- function(complementos) {
       r"{\bSIT\b\.?}" = "SITIO",
       r"{\bCHAC\b\.?}" = "CHACARA",
       r"{\bT(RA?)?V\b\.?}" = "TRAVESSA", # "3º TRV"? "TRV WE 40"? "TV. WE 49"? "TV WE 07"? o que é esse WE?
-      r"{\bJ(D(I?M)?|A?RD)\b\.?}" = "JARDIM", # tendo a achar que JD tb eh jardim, mas tem uns mais estranhos e.g. "JD WALDES". sera que poderia ser abreviacao de um nome tb?
+      r"{\bJAR DIM\b?}" = "JARDIM",
+      r"{\bJ(D(I?M)?|A?RD|AR(DIN)?)\b\.?}" = "JARDIM", # tendo a achar que JD tb eh jardim, mas tem uns mais estranhos e.g. "JD WALDES". sera que poderia ser abreviacao de um nome tb?
       r"{\bVL\b\.?}" = "VILA",
       r"{\bNUC\b\.?}" = "NUCLEO",
       r"{\bNUCLEO H(AB)?\b\.?}" = "NUCLEO HABITACIONAL",
