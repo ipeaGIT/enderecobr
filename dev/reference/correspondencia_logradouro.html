@@ -58,7 +58,11 @@ campos de logradouro (tipo, nome e número) em um dataframe de endereços.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">correspondencia_logradouro</span><span class="op">(</span><span class="va">tipo_de_logradouro</span>, <span class="va">logradouro</span>, <span class="va">numero</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">correspondencia_logradouro</span><span class="op">(</span></span>
+<span>  tipo_de_logradouro <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nome_do_logradouro <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  numero <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -70,9 +74,9 @@ campos de logradouro (tipo, nome e número) em um dataframe de endereços.</p>
 logradouro no dataframe de endereços.</p></dd>
 
 
-<dt id="arg-logradouro">logradouro<a class="anchor" aria-label="anchor" href="#arg-logradouro"></a></dt>
-<dd><p>O nome da coluna que representa o nome do logradouro no
-dataframe de endereços.</p></dd>
+<dt id="arg-nome-do-logradouro">nome_do_logradouro<a class="anchor" aria-label="anchor" href="#arg-nome-do-logradouro"></a></dt>
+<dd><p>O nome da coluna que representa o nome do
+logradouro no dataframe de endereços.</p></dd>
 
 
 <dt id="arg-numero">numero<a class="anchor" aria-label="anchor" href="#arg-numero"></a></dt>
@@ -90,10 +94,10 @@ do logradouro e os valores as colunas que os descrevem no dataframe.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">correspondencia_logradouro</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo_de_logradouro"</span>,</span></span>
-<span class="r-in"><span>  logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span></span>
+<span class="r-in"><span>  nome_do_logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span></span>
 <span class="r-in"><span>  numero <span class="op">=</span> <span class="st">"numero"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   tipo_de_logradouro           logradouro               numero </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tipo_de_logradouro   nome_do_logradouro               numero </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "tipo_de_logradouro"         "logradouro"             "numero" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
