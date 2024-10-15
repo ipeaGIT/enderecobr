@@ -25,7 +25,9 @@ test_that("padroniza corretamente", {
     "RUA - UM",   "RUA UM",
     "RUA . UM",   "RUA UM",
     "RUA.",       "RUA",
+
     "\"",         "'",
+
     "AA",         NA_character_,
     "AAAAAA",     NA_character_,
     "1",          NA_character_,

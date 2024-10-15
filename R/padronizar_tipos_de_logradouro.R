@@ -51,7 +51,8 @@ padronizar_tipos_de_logradouro <- function(tipos) {
       r"{"}" = "'", # existem ocorrencias em que aspas duplas sao usadas para se referir a um logradouro/quadra com nome relativamente ambiguo - e.g. RUA \"A\", 26. isso pode causar um problema quando lido com o data.table: https://github.com/Rdatatable/data.table/issues/4779. por enquanto, substituindo por aspas simples. depois a gente pode ver o que fazer com as aspas simples rs.
 
       # valores non-sense
-      r"{^(X|-)+$}" = "", # - --+
+      r"{^-+$}" = "", # - --+
+      r"{^([^\d])\1{1,}$}" = "", # qualquer valor não numérico 2+ vezes
       r"{^\d+$}" = "", # tipos de logradouro não podem ser números
 
       # ordenacao de logradouros - e.g. 3A RUA, 15A TRAVESSA, 1A RODOVIA, 1O BECO, etc
