@@ -12,7 +12,8 @@ Description: Padroniza endereços brasileiros a partir de diferentes
     different criteria. Standardization methods include only basic string
     manipulation, not supporting probabilistic matches between strings.)
 License: MIT + file LICENSE
-URL: https://github.com/ipeaGIT/enderecopadrao
+URL: https://github.com/ipeaGIT/enderecopadrao,
+    https://ipeagit.github.io/enderecopadrao/
 BugReports: https://github.com/ipeaGIT/enderecopadrao/issues
 Depends: 
     R (>= 2.10)
@@ -28,10 +29,11 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     tibble
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: pt
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-VignetteBuilder: knitr
