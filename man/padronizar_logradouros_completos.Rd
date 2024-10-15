@@ -16,9 +16,9 @@ uma de suas colunas deve corresponder a um campo do logradouro.}
 
 \item{campos_do_logradouro}{Um vetor nomeado de caracteres. A correspondência
 entre os campos a serem padronizados (nomes do vetor) e as colunas que os
-representam no dataframe (valores em si). a função
+representam no dataframe (valores do vetor). A função
 \code{correspondencia_logradouro()} facilita a criação deste vetor, fazendo
-também algumas verificações do conteúdo imputado. caso deseje criar o vetor
+também algumas verificações do conteúdo imputado. Caso deseje criar o vetor
 manualmente, note que seus nomes devem ser os mesmos nomes dos parâmetros
 da função \code{correspondencia_logradouro()}.}
 
@@ -53,7 +53,7 @@ enderecos <- data.frame(
 
 campos <- correspondencia_logradouro(
   tipo_de_logradouro = "tipoLogradouro",
-  logradouro = "logradouro",
+  nome_do_logradouro = "logradouro",
   numero = "nroLogradouro"
 )
 

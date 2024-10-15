@@ -5,14 +5,18 @@
 \title{Correspondência entre os campos do logradouro completo e as colunas que os
 descrevem}
 \usage{
-correspondencia_logradouro(tipo_de_logradouro, logradouro, numero)
+correspondencia_logradouro(
+  tipo_de_logradouro = NULL,
+  nome_do_logradouro = NULL,
+  numero = NULL
+)
 }
 \arguments{
 \item{tipo_de_logradouro}{O nome da coluna que representa o tipo de
 logradouro no dataframe de endereços.}
 
-\item{logradouro}{O nome da coluna que representa o nome do logradouro no
-dataframe de endereços.}
+\item{nome_do_logradouro}{O nome da coluna que representa o nome do
+logradouro no dataframe de endereços.}
 
 \item{numero}{O nome da coluna que representa o numero do logradouro no
 dataframe de endereços.}
@@ -28,7 +32,7 @@ campos de logradouro (tipo, nome e número) em um dataframe de endereços.
 \examples{
 correspondencia_logradouro(
   tipo_de_logradouro = "tipo_de_logradouro",
-  logradouro = "logradouro",
+  nome_do_logradouro = "logradouro",
   numero = "numero"
 )
 

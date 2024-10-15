@@ -8,9 +8,9 @@
 #'   uma de suas colunas deve corresponder a um campo do logradouro.
 #' @param campos_do_logradouro Um vetor nomeado de caracteres. A correspondência
 #'   entre os campos a serem padronizados (nomes do vetor) e as colunas que os
-#'   representam no dataframe (valores em si). a função
+#'   representam no dataframe (valores do vetor). A função
 #'   `correspondencia_logradouro()` facilita a criação deste vetor, fazendo
-#'   também algumas verificações do conteúdo imputado. caso deseje criar o vetor
+#'   também algumas verificações do conteúdo imputado. Caso deseje criar o vetor
 #'   manualmente, note que seus nomes devem ser os mesmos nomes dos parâmetros
 #'   da função `correspondencia_logradouro()`.
 #' @param manter_cols_extras Um logical. Se colunas não especificadas em
@@ -38,7 +38,7 @@
 #'
 #' campos <- correspondencia_logradouro(
 #'   tipo_de_logradouro = "tipoLogradouro",
-#'   logradouro = "logradouro",
+#'   nome_do_logradouro = "logradouro",
 #'   numero = "nroLogradouro"
 #' )
 #'
@@ -52,68 +52,75 @@
 #'
 #' @export
 padronizar_logradouros_completos <- function(
-    enderecos,
-    campos_do_logradouro = correspondencia_logradouro(),
-    manter_cols_extras = TRUE
+  enderecos,
+  campos_do_logradouro = correspondencia_logradouro(),
+  manter_cols_extras = TRUE
 ) {
   checkmate::assert_data_frame(enderecos)
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
   checa_campos_do_logradouro(campos_do_logradouro, enderecos)
 
+  erro_se_apenas_um_campo(campos_do_logradouro)
+  erro_se_nome_ausente(campos_do_logradouro)
+
   enderecos_padrao <- data.table::as.data.table(enderecos)
 
-  campos_extras <- setdiff(names(enderecos), campos_do_logradouro)
-  campos_finais <- if (manter_cols_extras) {
-    c(campos_extras, "logradouro_completo")
-  } else {
-    "logradouro_completo"
-  }
-
-  enderecos_padrao[
-    ,
-    .tmp_tipo_padrao := padronizar_tipos_de_logradouro(
-      enderecos[[campos_do_logradouro["tipo_de_logradouro"]]]
-    )
-  ]
   enderecos_padrao[
     ,
     .tmp_log_padrao := padronizar_logradouros(
-      enderecos[[campos_do_logradouro["logradouro"]]]
-    )
-  ]
-  enderecos_padrao[
-    ,
-    .tmp_num_padrao := padronizar_numeros(
-      enderecos[[campos_do_logradouro["numero"]]]
+      enderecos[[campos_do_logradouro["nome_do_logradouro"]]]
     )
   ]
 
-  enderecos_padrao[
-    ,
-    logradouro_completo := data.table::fcase(
-      is.na(.tmp_log_padrao), .tmp_num_padrao,
-      is.na(.tmp_num_padrao), .tmp_log_padrao,
-      !is.na(.tmp_log_padrao) & !is.na(.tmp_num_padrao), paste(.tmp_log_padrao, .tmp_num_padrao)
-    )
-  ]
-  enderecos_padrao[
-    ,
-    logradouro_completo := data.table::fcase(
-      is.na(.tmp_tipo_padrao), logradouro_completo,
-      is.na(logradouro_completo), .tmp_tipo_padrao,
-      !is.na(.tmp_tipo_padrao) & !is.na(logradouro_completo), paste(.tmp_tipo_padrao, logradouro_completo)
-    )
-  ]
-  enderecos_padrao[
-    ,
-    c(".tmp_tipo_padrao", ".tmp_log_padrao", ".tmp_num_padrao") := NULL
-  ]
+  if ("numero" %in% names(campos_do_logradouro)) {
+    enderecos_padrao[
+      ,
+      .tmp_num_padrao := padronizar_numeros(
+        enderecos[[campos_do_logradouro["numero"]]]
+      )
+    ]
 
-  campos_a_remover <- setdiff(names(enderecos), campos_finais)
-  enderecos_padrao[, (campos_a_remover) := NULL]
+    enderecos_padrao[
+      ,
+      .tmp_log_padrao := data.table::fcase(
+        is.na(.tmp_log_padrao), .tmp_num_padrao,
+        is.na(.tmp_num_padrao), .tmp_log_padrao,
+        !is.na(.tmp_log_padrao) & !is.na(.tmp_num_padrao), paste(.tmp_log_padrao, .tmp_num_padrao)
+      )
+    ]
 
-  if (manter_cols_extras) {
-    data.table::setcolorder(enderecos_padrao, campos_extras)
+    enderecos_padrao[, .tmp_num_padrao := NULL]
+  }
+
+  if ("tipo_de_logradouro" %in% names(campos_do_logradouro)) {
+    enderecos_padrao[
+      ,
+      .tmp_tipo_padrao := padronizar_tipos_de_logradouro(
+        enderecos[[campos_do_logradouro["tipo_de_logradouro"]]]
+      )
+    ]
+
+    enderecos_padrao[
+      ,
+      .tmp_log_padrao := data.table::fcase(
+        is.na(.tmp_tipo_padrao), .tmp_log_padrao,
+        is.na(.tmp_log_padrao), .tmp_tipo_padrao,
+        !is.na(.tmp_tipo_padrao) & !is.na(.tmp_log_padrao), paste(.tmp_tipo_padrao, .tmp_log_padrao)
+      )
+    ]
+
+    enderecos_padrao[, .tmp_tipo_padrao := NULL]
+  }
+
+  data.table::setnames(
+    enderecos_padrao,
+    old = ".tmp_log_padrao",
+    new = "logradouro_completo_padr"
+  )
+
+  if (!manter_cols_extras) {
+    campos_extras <- setdiff(names(enderecos), campos_do_logradouro)
+    enderecos_padrao[, (campos_extras) := NULL]
   }
 
   return(enderecos_padrao[])
@@ -129,7 +136,7 @@ checa_campos_do_logradouro <- function(campos_do_logradouro, enderecos) {
   checkmate::assert_names(
     names(campos_do_logradouro),
     type = "unique",
-    subset.of = c("tipo_de_logradouro", "logradouro", "numero"),
+    subset.of = c("tipo_de_logradouro", "nome_do_logradouro", "numero"),
     add = col
   )
   checkmate::assert_names(
@@ -140,6 +147,43 @@ checa_campos_do_logradouro <- function(campos_do_logradouro, enderecos) {
   checkmate::reportAssertions(col)
 
   return(invisible(TRUE))
+}
+
+erro_se_apenas_um_campo <- function(campos_do_logradouro) {
+  if (length(campos_do_logradouro) == 1) {
+    cli::cli_abort(
+      c(
+        paste0(
+          "Apenas um campo foi passado para padroniza\u00e7\u00e3o. Por favor ",
+          "utilize a fun\u00e7\u00e3o correspondente:"
+        ),
+        "*" = "Tipo de logradouro: {.fn padronizar_tipos_de_logradouro}",
+        "*" = "Nome do logradouro: {.fn padronizar_logradouros}",
+        "*" = "N\u00famero: {.fn padronizar_numeros}"
+      ),
+      class = "apenas_um_campo_presente",
+      call = rlang::caller_env()
+    )
+  }
+}
+
+erro_se_nome_ausente <- function(campos_do_logradouro) {
+  if (! "nome_do_logradouro" %in% names(campos_do_logradouro)) {
+    cli::cli_abort(
+      c(
+        paste0(
+          "N\u00e3o \u00e9 poss\u00edvel fazer uma padroniza\u00e7\u00e3o de ",
+          "logradouro completo sem o nome do logradouro."
+        ),
+        "i" = paste0(
+          "Por favor informe uma coluna com a informa\u00e7\u00e3o de nome do ",
+          "logradouro."
+        )
+      ),
+      class = "nome_do_logradouro_ausente",
+      call = rlang::caller_env()
+    )
+  }
 }
 
 tipos_de_logradouro_possiveis <- c(
