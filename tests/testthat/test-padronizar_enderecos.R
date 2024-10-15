@@ -84,3 +84,16 @@ test_that("respeita manter_cols_extras", {
     )
   )
 })
+
+# issue #13 - https://github.com/ipeaGIT/enderecopadrao/issues/13
+test_that("funciona qnd coluna existe mas nao eh pra ser padronizada", {
+  ends <- data.frame(logradouro = "r ns sra da piedade", numero = 20)
+  expect_identical(
+    tester(ends, correspondencia_campos(logradouro = "logradouro")),
+    data.table::data.table(
+      numero = 20,
+      logradouro = "r ns sra da piedade",
+      logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE"
+    )
+  )
+})
