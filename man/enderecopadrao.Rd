@@ -13,6 +13,7 @@ Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos 
 Useful links:
 \itemize{
   \item \url{https://github.com/ipeaGIT/enderecopadrao}
+  \item \url{https://ipeagit.github.io/enderecopadrao/}
   \item Report bugs at \url{https://github.com/ipeaGIT/enderecopadrao/issues}
 }
 
