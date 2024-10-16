@@ -202,7 +202,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\bMIN\\b\\.?(?!$)" = "MINISTRO",
 
       # abreviacoes
-      r"{\bJAR DIM\b?}" = "JARDIM",
+      r"{\bJAR DIM\b}" = "JARDIM",
       r"{\bJ(D(I?M)?|A?RD|AR(DIN)?)\b\.?}" = "JARDIM",
       "\\bUNID\\b\\.?" = "UNIDADE",
       "\\b(CJ|CONJ)\\b\\.?" = "CONJUNTO",
