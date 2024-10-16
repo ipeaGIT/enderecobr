@@ -56,12 +56,11 @@ correspondencia_campos <- function(logradouro = NULL,
 }
 
 erro_correspondencia_nula <- function() {
-  cli::cli_abort(
+  erro_endpad(
     paste0(
       "Ao menos um dos argumentos da {.fn correspondencia_campos} ",
       "deve ser diferente de {.code NULL}."
     ),
-    class = "correspondencia_nula",
     call = rlang::caller_env()
   )
 }

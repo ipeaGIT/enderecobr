@@ -83,7 +83,7 @@ erro_se_letra_presente <- function(ceps) {
           "{lista_indices} possu{?i/em} letras."
         )
       ),
-      class = "cep_com_letra",
+      class = c("erro_endpad_cep_com_letra", "erro_endpad"),
       call = rlang::caller_env()
     )
   }
@@ -96,7 +96,7 @@ erro_se_digitos_demais <- function(ceps_padrao) {
     indice_muitos_digitos <- which(possui_digitos_demais)
     indice_muitos_digitos <- as.character(indice_muitos_digitos)
 
-    lista_indices <- cli::cli_vec(indice_muitos_digitos, list("vec-trunc" = 5))
+    lista_indices <- cli::cli_vec(indice_muitos_digitos, list("vec-trunc" = 5, "vec-last" = " e "))
 
     cli::cli_abort(
       c(
@@ -107,7 +107,7 @@ erro_se_digitos_demais <- function(ceps_padrao) {
           "ap\u00f3s padroniza\u00e7\u00e3o."
         )
       ),
-      class = "cep_com_digitos_demais",
+      class = c("erro_endpad_cep_com_digitos_demais", "erro_endpad"),
       call = rlang::caller_env()
     )
   }

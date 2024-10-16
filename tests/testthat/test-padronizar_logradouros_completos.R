@@ -36,7 +36,7 @@ test_that("da erro quando apenas um campo eh especificado", {
     tester(
       campos_do_logradouro = correspondencia_logradouro(numero = "numero")
     ),
-    class = "apenas_um_campo_presente"
+    class = c("erro_endpad_apenas_um_campo_presente", "erro_endpad")
   )
 })
 
@@ -48,7 +48,7 @@ test_that("da erro quando nome do logradouro nao eh especificado", {
         numero = "numero"
       )
     ),
-    class = "nome_do_logradouro_ausente"
+    class = c("erro_endpad_nome_do_logradouro_ausente", "erro_endpad")
   )
 })
 

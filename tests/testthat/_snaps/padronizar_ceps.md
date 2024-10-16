@@ -21,10 +21,15 @@
 ---
 
     CEP não deve conter mais que 8 dígitos.
+    i O elemento com índice 1 possui mais que 8 dígitos após padronização.
+
+---
+
+    CEP não deve conter mais que 8 dígitos.
     i Os elementos com índices 2 and 3 possuem mais que 8 dígitos após padronização.
 
 ---
 
     CEP não deve conter mais que 8 dígitos.
-    i Os elementos com índices 1, 2, 3, ..., 19, and 20 possuem mais que 8 dígitos após padronização.
+    i Os elementos com índices 1, 2, 3, ..., 19 e 20 possuem mais que 8 dígitos após padronização.
 

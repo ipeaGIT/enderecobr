@@ -20,7 +20,7 @@ test_that("da erro com inputs != de caracteres", {
 test_that("da erro quando todos os inputs sao nulos", {
   expect_snapshot_error(
     correspondencia_logradouro(),
-    class = "correspondencia_logradouro_nula"
+    class = c("erro_endpad_correspondencia_logradouro_nula", "erro_endpad")
   )
 })
 
