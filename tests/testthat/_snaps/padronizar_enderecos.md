@@ -3,6 +3,9 @@
     Code
       res <- tester()
     Message
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
+      
       i Padronizando logradouros...
       v Padronizando logradouros... [xxx ms]
       

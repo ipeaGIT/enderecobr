@@ -1,4 +1,6 @@
 test_that("da erro com inputs != de caracteres", {
+  expect_error(correspondencia_campos(tipo_de_logradouro = 1))
+  expect_error(correspondencia_campos(tipo_de_logradouro = c("oi", "ola")))
   expect_error(correspondencia_campos(logradouro = 1))
   expect_error(correspondencia_campos(logradouro = c("oi", "ola")))
   expect_error(correspondencia_campos(numero = 1))
@@ -25,6 +27,7 @@ test_that("da erro quando todos os inputs sao nulos", {
 test_that("retorna vetor de caracteres", {
   expect_identical(
     correspondencia_campos(
+      tipo_de_logradouro = "nihao",
       logradouro = "oi",
       numero = "ola",
       complemento = "hola",
@@ -34,6 +37,7 @@ test_that("retorna vetor de caracteres", {
       estado = "salaam"
     ),
     c(
+      tipo_de_logradouro = "nihao",
       logradouro = "oi",
       numero = "ola",
       complemento = "hola",

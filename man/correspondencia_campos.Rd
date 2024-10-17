@@ -5,6 +5,7 @@
 \title{Correspondência entre campos e colunas}
 \usage{
 correspondencia_campos(
+  tipo_de_logradouro = NULL,
   logradouro = NULL,
   numero = NULL,
   complemento = NULL,
@@ -15,10 +16,9 @@ correspondencia_campos(
 )
 }
 \arguments{
-\item{logradouro, numero, complemento, cep, bairro, municipio, estado}{Uma string.
-O nome da coluna que representa o respectivo campo de endereço no
-dataframe. Pode ser \code{NULL}, no caso do campo não estar listado. Ao menos um
-dos campos deve receber um valor não nulo.}
+\item{tipo_de_logradouro, logradouro, numero, complemento, cep, bairro, municipio, estado}{Uma string. O nome da coluna que representa o respectivo campo de endereço
+no dataframe. Pode ser \code{NULL}, no caso do campo não estar listado. Ao menos
+um dos campos deve receber um valor não nulo.}
 }
 \value{
 Um vetor nomeado de caracteres, em que os nomes representam os campos
@@ -30,6 +30,7 @@ campo de endereço em um dataframe.
 }
 \examples{
 correspondencia_campos(
+  tipo_de_logradouro = "tipo_de_logradouro",
   logradouro = "logradouro",
   numero = "nroLogradouro",
   complemento = "complemento",

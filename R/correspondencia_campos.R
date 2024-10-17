@@ -3,16 +3,17 @@
 #' Cria um vetor de caracteres que especifica as colunas que representam cada
 #' campo de endereço em um dataframe.
 #'
-#' @param logradouro,numero,complemento,cep,bairro,municipio,estado Uma string.
-#'   O nome da coluna que representa o respectivo campo de endereço no
-#'   dataframe. Pode ser `NULL`, no caso do campo não estar listado. Ao menos um
-#'   dos campos deve receber um valor não nulo.
+#' @param tipo_de_logradouro,logradouro,numero,complemento,cep,bairro,municipio,estado
+#'   Uma string. O nome da coluna que representa o respectivo campo de endereço
+#'   no dataframe. Pode ser `NULL`, no caso do campo não estar listado. Ao menos
+#'   um dos campos deve receber um valor não nulo.
 #'
 #' @return Um vetor nomeado de caracteres, em que os nomes representam os campos
 #'   do endereço e os valores as colunas que os descrevem no dataframe.
 #'
 #' @examples
 #' correspondencia_campos(
+#'   tipo_de_logradouro = "tipo_de_logradouro",
 #'   logradouro = "logradouro",
 #'   numero = "nroLogradouro",
 #'   complemento = "complemento",
@@ -23,7 +24,8 @@
 #' )
 #'
 #' @export
-correspondencia_campos <- function(logradouro = NULL,
+correspondencia_campos <- function(tipo_de_logradouro = NULL,
+                                   logradouro = NULL,
                                    numero = NULL,
                                    complemento = NULL,
                                    cep = NULL,
@@ -31,6 +33,7 @@ correspondencia_campos <- function(logradouro = NULL,
                                    municipio = NULL,
                                    estado = NULL) {
   col <- checkmate::makeAssertCollection()
+  checkmate::assert_string(tipo_de_logradouro, null.ok = TRUE, add = col)
   checkmate::assert_string(logradouro, null.ok = TRUE, add = col)
   checkmate::assert_string(numero, null.ok = TRUE, add = col)
   checkmate::assert_string(complemento, null.ok = TRUE, add = col)
@@ -41,6 +44,7 @@ correspondencia_campos <- function(logradouro = NULL,
   checkmate::reportAssertions(col)
 
   vetor_correspondencia <- c(
+    tipo_de_logradouro = tipo_de_logradouro,
     logradouro = logradouro,
     numero = numero,
     complemento = complemento,

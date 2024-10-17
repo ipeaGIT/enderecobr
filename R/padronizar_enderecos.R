@@ -62,14 +62,15 @@ padronizar_enderecos <- function(
   names(campos_padronizados) <- names(campos_do_endereco)
 
   relacao_campos <- tibble::tribble(
-    ~nome_campo,   ~nome_formatado,   ~funcao,
-    "logradouro",  "logradouros",     padronizar_logradouros,
-    "numero",      "n\u00fameros",    padronizar_numeros,
-    "complemento", "complementos",    padronizar_complementos,
-    "cep",         "CEPs",            padronizar_ceps,
-    "bairro",      "bairros",         padronizar_bairros,
-    "municipio",   "munic\u00edpios", padronizar_municipios,
-    "estado",      "estados",         padronizar_estados
+    ~nome_campo,          ~nome_formatado,       ~funcao,
+    "tipo_de_logradouro", "tipos de logradouro", padronizar_tipos_de_logradouro,
+    "logradouro",         "logradouros",         padronizar_logradouros,
+    "numero",             "n\u00fameros",        padronizar_numeros,
+    "complemento",        "complementos",        padronizar_complementos,
+    "cep",                "CEPs",                padronizar_ceps,
+    "bairro",             "bairros",             padronizar_bairros,
+    "municipio",          "munic\u00edpios",     padronizar_municipios,
+    "estado",             "estados",             padronizar_estados
   )
 
   purrr::pwalk(
@@ -112,6 +113,7 @@ checa_campos_do_endereco <- function(campos_do_endereco, enderecos) {
     names(campos_do_endereco),
     type = "unique",
     subset.of = c(
+      "tipo_de_logradouro",
       "logradouro",
       "numero",
       "complemento",
