@@ -59,6 +59,7 @@ campo de endereço em um dataframe.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">correspondencia_campos</span><span class="op">(</span></span>
+<span>  tipo_de_logradouro <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  logradouro <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  numero <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  complemento <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -73,11 +74,10 @@ campo de endereço em um dataframe.</p>
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-logradouro-numero-complemento-cep-bairro-municipio-estado">logradouro, numero, complemento, cep, bairro, municipio, estado<a class="anchor" aria-label="anchor" href="#arg-logradouro-numero-complemento-cep-bairro-municipio-estado"></a></dt>
-<dd><p>Uma string.
-O nome da coluna que representa o respectivo campo de endereço no
-dataframe. Pode ser <code>NULL</code>, no caso do campo não estar listado. Ao menos um
-dos campos deve receber um valor não nulo.</p></dd>
+<dl><dt id="arg-tipo-de-logradouro-logradouro-numero-complemento-cep-bairro-municipio-estado">tipo_de_logradouro, logradouro, numero, complemento, cep, bairro, municipio, estado<a class="anchor" aria-label="anchor" href="#arg-tipo-de-logradouro-logradouro-numero-complemento-cep-bairro-municipio-estado"></a></dt>
+<dd><p>Uma string. O nome da coluna que representa o respectivo campo de endereço
+no dataframe. Pode ser <code>NULL</code>, no caso do campo não estar listado. Ao menos
+um dos campos deve receber um valor não nulo.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -89,6 +89,7 @@ do endereço e os valores as colunas que os descrevem no dataframe.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">correspondencia_campos</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo_de_logradouro"</span>,</span></span>
 <span class="r-in"><span>  logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span></span>
 <span class="r-in"><span>  numero <span class="op">=</span> <span class="st">"nroLogradouro"</span>,</span></span>
 <span class="r-in"><span>  complemento <span class="op">=</span> <span class="st">"complemento"</span>,</span></span>
@@ -97,10 +98,12 @@ do endereço e os valores as colunas que os descrevem no dataframe.</p>
 <span class="r-in"><span>  municipio <span class="op">=</span> <span class="st">"codmun_dom"</span>,</span></span>
 <span class="r-in"><span>  estado <span class="op">=</span> <span class="st">"uf_dom"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      logradouro          numero     complemento             cep          bairro </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    "logradouro" "nroLogradouro"   "complemento"           "cep"        "bairro" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       municipio          estado </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    "codmun_dom"        "uf_dom" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tipo_de_logradouro           logradouro               numero </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "tipo_de_logradouro"         "logradouro"      "nroLogradouro" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          complemento                  cep               bairro </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        "complemento"                "cep"             "bairro" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            municipio               estado </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "codmun_dom"             "uf_dom" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
