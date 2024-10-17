@@ -35,6 +35,17 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(manter_cols_extras = c(TRUE, TRUE)))
 })
 
+test_that("printa mensagens de progresso quando verboso", {
+  rlang::local_options(endereco_padrao.verbose = "verbose")
+
+  # os tempos de execução variam entre execuções, então precisamos removê-los do
+  # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram
+  expect_snapshot(
+    res <- tester(),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+})
+
 test_that("retorna enderecos padronizados", {
   # as padronizacoes em si sao testadas em outros arquivos, aqui checamos apenas
   # se os valores estao de fato sendo padronizados ou nao

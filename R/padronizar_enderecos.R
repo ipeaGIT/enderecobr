@@ -61,62 +61,34 @@ padronizar_enderecos <- function(
   campos_padronizados <- paste0(campos_do_endereco, "_padr")
   names(campos_padronizados) <- names(campos_do_endereco)
 
-  if ("logradouro" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["logradouro"]
-    col_padr <- campos_padronizados["logradouro"]
-    enderecos_padrao[
-      ,
-      c(col_padr) := padronizar_logradouros(enderecos[[col_orig]])
-    ]
-  }
+  relacao_campos <- tibble::tribble(
+    ~nome_campo,   ~nome_formatado,   ~funcao,
+    "logradouro",  "logradouros",     padronizar_logradouros,
+    "numero",      "n\u00fameros",    padronizar_numeros,
+    "complemento", "complementos",    padronizar_complementos,
+    "cep",         "CEPs",            padronizar_ceps,
+    "bairro",      "bairros",         padronizar_bairros,
+    "municipio",   "munic\u00edpios", padronizar_municipios,
+    "estado",      "estados",         padronizar_estados
+  )
 
-  if ("numero" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["numero"]
-    col_padr <- campos_padronizados["numero"]
-    enderecos_padrao[
-      ,
-      c(col_padr) := padronizar_numeros(enderecos[[col_orig]])
-    ]
-  }
+  purrr::pwalk(
+    relacao_campos,
+    function(nome_campo, nome_formatado, funcao) {
+      if (nome_campo %in% names(campos_do_endereco)) {
+        col_orig <- campos_do_endereco[nome_campo]
+        col_padr <- campos_padronizados[nome_campo]
 
-  if ("complemento" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["complemento"]
-    col_padr <- campos_padronizados["complemento"]
-    enderecos_padrao[
-      ,
-      c(col_padr) := padronizar_complementos(enderecos[[col_orig]])
-    ]
-  }
+        prog <- mensagem_progresso_endpad(
+          paste0("Padronizando ", nome_formatado, "...")
+        )
 
-  if ("cep" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["cep"]
-    col_padr <- campos_padronizados["cep"]
-    enderecos_padrao[, c(col_padr) := padronizar_ceps(enderecos[[col_orig]])]
-  }
+        enderecos_padrao[, c(col_padr) := funcao(enderecos[[col_orig]])]
 
-  if ("bairro" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["bairro"]
-    col_padr <- campos_padronizados["bairro"]
-    enderecos_padrao[, c(col_padr) := padronizar_bairros(enderecos[[col_orig]])]
-  }
-
-  if ("municipio" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["municipio"]
-    col_padr <- campos_padronizados["municipio"]
-    enderecos_padrao[
-      ,
-      c(col_padr) := padronizar_municipios(enderecos[[col_orig]])
-    ]
-  }
-
-  if ("estado" %in% names(campos_do_endereco)) {
-    col_orig <- campos_do_endereco["estado"]
-    col_padr <- campos_padronizados["estado"]
-    enderecos_padrao[
-      ,
-      c(col_padr) := padronizar_estados(enderecos[[col_orig]])
-    ]
-  }
+        cli::cli_progress_done(id = prog)
+      }
+    }
+  )
 
   campos_extras <- setdiff(names(enderecos), campos_do_endereco)
 

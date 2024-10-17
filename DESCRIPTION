@@ -21,14 +21,15 @@ Imports:
     checkmate,
     cli,
     data.table,
+    purrr,
     rlang,
     stringi,
-    stringr
+    stringr,
+    tibble
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
-    tibble
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
