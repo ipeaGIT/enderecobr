@@ -23,7 +23,7 @@
     Condition <erro_endpad_cep_com_letra>
       Error in `padronizar_ceps()`:
       ! CEP não deve conter letras.
-      i Os elementos com índices 1, 2, 3, ..., 25, and 26 possuem letras.
+      i Os elementos com índices 1, 2, 3, ..., 25 e 26 possuem letras.
 
 # da erro quando cep contem mais de 8 digitos
 

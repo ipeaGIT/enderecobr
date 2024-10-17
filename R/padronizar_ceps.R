@@ -48,7 +48,10 @@ padronizar_ceps <- function(ceps) {
     ceps_padrao_dedup <- ceps_dedup
   }
 
-  ceps_padrao_dedup <- stringr::str_replace_all(ceps_padrao_dedup, c("\\.|,| " = ""))
+  ceps_padrao_dedup <- stringr::str_replace_all(
+    ceps_padrao_dedup,
+    c("\\.|,| " = "")
+  )
   ceps_padrao_dedup <- stringr::str_pad(ceps_padrao_dedup, width = 8, pad = "0")
   ceps_padrao_dedup <- stringr::str_replace_all(
     ceps_padrao_dedup,
@@ -73,7 +76,10 @@ erro_se_letra_presente <- function(ceps) {
     indice_com_letras <- which(possui_letras)
     indice_com_letras <- as.character(indice_com_letras)
 
-    lista_indices <- cli::cli_vec(indice_com_letras, list("vec-trunc" = 5))
+    lista_indices <- cli::cli_vec(
+      indice_com_letras,
+      list("vec-trunc" = 5, "vec-last" = " e ")
+    )
 
     cli::cli_abort(
       c(
@@ -96,7 +102,10 @@ erro_se_digitos_demais <- function(ceps_padrao) {
     indice_muitos_digitos <- which(possui_digitos_demais)
     indice_muitos_digitos <- as.character(indice_muitos_digitos)
 
-    lista_indices <- cli::cli_vec(indice_muitos_digitos, list("vec-trunc" = 5, "vec-last" = " e "))
+    lista_indices <- cli::cli_vec(
+      indice_muitos_digitos,
+      list("vec-trunc" = 5, "vec-last" = " e ")
+    )
 
     cli::cli_abort(
       c(
