@@ -18,10 +18,7 @@ test_that("da erro com inputs != de caracteres", {
 })
 
 test_that("da erro quando todos os inputs sao nulos", {
-  expect_snapshot_error(
-    correspondencia_campos(),
-    class = c("erro_endpad_correspondencia_nula", "erro_endpad")
-  )
+  expect_snapshot(correspondencia_campos(), error = TRUE, cnd_class = TRUE)
 })
 
 test_that("retorna vetor de caracteres", {

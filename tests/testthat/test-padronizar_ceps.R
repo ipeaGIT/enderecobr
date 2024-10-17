@@ -3,41 +3,36 @@ test_that("da erro com inputs != de caracteres e numeros", {
 })
 
 test_that("da erro quando cep contem letra", {
-  expect_snapshot_error(
-    padronizar_ceps("botafogo"),
-    class = c("erro_endpad_cep_com_letra", "erro_endpad")
-  )
+  expect_snapshot(padronizar_ceps("botafogo"), error = TRUE, cnd_class = TRUE)
 
-  expect_snapshot_error(
+  expect_snapshot(
     padronizar_ceps(c(NA, "oie", NA, "hehe")),
-    class = c("erro_endpad_cep_com_letra", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 
-  expect_snapshot_error(
+  expect_snapshot(
     padronizar_ceps(base::letters),
-    class = c("erro_endpad_cep_com_letra", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 })
 
 test_that("da erro quando cep contem mais de 8 digitos", {
-  expect_snapshot_error(
-    padronizar_ceps(100000000),
-    class = c("erro_endpad_cep_com_digitos_demais", "erro_endpad")
-  )
+  expect_snapshot(padronizar_ceps(100000000), error = TRUE, cnd_class = TRUE)
 
-  expect_snapshot_error(
-    padronizar_ceps("222290-140"),
-    class = c("erro_endpad_cep_com_digitos_demais", "erro_endpad")
-  )
+  expect_snapshot(padronizar_ceps("222290-140"), error = TRUE, cnd_class = TRUE)
 
-  expect_snapshot_error(
+  expect_snapshot(
     padronizar_ceps(c(10000000, 100000000, 100000000)),
-    class = c("erro_endpad_cep_com_digitos_demais", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 
-  expect_snapshot_error(
+  expect_snapshot(
     padronizar_ceps(rep(100000000, 20)),
-    class = c("erro_endpad_cep_com_digitos_demais", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 })
 

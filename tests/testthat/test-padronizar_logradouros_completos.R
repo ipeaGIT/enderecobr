@@ -32,23 +32,25 @@ test_that("da erro com inputs incorretos", {
 })
 
 test_that("da erro quando apenas um campo eh especificado", {
-  expect_snapshot_error(
+  expect_snapshot(
     tester(
       campos_do_logradouro = correspondencia_logradouro(numero = "numero")
     ),
-    class = c("erro_endpad_apenas_um_campo_presente", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 })
 
 test_that("da erro quando nome do logradouro nao eh especificado", {
-  expect_snapshot_error(
+  expect_snapshot(
     tester(
       campos_do_logradouro = correspondencia_logradouro(
         tipo_de_logradouro = "tipo",
         numero = "numero"
       )
     ),
-    class = c("erro_endpad_nome_do_logradouro_ausente", "erro_endpad")
+    error = TRUE,
+    cnd_class = TRUE
   )
 })
 
