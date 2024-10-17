@@ -65,51 +65,17 @@ padronizar_logradouros_completos <- function(
 
   enderecos_padrao <- data.table::as.data.table(enderecos)
 
-  enderecos_padrao[
-    ,
-    .tmp_log_padrao := padronizar_logradouros(
-      enderecos[[campos_do_logradouro["nome_do_logradouro"]]]
-    )
-  ]
+  # enderecos_padrao é alterado in-place nas funções a seguir, por isso não é
+  # necessário atribuir seus resultados a nenhuma variável
+
+  int_padronizar_nome(enderecos_padrao, campos_do_logradouro)
 
   if ("numero" %in% names(campos_do_logradouro)) {
-    enderecos_padrao[
-      ,
-      .tmp_num_padrao := padronizar_numeros(
-        enderecos[[campos_do_logradouro["numero"]]]
-      )
-    ]
-
-    enderecos_padrao[
-      ,
-      .tmp_log_padrao := data.table::fcase(
-        is.na(.tmp_log_padrao), .tmp_num_padrao,
-        is.na(.tmp_num_padrao), .tmp_log_padrao,
-        !is.na(.tmp_log_padrao) & !is.na(.tmp_num_padrao), paste(.tmp_log_padrao, .tmp_num_padrao)
-      )
-    ]
-
-    enderecos_padrao[, .tmp_num_padrao := NULL]
+    int_padronizar_numero(enderecos_padrao, campos_do_logradouro)
   }
 
   if ("tipo_de_logradouro" %in% names(campos_do_logradouro)) {
-    enderecos_padrao[
-      ,
-      .tmp_tipo_padrao := padronizar_tipos_de_logradouro(
-        enderecos[[campos_do_logradouro["tipo_de_logradouro"]]]
-      )
-    ]
-
-    enderecos_padrao[
-      ,
-      .tmp_log_padrao := data.table::fcase(
-        is.na(.tmp_tipo_padrao), .tmp_log_padrao,
-        is.na(.tmp_log_padrao), .tmp_tipo_padrao,
-        !is.na(.tmp_tipo_padrao) & !is.na(.tmp_log_padrao), paste(.tmp_tipo_padrao, .tmp_log_padrao)
-      )
-    ]
-
-    enderecos_padrao[, .tmp_tipo_padrao := NULL]
+    int_padronizar_tipo(enderecos_padrao, campos_do_logradouro)
   }
 
   data.table::setnames(
@@ -125,6 +91,77 @@ padronizar_logradouros_completos <- function(
 
   return(enderecos_padrao[])
 }
+
+int_padronizar_nome <- function(enderecos_padrao, campos_do_logradouro) {
+  prog <- mensagem_progresso_endpad("Padronizando nomes dos logradouros...")
+
+  enderecos_padrao[
+    ,
+    .tmp_log_padrao := padronizar_logradouros(
+      enderecos_padrao[[campos_do_logradouro["nome_do_logradouro"]]]
+    )
+  ]
+
+  cli::cli_progress_done(id = prog)
+}
+
+int_padronizar_numero <- function(enderecos_padrao, campos_do_logradouro) {
+  prog <- mensagem_progresso_endpad("Padronizando n\u00fameros...")
+
+  enderecos_padrao[
+    ,
+    .tmp_num_padrao := padronizar_numeros(
+      enderecos_padrao[[campos_do_logradouro["numero"]]]
+    )
+  ]
+
+  cli::cli_progress_done(id = prog)
+  prog <- mensagem_progresso_endpad(
+    "Trazendo n\u00fameros para o logradouro completo..."
+  )
+
+  enderecos_padrao[
+    ,
+    .tmp_log_padrao := data.table::fcase(
+      is.na(.tmp_log_padrao), .tmp_num_padrao,
+      is.na(.tmp_num_padrao), .tmp_log_padrao,
+      !is.na(.tmp_log_padrao) & !is.na(.tmp_num_padrao), paste(.tmp_log_padrao, .tmp_num_padrao)
+    )
+  ]
+  enderecos_padrao[, .tmp_num_padrao := NULL]
+
+  cli::cli_progress_done(id = prog)
+}
+
+int_padronizar_tipo <- function(enderecos_padrao, campos_do_logradouro) {
+  prog <- mensagem_progresso_endpad("Padronizando tipos de logradouro...")
+
+  enderecos_padrao[
+    ,
+    .tmp_tipo_padrao := padronizar_tipos_de_logradouro(
+      enderecos_padrao[[campos_do_logradouro["tipo_de_logradouro"]]]
+    )
+  ]
+
+  cli::cli_progress_done(id = prog)
+  prog <- mensagem_progresso_endpad(
+    "Trazendo tipos de logradouro para o logradouro completo..."
+  )
+
+  enderecos_padrao[
+    ,
+    .tmp_log_padrao := data.table::fcase(
+      is.na(.tmp_tipo_padrao), .tmp_log_padrao,
+      is.na(.tmp_log_padrao), .tmp_tipo_padrao,
+      !is.na(.tmp_tipo_padrao) & !is.na(.tmp_log_padrao), paste(.tmp_tipo_padrao, .tmp_log_padrao)
+    )
+  ]
+  enderecos_padrao[, .tmp_tipo_padrao := NULL]
+
+  cli::cli_progress_done(id = prog)
+}
+
+# checks ------------------------------------------------------------------
 
 checa_campos_do_logradouro <- function(campos_do_logradouro, enderecos) {
   col <- checkmate::makeAssertCollection()
@@ -158,6 +195,8 @@ checa_se_nome_ausente <- function(campos_do_logradouro) {
     erro_nome_do_logradouro_ausente()
   }
 }
+
+# erros -------------------------------------------------------------------
 
 erro_apenas_um_campo_presente <- function() {
   erro_endpad(

@@ -54,6 +54,41 @@ test_that("da erro quando nome do logradouro nao eh especificado", {
   )
 })
 
+test_that("printa mensagens de progresso quando verboso", {
+  rlang::local_options(endereco_padrao.verbose = "verbose")
+
+  # os tempos de execução variam entre execuções, então precisamos removê-los do
+  # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram
+
+  # com os 3 campos
+  expect_snapshot(
+    res <- tester(),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+
+  # com tipo e nome
+  expect_snapshot(
+    res <- tester(
+      campos_do_logradouro = correspondencia_logradouro(
+        tipo_de_logradouro = "tipo",
+        nome_do_logradouro = "logradouro"
+      )
+    ),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+
+  # com nome e numero
+  expect_snapshot(
+    res <- tester(
+      campos_do_logradouro = correspondencia_logradouro(
+        nome_do_logradouro = "logradouro",
+        numero = "numero"
+      )
+    ),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+})
+
 test_that("retorna logradouros completos padronizados", {
   # com os 3 campos
   expect_identical(
