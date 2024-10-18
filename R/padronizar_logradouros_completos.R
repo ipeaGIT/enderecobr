@@ -60,7 +60,6 @@ padronizar_logradouros_completos <- function(
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
   checa_campos_do_logradouro(campos_do_logradouro, enderecos)
 
-  checa_se_apenas_um_campo(campos_do_logradouro)
   checa_se_nome_ausente(campos_do_logradouro)
 
   enderecos_padrao <- data.table::as.data.table(enderecos)
@@ -186,10 +185,6 @@ checa_campos_do_logradouro <- function(campos_do_logradouro, enderecos) {
   return(invisible(TRUE))
 }
 
-checa_se_apenas_um_campo <- function(campos_do_logradouro) {
-  if (length(campos_do_logradouro) == 1) erro_apenas_um_campo_presente()
-}
-
 checa_se_nome_ausente <- function(campos_do_logradouro) {
   if (! "nome_do_logradouro" %in% names(campos_do_logradouro)) {
     erro_nome_do_logradouro_ausente()
@@ -197,21 +192,6 @@ checa_se_nome_ausente <- function(campos_do_logradouro) {
 }
 
 # erros -------------------------------------------------------------------
-
-erro_apenas_um_campo_presente <- function() {
-  erro_endpad(
-    c(
-      paste0(
-        "Apenas um campo foi passado para padroniza\u00e7\u00e3o. Por favor ",
-        "utilize a fun\u00e7\u00e3o correspondente:"
-      ),
-      "*" = "Tipo de logradouro: {.fn padronizar_tipos_de_logradouro}",
-      "*" = "Nome do logradouro: {.fn padronizar_logradouros}",
-      "*" = "N\u00famero: {.fn padronizar_numeros}"
-    ),
-    call = rlang::caller_env(n = 2)
-  )
-}
 
 erro_nome_do_logradouro_ausente <- function() {
   erro_endpad(

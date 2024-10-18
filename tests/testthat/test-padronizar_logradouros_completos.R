@@ -31,16 +31,6 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(manter_cols_extras = c(TRUE, TRUE)))
 })
 
-test_that("da erro quando apenas um campo eh especificado", {
-  expect_snapshot(
-    tester(
-      campos_do_logradouro = correspondencia_logradouro(numero = "numero")
-    ),
-    error = TRUE,
-    cnd_class = TRUE
-  )
-})
-
 test_that("da erro quando nome do logradouro nao eh especificado", {
   expect_snapshot(
     tester(

@@ -1,14 +1,3 @@
-# da erro quando apenas um campo eh especificado
-
-    Code
-      tester(campos_do_logradouro = correspondencia_logradouro(numero = "numero"))
-    Condition <erro_endpad_erro_apenas_um_campo_presente>
-      Error in `padronizar_logradouros_completos()`:
-      ! Apenas um campo foi passado para padronização. Por favor utilize a função correspondente:
-      * Tipo de logradouro: `padronizar_tipos_de_logradouro()`
-      * Nome do logradouro: `padronizar_logradouros()`
-      * Número: `padronizar_numeros()`
-
 # da erro quando nome do logradouro nao eh especificado
 
     Code
