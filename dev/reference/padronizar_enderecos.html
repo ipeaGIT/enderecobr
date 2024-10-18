@@ -59,7 +59,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">padronizar_enderecos</span><span class="op">(</span></span>
 <span>  <span class="va">enderecos</span>,</span>
 <span>  campos_do_endereco <span class="op">=</span> <span class="fu"><a href="correspondencia_campos.html">correspondencia_campos</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  manter_cols_extras <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  manter_cols_extras <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  combinar_logradouro <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -88,6 +89,14 @@ ser os mesmos nomes dos parâmetros da função <code><a href="correspondencia_c
 <dd><p>Um logical. Se colunas não especificadas em
 <code>campos_do_endereco</code> devem ser mantidas ou não (por exemplo, uma coluna de
 id do conjunto de dados sendo padronizado). Por padrão, <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-combinar-logradouro">combinar_logradouro<a class="anchor" aria-label="anchor" href="#arg-combinar-logradouro"></a></dt>
+<dd><p>Um logical. Se os campos que descrevem o
+logradouro (tipo, nome e número, por exemplo) devem ser combinados em um
+único campo de logradouro completo. Nesse caso, o parâmetro <code>logradouro</code> da
+<code><a href="correspondencia_campos.html">correspondencia_campos()</a></code> deve ser interpretado como o nome do logradouro.
+Por padrão, <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -140,6 +149,17 @@ endereço padronizados.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    complemento_padr  cep_padr     bairro_padr codmun_dom_padr    uf_dom_padr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;    &lt;char&gt;          &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:        QUADRA 20 25220-020 JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">padronizar_enderecos</span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span>, combinar_logradouro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       id          logradouro nroLogradouro complemento      cep      bairro</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;num&gt;              &lt;char&gt;         &lt;num&gt;      &lt;char&gt;    &lt;num&gt;      &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     1 r ns sra da piedade            20       qd 20 25220020 jd botanico</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom        logradouro_completo_padr complemento_padr  cep_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                          &lt;char&gt;           &lt;char&gt;    &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE 20        QUADRA 20 25220-020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        bairro_padr codmun_dom_padr    uf_dom_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
