@@ -16,6 +16,11 @@
 #' @param manter_cols_extras Um logical. Se colunas não especificadas em
 #'   `campos_do_endereco` devem ser mantidas ou não (por exemplo, uma coluna de
 #'   id do conjunto de dados sendo padronizado). Por padrão, `TRUE`.
+#' @param combinar_logradouro Um logical. Se os campos que descrevem o
+#'   logradouro (tipo, nome e número, por exemplo) devem ser combinados em um
+#'   único campo de logradouro completo. Nesse caso, o parâmetro `logradouro` da
+#'   `correspondencia_campos()` deve ser interpretado como o nome do logradouro.
+#'   Por padrão, `FALSE`.
 #'
 #' @return Um dataframe com colunas adicionais, representando os campos de
 #'   endereço padronizados.
@@ -46,14 +51,18 @@
 #'
 #' padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
 #'
+#' padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
+#'
 #' @export
 padronizar_enderecos <- function(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
-  manter_cols_extras = TRUE
+  manter_cols_extras = TRUE,
+  combinar_logradouro = FALSE
 ) {
   checkmate::assert_data_frame(enderecos)
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
+  checkmate::assert_logical(combinar_logradouro, any.missing = FALSE, len = 1)
   checa_campos_do_endereco(campos_do_endereco, enderecos)
 
   enderecos_padrao <- data.table::as.data.table(enderecos)
@@ -72,6 +81,21 @@ padronizar_enderecos <- function(
     "municipio",          "munic\u00edpios",     padronizar_municipios,
     "estado",             "estados",             padronizar_estados
   )
+
+  if (combinar_logradouro) {
+    campos_do_logradouro <- c("tipo_de_logradouro", "logradouro", "numero")
+
+    enderecos_padrao <- int_padronizar_ends_com_log_compl(
+      enderecos_padrao,
+      campos_do_endereco,
+      campos_do_logradouro
+    )
+
+    relacao_campos <- subset(
+      relacao_campos,
+      ! nome_campo %in% campos_do_logradouro
+    )
+  }
 
   purrr::pwalk(
     relacao_campos,
@@ -100,6 +124,29 @@ padronizar_enderecos <- function(
   }
 
   return(enderecos_padrao[])
+}
+
+int_padronizar_ends_com_log_compl <- function(enderecos_padrao,
+                                              campos_do_endereco,
+                                              campos_do_logradouro) {
+  campos_do_log_listados <- campos_do_endereco[
+    which(names(campos_do_endereco) %in% campos_do_logradouro)
+  ]
+
+  if (length(campos_do_log_listados) > 0) {
+    names(campos_do_log_listados) <- sub(
+      "^logradouro$",
+      "nome_do_logradouro",
+      names(campos_do_log_listados)
+    )
+
+    enderecos_padrao <- padronizar_logradouros_completos(
+      enderecos_padrao,
+      campos_do_logradouro = campos_do_log_listados
+    )
+  }
+
+  return(enderecos_padrao)
 }
 
 checa_campos_do_endereco <- function(campos_do_endereco, enderecos) {

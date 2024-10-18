@@ -21,6 +21,7 @@ utils::globalVariables(
     ".tmp_tipo_padrao",
     ".tmp_log_padrao",
     ".tmp_num_padrao",
-    "logradouro_completo"
+    "logradouro_completo",
+    "nome_campo"
   )
 )

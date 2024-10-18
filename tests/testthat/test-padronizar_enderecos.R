@@ -21,8 +21,14 @@ tester <- function(enderecos = get("enderecos", envir = parent.frame()),
                      municipio = "municipio",
                      estado = "estado"
                    ),
-                   manter_cols_extras = TRUE) {
-  padronizar_enderecos(enderecos, campos_do_endereco, manter_cols_extras)
+                   manter_cols_extras = TRUE,
+                   combinar_logradouro = FALSE) {
+  padronizar_enderecos(
+    enderecos,
+    campos_do_endereco,
+    manter_cols_extras,
+    combinar_logradouro
+  )
 }
 
 test_that("da erro com inputs incorretos", {
@@ -35,15 +41,29 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(manter_cols_extras = 1))
   expect_error(tester(manter_cols_extras = NA))
   expect_error(tester(manter_cols_extras = c(TRUE, TRUE)))
+
+  expect_error(tester(combinar_logradouro = 1))
+  expect_error(tester(combinar_logradouro = NA))
+  expect_error(tester(combinar_logradouro = c(TRUE, TRUE)))
 })
+
+# TODO: criar teste pra verificar se erro causado pela
+# padronizar_logradouros_completos()
+# está sendo atribuído a ela ou à padronizar_enderecos()
 
 test_that("printa mensagens de progresso quando verboso", {
   rlang::local_options(endereco_padrao.verbose = "verbose")
 
   # os tempos de execução variam entre execuções, então precisamos removê-los do
   # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram
+
   expect_snapshot(
     res <- tester(),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+
+  expect_snapshot(
+    res <- tester(combinar_logradouro = TRUE),
     transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
   )
 })
@@ -100,6 +120,16 @@ test_that("respeita manter_cols_extras", {
       "estado_padr"
     )
   )
+
+  expect_identical(
+    names(tester(manter_cols_extras = FALSE, combinar_logradouro = TRUE)),
+    c(
+      "tipo_de_logradouro", "logradouro", "numero", "complemento", "cep",
+      "bairro", "municipio", "estado",
+      "logradouro_completo_padr", "complemento_padr", "cep_padr", "bairro_padr",
+      "municipio_padr", "estado_padr"
+    )
+  )
 })
 
 # issue #13 - https://github.com/ipeaGIT/enderecopadrao/issues/13
@@ -111,6 +141,52 @@ test_that("funciona qnd coluna existe mas nao eh pra ser padronizada", {
       numero = 20,
       logradouro = "r ns sra da piedade",
       logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE"
+    )
+  )
+})
+
+test_that("combina colunas de logradouro quando pedido", {
+  expect_identical(
+    tester(combinar_logradouro = FALSE),
+    data.table::data.table(
+      id = 1,
+      tipo_de_logradouro = "r",
+      logradouro = "ns sra da piedade",
+      numero = 20,
+      complemento = "qd 20",
+      cep = 25220020,
+      bairro = "jd botanico",
+      municipio = 3304557,
+      estado = "rj",
+      tipo_de_logradouro_padr = "RUA",
+      logradouro_padr = "NOSSA SENHORA DA PIEDADE",
+      numero_padr = "20",
+      complemento_padr = "QUADRA 20",
+      cep_padr = "25220-020",
+      bairro_padr = "JARDIM BOTANICO",
+      municipio_padr = "RIO DE JANEIRO",
+      estado_padr = "RIO DE JANEIRO"
+    )
+  )
+
+  expect_identical(
+    tester(combinar_logradouro = TRUE),
+    data.table::data.table(
+      id = 1,
+      tipo_de_logradouro = "r",
+      logradouro = "ns sra da piedade",
+      numero = 20,
+      complemento = "qd 20",
+      cep = 25220020,
+      bairro = "jd botanico",
+      municipio = 3304557,
+      estado = "rj",
+      logradouro_completo_padr = "RUA NOSSA SENHORA DA PIEDADE 20",
+      complemento_padr = "QUADRA 20",
+      cep_padr = "25220-020",
+      bairro_padr = "JARDIM BOTANICO",
+      municipio_padr = "RIO DE JANEIRO",
+      estado_padr = "RIO DE JANEIRO"
     )
   )
 })

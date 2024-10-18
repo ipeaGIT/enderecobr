@@ -7,7 +7,8 @@
 padronizar_enderecos(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
-  manter_cols_extras = TRUE
+  manter_cols_extras = TRUE,
+  combinar_logradouro = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,12 @@ ser os mesmos nomes dos parâmetros da função \code{correspondencia_campos()}.
 \item{manter_cols_extras}{Um logical. Se colunas não especificadas em
 \code{campos_do_endereco} devem ser mantidas ou não (por exemplo, uma coluna de
 id do conjunto de dados sendo padronizado). Por padrão, \code{TRUE}.}
+
+\item{combinar_logradouro}{Um logical. Se os campos que descrevem o
+logradouro (tipo, nome e número, por exemplo) devem ser combinados em um
+único campo de logradouro completo. Nesse caso, o parâmetro \code{logradouro} da
+\code{correspondencia_campos()} deve ser interpretado como o nome do logradouro.
+Por padrão, \code{FALSE}.}
 }
 \value{
 Um dataframe com colunas adicionais, representando os campos de
@@ -60,5 +67,7 @@ campos <- correspondencia_campos(
 padronizar_enderecos(enderecos, campos)
 
 padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
+
+padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
 
 }
