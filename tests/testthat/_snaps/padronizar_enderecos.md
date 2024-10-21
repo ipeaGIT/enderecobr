@@ -1,3 +1,29 @@
+# funciona mas da warning quando colunas com nome padrao ja existem
+
+    Code
+      res <- tester(ends, correspondencia_campos(logradouro = "logradouro_padr"))
+    Condition <warning_endpad_coluna_existente>
+      Warning in `padronizar_enderecos()`:
+      A seguinte coluna foi encontrada no input e será sobrescrita no output: `logradouro_padr`.
+
+---
+
+    Code
+      res <- tester(ends, correspondencia_campos(logradouro = "logradouro_padr",
+        numero = "numero_padr"))
+    Condition <warning_endpad_coluna_existente>
+      Warning in `padronizar_enderecos()`:
+      As seguintes colunas foram encontradas no input e serão sobrescritas no output: `logradouro_padr` e `numero_padr`.
+
+---
+
+    Code
+      res <- tester(ends, correspondencia_campos(logradouro = "logradouro_padr",
+        numero = "numero_padr", estado = "estado_padr"))
+    Condition <warning_endpad_coluna_existente>
+      Warning in `padronizar_enderecos()`:
+      As seguintes colunas foram encontradas no input e serão sobrescritas no output: `logradouro_padr`, `numero_padr` e `estado_padr`.
+
 # printa mensagens de progresso quando verboso
 
     Code

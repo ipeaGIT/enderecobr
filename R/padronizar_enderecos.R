@@ -67,9 +67,6 @@ padronizar_enderecos <- function(
 
   enderecos_padrao <- data.table::as.data.table(enderecos)
 
-  campos_padronizados <- paste0(campos_do_endereco, "_padr")
-  names(campos_padronizados) <- names(campos_do_endereco)
-
   relacao_campos <- tibble::tribble(
     ~nome_campo,          ~nome_formatado,       ~funcao,
     "tipo_de_logradouro", "tipos de logradouro", padronizar_tipos_de_logradouro,
@@ -102,7 +99,7 @@ padronizar_enderecos <- function(
     function(nome_campo, nome_formatado, funcao) {
       if (nome_campo %in% names(campos_do_endereco)) {
         col_orig <- campos_do_endereco[nome_campo]
-        col_padr <- campos_padronizados[nome_campo]
+        col_padr <- paste0(nome_campo, "_padr")
 
         prog <- mensagem_progresso_endpad(
           paste0("Padronizando ", nome_formatado, "...")
@@ -178,5 +175,36 @@ checa_campos_do_endereco <- function(campos_do_endereco, enderecos) {
   )
   checkmate::reportAssertions(col)
 
+  # a função retorna os valores padronizados em colunas de nome "<campo>_padr".
+  # a seguir, checamos se colunas com esse nome existem e lançamos um warning
+  # caso positivo
+
+  campos_padr <- paste0(names(campos_do_endereco), "_padr")
+
+  campos_padr_existentes <- campos_padr[campos_padr %in% names(enderecos)]
+
+  if (length(campos_padr_existentes) > 0) {
+    warning_coluna_existente(campos_padr_existentes)
+  }
+
   return(invisible(TRUE))
+}
+
+warning_coluna_existente <- function(campos_padr_existentes) {
+  lista_campos <- cli::cli_vec(
+    campos_padr_existentes,
+    list("vec-last" = " e ", "vec-sep2" = " e ")
+  )
+
+  warning_endpad(
+    c(
+      paste0(
+        "A{?s} seguinte{?s} coluna{?s} fo{?i/ram} encontrada{?s} no input e ",
+        "ser{?\u00e1/\u00e3o} sobrescrita{?s} no output: ",
+        "{.var {lista_campos}}."
+      )
+    ),
+    call = rlang::caller_env(n = 2),
+    .envir = environment()
+  )
 }

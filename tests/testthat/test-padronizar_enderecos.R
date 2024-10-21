@@ -1,7 +1,7 @@
 enderecos <- data.frame(
   id = 1,
-  tipo_de_logradouro = "r",
-  logradouro = "ns sra da piedade",
+  tipo = "r",
+  log = "ns sra da piedade",
   numero = 20,
   complemento = "qd 20",
   cep = 25220020,
@@ -12,8 +12,8 @@ enderecos <- data.frame(
 
 tester <- function(enderecos = get("enderecos", envir = parent.frame()),
                    campos_do_endereco = correspondencia_campos(
-                     tipo_de_logradouro = "tipo_de_logradouro",
-                     logradouro = "logradouro",
+                     tipo_de_logradouro = "tipo",
+                     logradouro = "log",
                      numero = "numero",
                      complemento = "complemento",
                      cep = "cep",
@@ -47,6 +47,68 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(combinar_logradouro = c(TRUE, TRUE)))
 })
 
+test_that("funciona mas da warning quando colunas com nome padrao ja existem", {
+  # testando com 1, 2 e 3 itens pra ver pluralização e separadores na mensagem
+
+  ends <- data.frame(
+    logradouro_padr = "r ns sra da piedade",
+    numero_padr = 20,
+    estado_padr = 23
+  )
+
+  expect_snapshot(
+    res <- tester(ends, correspondencia_campos(logradouro = "logradouro_padr")),
+    cnd_class = TRUE
+  )
+  expect_identical(
+    res,
+    data.table::data.table(
+      numero_padr = 20,
+      estado_padr = 23,
+      logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE"
+    )
+  )
+
+  expect_snapshot(
+    res <- tester(
+      ends,
+      correspondencia_campos(
+        logradouro = "logradouro_padr",
+        numero = "numero_padr"
+      )
+    ),
+    cnd_class = TRUE
+  )
+  expect_identical(
+    res,
+    data.table::data.table(
+      estado_padr = 23,
+      logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE",
+      numero_padr = "20"
+    )
+  )
+
+  expect_snapshot(
+    res <- tester(
+      ends,
+      correspondencia_campos(
+        logradouro = "logradouro_padr",
+        numero = "numero_padr",
+        estado = "estado_padr"
+      )
+    ),
+    cnd_class = TRUE
+  )
+  expect_identical(
+    res,
+    data.table::data.table(
+      logradouro_padr = "RUA NOSSA SENHORA DA PIEDADE",
+      numero_padr = "20",
+      estado_padr = "CEARA"
+    )
+  )
+})
+
 # TODO: criar teste pra verificar se erro causado pela
 # padronizar_logradouros_completos()
 # está sendo atribuído a ela ou à padronizar_enderecos()
@@ -75,8 +137,8 @@ test_that("retorna enderecos padronizados", {
     tester(),
     data.table::data.table(
       id = 1,
-      tipo_de_logradouro = "r",
-      logradouro = "ns sra da piedade",
+      tipo = "r",
+      log = "ns sra da piedade",
       numero = 20,
       complemento = "qd 20",
       cep = 25220020,
@@ -102,8 +164,8 @@ test_that("respeita manter_cols_extras", {
     names(tester(manter_cols_extras = TRUE)),
     c(
       "id",
-      "tipo_de_logradouro", "logradouro", "numero", "complemento", "cep",
-      "bairro", "municipio", "estado",
+      "tipo", "log", "numero", "complemento", "cep", "bairro", "municipio",
+      "estado",
       "tipo_de_logradouro_padr", "logradouro_padr", "numero_padr",
       "complemento_padr", "cep_padr", "bairro_padr", "municipio_padr",
       "estado_padr"
@@ -113,8 +175,8 @@ test_that("respeita manter_cols_extras", {
   expect_identical(
     names(tester(manter_cols_extras = FALSE)),
     c(
-      "tipo_de_logradouro", "logradouro", "numero", "complemento", "cep",
-      "bairro", "municipio", "estado",
+      "tipo", "log", "numero", "complemento", "cep", "bairro", "municipio",
+      "estado",
       "tipo_de_logradouro_padr", "logradouro_padr", "numero_padr",
       "complemento_padr", "cep_padr", "bairro_padr", "municipio_padr",
       "estado_padr"
@@ -124,8 +186,8 @@ test_that("respeita manter_cols_extras", {
   expect_identical(
     names(tester(manter_cols_extras = FALSE, combinar_logradouro = TRUE)),
     c(
-      "tipo_de_logradouro", "logradouro", "numero", "complemento", "cep",
-      "bairro", "municipio", "estado",
+      "tipo", "log", "numero", "complemento", "cep", "bairro", "municipio",
+      "estado",
       "logradouro_completo_padr", "complemento_padr", "cep_padr", "bairro_padr",
       "municipio_padr", "estado_padr"
     )
@@ -150,8 +212,8 @@ test_that("combina colunas de logradouro quando pedido", {
     tester(combinar_logradouro = FALSE),
     data.table::data.table(
       id = 1,
-      tipo_de_logradouro = "r",
-      logradouro = "ns sra da piedade",
+      tipo = "r",
+      log = "ns sra da piedade",
       numero = 20,
       complemento = "qd 20",
       cep = 25220020,
@@ -173,8 +235,8 @@ test_that("combina colunas de logradouro quando pedido", {
     tester(combinar_logradouro = TRUE),
     data.table::data.table(
       id = 1,
-      tipo_de_logradouro = "r",
-      logradouro = "ns sra da piedade",
+      tipo = "r",
+      log = "ns sra da piedade",
       numero = 20,
       complemento = "qd 20",
       cep = 25220020,
