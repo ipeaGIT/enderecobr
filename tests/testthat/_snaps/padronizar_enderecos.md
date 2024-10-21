@@ -24,6 +24,16 @@
       Warning in `padronizar_enderecos()`:
       As seguintes colunas foram encontradas no input e serão sobrescritas no output: `logradouro_padr`, `numero_padr` e `estado_padr`.
 
+# erro de nome do nome de log ausente eh atribuido a pad enderecos
+
+    Code
+      tester(ends, correspondencia_campos(tipo_de_logradouro = "tipo", numero = "numero"),
+      combinar_logradouro = TRUE)
+    Condition <erro_endpad_nome_do_logradouro_ausente>
+      Error in `padronizar_enderecos()`:
+      ! Não é possível fazer uma padronização de logradouro completo sem o nome do logradouro.
+      i Por favor informe uma coluna com a informação de nome do logradouro.
+
 # printa mensagens de progresso quando verboso
 
     Code

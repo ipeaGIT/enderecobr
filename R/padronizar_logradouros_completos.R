@@ -194,6 +194,24 @@ checa_se_nome_ausente <- function(campos_do_logradouro) {
 # erros -------------------------------------------------------------------
 
 erro_nome_do_logradouro_ausente <- function() {
+  # a padronizar_logradouros_completos() pode tanto ser chamada individualmente
+  # ou como parte da função padronizar_enderecos(), quando combinar_logradouro é
+  # TRUE. nesse caso, precisamos que o erro aponte pra chamada da
+  # padronizar_enderecos(), já que o usuário não sabe que a
+  # logradouros_completos é chamda internamente. pra isso, verificamos as
+  # chamadas feitas na stack e, caso seja feita pela função interna usada na
+  # padronizar_enderecos(), mudamos o caller_env do erro
+
+  n_caller_env <- 2
+
+  chamada_upstream <-  sys.call(-3)
+  if (!is.null(chamada_upstream)) {
+    funcao_upstream <- as.name(chamada_upstream[[1]])
+    if (funcao_upstream == "int_padronizar_ends_com_log_compl") {
+      n_caller_env <- 4
+    }
+  }
+
   erro_endpad(
     c(
       paste0(
@@ -205,7 +223,7 @@ erro_nome_do_logradouro_ausente <- function() {
         "logradouro."
       )
     ),
-    call = rlang::caller_env(n = 2)
+    call = rlang::caller_env(n = n_caller_env)
   )
 }
 

@@ -109,9 +109,19 @@ test_that("funciona mas da warning quando colunas com nome padrao ja existem", {
   )
 })
 
-# TODO: criar teste pra verificar se erro causado pela
-# padronizar_logradouros_completos()
-# está sendo atribuído a ela ou à padronizar_enderecos()
+test_that("erro de nome do nome de log ausente eh atribuido a pad enderecos", {
+  ends <- data.frame(tipo = "r", numero = 20)
+
+  expect_snapshot(
+    tester(
+      ends,
+      correspondencia_campos(tipo_de_logradouro = "tipo", numero = "numero"),
+      combinar_logradouro = TRUE
+    ),
+    error = TRUE,
+    cnd_class = TRUE
+  )
+})
 
 test_that("printa mensagens de progresso quando verboso", {
   rlang::local_options(endereco_padrao.verbose = "verbose")
