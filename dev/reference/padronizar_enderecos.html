@@ -132,23 +132,23 @@ endereço padronizados.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       id          logradouro nroLogradouro complemento      cep      bairro</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;num&gt;              &lt;char&gt;         &lt;num&gt;      &lt;char&gt;    &lt;num&gt;      &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     1 r ns sra da piedade            20       qd 20 25220020 jd botanico</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom              logradouro_padr nroLogradouro_padr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;             &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE                 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    complemento_padr  cep_padr     bairro_padr codmun_dom_padr    uf_dom_padr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;    &lt;char&gt;          &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        QUADRA 20 25220-020 JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom              logradouro_padr numero_padr complemento_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;      &lt;char&gt;           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE          20        QUADRA 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cep_padr     bairro_padr municipio_padr    estado_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;          &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 25220-020 JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">padronizar_enderecos</span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span>, manter_cols_extras <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             logradouro nroLogradouro complemento      cep      bairro</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;         &lt;num&gt;      &lt;char&gt;    &lt;num&gt;      &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: r ns sra da piedade            20       qd 20 25220020 jd botanico</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom              logradouro_padr nroLogradouro_padr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;             &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE                 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    complemento_padr  cep_padr     bairro_padr codmun_dom_padr    uf_dom_padr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt;    &lt;char&gt;          &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        QUADRA 20 25220-020 JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom              logradouro_padr numero_padr complemento_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;      &lt;char&gt;           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE          20        QUADRA 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cep_padr     bairro_padr municipio_padr    estado_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;          &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 25220-020 JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">padronizar_enderecos</span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span>, combinar_logradouro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       id          logradouro nroLogradouro complemento      cep      bairro</span>
@@ -157,9 +157,9 @@ endereço padronizados.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    codmun_dom uf_dom        logradouro_completo_padr complemento_padr  cep_padr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt; &lt;char&gt;                          &lt;char&gt;           &lt;char&gt;    &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE 20        QUADRA 20 25220-020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        bairro_padr codmun_dom_padr    uf_dom_padr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: JARDIM BOTANICO  RIO DE JANEIRO RIO DE JANEIRO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        bairro_padr municipio_padr    estado_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
