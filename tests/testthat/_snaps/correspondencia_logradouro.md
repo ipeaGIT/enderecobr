@@ -2,7 +2,7 @@
 
     Code
       correspondencia_logradouro()
-    Condition <erro_endpad_erro_correspondencia_logradouro_nula>
+    Condition <erro_endpad_correspondencia_logradouro_nula>
       Error in `correspondencia_logradouro()`:
       ! Ao menos um dos argumentos da `correspondencia_logradouro()` deve ser diferente de `NULL`.
 

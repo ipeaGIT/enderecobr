@@ -3,7 +3,7 @@
     Code
       tester(campos_do_logradouro = correspondencia_logradouro(tipo_de_logradouro = "tipo",
         numero = "numero"))
-    Condition <erro_endpad_erro_nome_do_logradouro_ausente>
+    Condition <erro_endpad_nome_do_logradouro_ausente>
       Error in `padronizar_logradouros_completos()`:
       ! Não é possível fazer uma padronização de logradouro completo sem o nome do logradouro.
       i Por favor informe uma coluna com a informação de nome do logradouro.
