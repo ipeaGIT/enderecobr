@@ -21,7 +21,6 @@ Imports:
     checkmate,
     cli,
     data.table,
-    purrr,
     rlang,
     stringi,
     stringr,
