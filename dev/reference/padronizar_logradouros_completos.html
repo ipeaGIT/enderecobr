@@ -63,7 +63,8 @@ informação.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">padronizar_logradouros_completos</span><span class="op">(</span></span>
 <span>  <span class="va">enderecos</span>,</span>
 <span>  campos_do_logradouro <span class="op">=</span> <span class="fu"><a href="correspondencia_logradouro.html">correspondencia_logradouro</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  manter_cols_extras <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  manter_cols_extras <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  checar_tipos <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,6 +92,13 @@ da função <code><a href="correspondencia_logradouro.html">correspondencia_logr
 <code>campos_do_logradouro</code> devem ser mantidas no output ou não (por exemplo,
 uma coluna com a informação de bairro ou com o id do conjunto de dados
 sendo padronizado). Por padrão, <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-checar-tipos">checar_tipos<a class="anchor" aria-label="anchor" href="#arg-checar-tipos"></a></dt>
+<dd><p>Um logical. Se a ocorrência de duplicatas entre os tipos
+e nomes dos logradouros deve ser verificada ao combiná-los (por exemplo,
+quando o tipo é descrito como "RUA" e o nome é descrito como "RUA
+BOTAFOGO"). Por padrão, <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -137,6 +145,19 @@ dataframe de apenas uma coluna, <code>logradouro_completo</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    tipoLogradouro        logradouro nroLogradouro</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;char&gt;            &lt;char&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:              r ns sra da piedade            20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           logradouro_completo_padr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: RUA NOSSA SENHORA DA PIEDADE 20</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">enderecos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  tipoLogradouro <span class="op">=</span> <span class="st">"r"</span>,</span></span>
+<span class="r-in"><span>  logradouro <span class="op">=</span> <span class="st">"r ns sra da piedade"</span>,</span></span>
+<span class="r-in"><span>  nroLogradouro <span class="op">=</span> <span class="fl">20</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">padronizar_logradouros_completos</span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span>, checar_tipos <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    tipoLogradouro          logradouro nroLogradouro</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;char&gt;              &lt;char&gt;         &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:              r r ns sra da piedade            20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           logradouro_completo_padr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: RUA NOSSA SENHORA DA PIEDADE 20</span>
