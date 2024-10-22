@@ -90,6 +90,21 @@ checa_se_digitos_demais <- function(ceps_padrao) {
 # erros -------------------------------------------------------------------
 
 erro_cep_com_letra <- function(possui_letras) {
+  # a padronizar_ceps() pode tanto ser chamada individualmente ou como parte da
+  # função padronizar_enderecos(). nesse caso, precisamos que o erro aponte pra
+  # chamada da padronizar_enderecos(), já que o usuário não sabe que a
+  # padronizar_ceps é chamada internamente. pra isso, verificamos as chamadas
+  # feitas na stack e, caso seja feita pela função interna usada na
+  # padronizar_enderecos(), mudamos o caller_env do erro
+
+  n_caller_env <- 2
+
+  chamada_upstream <-  sys.call(-9)
+  if (!is.null(chamada_upstream)) {
+    funcao_upstream <- as.name(chamada_upstream[[1]])
+    if (funcao_upstream == "padronizar_enderecos") n_caller_env <- 8
+  }
+
   indice_com_letras <- which(possui_letras)
   indice_com_letras <- as.character(indice_com_letras)
 
@@ -106,12 +121,27 @@ erro_cep_com_letra <- function(possui_letras) {
         "{lista_indices} possu{?i/em} letras."
       )
     ),
-    call = rlang::caller_env(n = 2),
+    call = rlang::caller_env(n = n_caller_env),
     .envir = environment()
   )
 }
 
 erro_cep_com_digitos_demais <- function(possui_digitos_demais) {
+  # a padronizar_ceps() pode tanto ser chamada individualmente ou como parte da
+  # função padronizar_enderecos(). nesse caso, precisamos que o erro aponte pra
+  # chamada da padronizar_enderecos(), já que o usuário não sabe que a
+  # padronizar_ceps é chamada internamente. pra isso, verificamos as chamadas
+  # feitas na stack e, caso seja feita pela função interna usada na
+  # padronizar_enderecos(), mudamos o caller_env do erro
+
+  n_caller_env <- 2
+
+  chamada_upstream <-  sys.call(-9)
+  if (!is.null(chamada_upstream)) {
+    funcao_upstream <- as.name(chamada_upstream[[1]])
+    if (funcao_upstream == "padronizar_enderecos") n_caller_env <- 8
+  }
+
   indice_muitos_digitos <- which(possui_digitos_demais)
   indice_muitos_digitos <- as.character(indice_muitos_digitos)
 
@@ -129,7 +159,7 @@ erro_cep_com_digitos_demais <- function(possui_digitos_demais) {
         "ap\u00f3s padroniza\u00e7\u00e3o."
       )
     ),
-    call = rlang::caller_env(n = 2),
+    call = rlang::caller_env(n = n_caller_env),
     .envir = environment()
   )
 }

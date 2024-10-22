@@ -34,6 +34,24 @@
       ! Não é possível fazer uma padronização de logradouro completo sem o nome do logradouro.
       i Por favor informe uma coluna com a informação de nome do logradouro.
 
+# erros relacionados ao cep sao atribuidos a pad enderecos
+
+    Code
+      tester(ends, correspondencia_campos(cep = "cep"))
+    Condition <erro_endpad_cep_com_digitos_demais>
+      Error in `padronizar_enderecos()`:
+      ! CEP não deve conter mais que 8 dígitos.
+      i O elemento com índice 1 possui mais que 8 dígitos após padronização.
+
+---
+
+    Code
+      tester(ends, correspondencia_campos(cep = "cep"))
+    Condition <erro_endpad_cep_com_letra>
+      Error in `padronizar_enderecos()`:
+      ! CEP não deve conter letras.
+      i O elemento com índice 1 possui letras.
+
 # printa mensagens de progresso quando verboso
 
     Code

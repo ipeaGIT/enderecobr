@@ -123,6 +123,24 @@ test_that("erro de nome do nome de log ausente eh atribuido a pad enderecos", {
   )
 })
 
+test_that("erros relacionados ao cep sao atribuidos a pad enderecos", {
+  ends <- data.frame(cep = "222100600")
+
+  expect_snapshot(
+    tester(ends, correspondencia_campos(cep = "cep")),
+    error = TRUE,
+    cnd_class = TRUE
+  )
+
+  ends <- data.frame(cep = "botafogo")
+
+  expect_snapshot(
+    tester(ends, correspondencia_campos(cep = "cep")),
+    error = TRUE,
+    cnd_class = TRUE
+  )
+})
+
 test_that("printa mensagens de progresso quando verboso", {
   rlang::local_options(endereco_padrao.verbose = "verbose")
 

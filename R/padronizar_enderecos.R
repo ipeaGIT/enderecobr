@@ -94,22 +94,26 @@ padronizar_enderecos <- function(
     )
   }
 
-  purrr::pwalk(
-    relacao_campos,
-    function(nome_campo, nome_formatado, funcao) {
-      if (nome_campo %in% names(campos_do_endereco)) {
-        col_orig <- campos_do_endereco[nome_campo]
-        col_padr <- paste0(nome_campo, "_padr")
+  invisible(
+    mapply(
+      relacao_campos$nome_campo,
+      relacao_campos$nome_formatado,
+      relacao_campos$funcao,
+      FUN = function(nome_campo, nome_formatado, funcao) {
+        if (nome_campo %in% names(campos_do_endereco)) {
+          col_orig <- campos_do_endereco[nome_campo]
+          col_padr <- paste0(nome_campo, "_padr")
 
-        prog <- mensagem_progresso_endpad(
-          paste0("Padronizando ", nome_formatado, "...")
-        )
+          prog <- mensagem_progresso_endpad(
+            paste0("Padronizando ", nome_formatado, "...")
+          )
 
-        enderecos_padrao[, c(col_padr) := funcao(enderecos[[col_orig]])]
+          enderecos_padrao[, c(col_padr) := funcao(enderecos[[col_orig]])]
 
-        cli::cli_progress_done(id = prog)
+          cli::cli_progress_done(id = prog)
+        }
       }
-    }
+    )
   )
 
   campos_extras <- setdiff(names(enderecos), campos_do_endereco)

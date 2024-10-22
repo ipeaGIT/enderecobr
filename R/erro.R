@@ -1,4 +1,4 @@
-erro_endpad <- function(message, call, .envir) {
+erro_endpad <- function(message, call, .envir = parent.frame()) {
   chamada_erro <- sys.call(-1)
   funcao_atribuida <- as.name(chamada_erro[[1]])
 
