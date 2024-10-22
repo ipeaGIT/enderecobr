@@ -21,32 +21,42 @@ probabilísticas entre strings.
 
 ## Instalação
 
-O pacote ainda não se encontra no CRAN. Para baixar a última versão estável, use
-o código abaixo:
+Para usar o pacote, é necessário primeiro instalá-lo. A última versão estável
+pode ser baixada do CRAN com o comando a seguir:
+
+```r
+install.packages("enderecopadrao")
+```
+
+Caso prefira, a versão em desenvolvimento também pode ser usada. Para isso, use
+o seguinte comando:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("ipeaGIT/enderecopadrao@v0.1.0")
-```
-
-Para baixar a versão em desenvolvimento, use o seguinte código:
-
-```r
 remotes::install_github("ipeaGIT/enderecopadrao")
 ```
 
 ## Utilização
 
-O pacote fornece funções para padronizar diferentes campos de um endereço. A
-`padronizar_enderecos()` padroniza diversos campos simultaneamente, recebendo,
-para isso, um dataframe e uma relação de correspondência entre as colunas desse
-dataframe e os campos a serem padronizados:
+O **enderecopadrao** disponibiliza funções para padronizar os diversos campos de
+um endereço. Essas funções agem tanto sobre campos individuais quanto sobre um
+conjunto de campos. Vamos ver, primeiro, como funcionam as funções que agem
+sobre múltiplos campos simultaneamente.
+
+### Padronização de múltiplos campos simultaneamente
+
+A `padronizar_enderecos()`, carro-chefe do pacote, atua de forma simultânea
+sobre os vários campos que podem compor um endereço. Para isso, ela recebe um
+dataframe e a correspondência entre suas colunas e os campos a serem
+padronizados:
 
 ```{r}
 library(enderecopadrao)
 
 enderecos <- data.frame(
-  logradouro = "r ns sra da piedade",
+  id = 1,
+  tipo = "r",
+  logradouro = "ns sra da piedade",
   nroLogradouro = 20,
   complemento = "qd 20",
   cep = 25220020,
@@ -56,6 +66,7 @@ enderecos <- data.frame(
 )
 
 campos <- correspondencia_campos(
+  tipo_de_logradouro = "tipo",
   logradouro = "logradouro",
   numero = "nroLogradouro",
   complemento = "complemento",
@@ -71,13 +82,86 @@ padronizar_enderecos(enderecos, campos_do_endereco = campos)
 Note que no exemplo acima nós também utiliza a função
 `correspondencia_campos()`, que facilita o processo de especificação de
 correspondência entre as colunas do dataframe e os campos do endereço a serem
-padronizados. Na prática, no entanto, essa função é opcional, e poderíamos
-passar um vetor de caracteres no argumento `campos_do_endereco` (a
-`correspondencia_campos()` realiza alguns testes no input, garantindo que o
-vetor a ser passado pra `padronizar_enderecos()` esteja corretamente formatado).
+padronizados. Com ela, nós especificamos que a coluna que contém a informação de
+tipo de logradouro se chama `"tipo"`, que a coluna de número do logradouro se
+chama `"nroLogradouro"`, etc. Na prática, no entanto, essa função é opcional, e
+poderíamos simplesmente passar um vetor de caracteres no formato
+`c(tipo_de_logradouro = "tipo", logradouro = "logradouro", ...)`. A
+`correspondencia_campos()`, no entanto, realiza alguns testes no input,
+garantindo que o vetor a ser passado pra `padronizar_enderecos()` esteja
+corretamente formatado.
 
-Por trás dos panos, a `padronizar_enderecos()` utiliza diversas outras funções
-que padronizam campos de forma individual. Cada uma delas recebe um vetor com
+A `padronizar_enderecos()` contém, ainda, dois parâmetros adicionais. O
+`manter_cols_extras` determina as colunas incluídas no output da função. Caso
+seja `TRUE` (valor padrão), todas as colunas do dataframe original são mantidas;
+caso seja `FALSE`, apenas as colunas usadas na padronização e seus respectivos
+resultados são preservados. O bloco abaixo demonstra essa funcionalidade:
+
+```{r}
+campos <- correspondencia_campos(
+  tipo_de_logradouro = "tipo",
+  logradouro = "logradouro"
+)
+
+padronizar_enderecos(enderecos, campos, manter_cols_extras = TRUE)
+
+padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
+```
+
+O `combinar_logradouro`, por sua vez, determina se os campos que compõem o
+logradouro (tipo, nome e número) devem ser combinados em um único campo
+padronizado de logradouro completo. Caso seja `FALSE`(valor padrão), os campos
+permanecem separados; se for `TRUE`, são combinados. Nesse caso, o parâmetro
+`logradouro` da `correspondencia_campos()` deve ser interpretado como o *nome*
+do logradouro. A seguir, demonstramos essa funcionalidade:
+
+```{r}
+enderecos <- data.frame(
+  tipo = "r",
+  logradouro = "ns sra da piedade",
+  nroLogradouro = 20
+)
+
+campos <- correspondencia_campos(
+  tipo_de_logradouro = "tipo",
+  logradouro = "logradouro",
+  numero = "nroLogradouro"
+)
+
+padronizar_enderecos(enderecos, campos, combinar_logradouro = FALSE)
+
+padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
+```
+
+O parâmetro `combinar_logradouro` aciona, de forma oculta, outra função que lida
+com múltiplos campos simultaneamente: a `padronizar_logradouros_completos()`.
+Essa função também pode ser usada de forma separada e, de forma similiar à
+`padronizar_enderecos()`, recebe um dataframe com as informações do logradouro
+(tipo, nome e número) e a correspondência entre suas colunas e os campos a serem
+padronizados:
+
+```{r}
+campos <- correspondencia_logradouro(
+  tipo_de_logradouro = "tipo",
+  nome_do_logradouro = "logradouro",
+  numero = "nroLogradouro"
+)
+
+padronizar_logradouros_completos(enderecos, campos_do_logradouro = campos)
+```
+
+Note que, nesse caso, usamos a função `campos_do_logradouro()` para estabelecer
+a correspondência entre colunas e campos do endereço, mas também poderíamos
+passar um vetor de caracteres no argumento `campos_do_logradouro`. A
+`padronizar_logradouros_completos()` também inclui os parâmetros
+`manter_cols_extras` e `checar_tipos`, que funcionam de forma idêntica aos
+parâmetros de mesmo nome da `padronizar_enderecos()`.
+
+### Padronização de campos individuais
+
+Por trás dos panos, tanto a `padronizar_enderecos()` quanto a
+`padronizar_logradouros_completos()` utilizam diversas outras funções que
+padronizam campos de forma individual. Cada uma delas recebe um vetor com
 valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos
 valores padronizados. As funções atualmente disponíveis são:
 
@@ -87,6 +171,7 @@ valores padronizados. As funções atualmente disponíveis são:
 - `padronizar_ceps()`
 - `padronizar_logradouros()`
 - `padronizar_numeros()`
+- `padronizar_tipos_de_logradouro()`
 - `padronizar_complementos()`
 
 A `padronizar_estados()` aceita vetores de strings e números. Caso numérico, o
@@ -111,10 +196,10 @@ padronizar_estados(estados)
 A função de padronização de campos de município, `padronizar_municipios()`,
 funciona de forma muito semelhante, aceitando também valores numéricos
 representando os códigos dos municípios e strings. As mesmas manipulações de
-remoção de espaços, conversão para caixa alta são aplicadas e conversão para
-caracteres são aplicadas (assim como nos demais tratamentos de vetores de
-strings que serão apresentados a seguir), mas a função também verifica erros
-ortográficos frequentemente observados nos nomes dos municípios (e.g. Moji Mirim
+remoção de espaços, conversão para caixa alta e conversão para caracteres são
+aplicadas (assim como nos demais tratamentos de vetores de strings que serão
+apresentados a seguir), mas a função também verifica erros ortográficos
+frequentemente observados nos nomes dos municípios (e.g. Moji Mirim
 -> Mogi Mirim, Parati -> Paraty).
 
 ```{r}
@@ -156,12 +241,12 @@ números. Caso o input seja numérico, a função verifica se os valores possuem
 comprimentos compatíveis com um CEP, adicionando zeros à esquerda se necessário
 (é muito comum que leitores de CSV, por exemplo, erroneamente leiam valores de
 CEP como números e excluam zeros à esquerda por considerá-los redundantes). Caso
-o input seja formado por strings, a função remove frequentemente são usados para
-separar partes do CEP (e.g. pontos, vírgulas, espaços em branco) e verifica se o
-hífen separando os cinco primeiros dígitos dos três últimos está presente,
-adicionando-o caso contrário. A função ainda produz erros se recebe como input
-valores que não podem ser corretamente convertidos em CEPs, como no caso de
-strings contendo caracteres não numéricos e de strings com caracteres em
+o input seja formado por strings, a função remove caracteres que frequentemente
+são usados para separar partes do CEP (e.g. pontos, vírgulas, espaços em branco)
+e verifica se o hífen separando os cinco primeiros dígitos dos três últimos está
+presente, adicionando-o caso contrário. A função ainda produz erros se recebe
+como input valores que não podem ser corretamente convertidos em CEPs, como no
+caso de strings contendo caracteres não numéricos e de strings com caracteres em
 excesso.
 
 ```{r, error=TRUE}
@@ -205,6 +290,16 @@ padronizar_numeros(numeros)
 
 numeros <- c(210, 1, 10000)
 padronizar_numeros(numeros)
+```
+
+Outra função que atua sobre uma informação específica do logradouro, caso essa
+seja fornecida separadamente, é a `padronizar_tipos_de_logradouro()`. Fora o
+tratamento usual dado a strings, a função também expande abreviações
+frequentemente observadas no campo de tipo de logradouro.
+
+```{r}
+tipos <- c("r", "R.", "AVN", "AVE", "JDM", "QD")
+padronizar_tipos_de_logradouro(tipos)
 ```
 
 Por fim, a `padronizar_complementos()` age de forma similar às funções de
