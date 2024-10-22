@@ -17,6 +17,10 @@
 #'   `campos_do_logradouro` devem ser mantidas no output ou não (por exemplo,
 #'   uma coluna com a informação de bairro ou com o id do conjunto de dados
 #'   sendo padronizado). Por padrão, `TRUE`.
+#' @param checar_tipos Um logical. Se a ocorrência de duplicatas entre os tipos
+#'   e nomes dos logradouros deve ser verificada ao combiná-los (por exemplo,
+#'   quando o tipo é descrito como "RUA" e o nome é descrito como "RUA
+#'   BOTAFOGO"). Por padrão, `FALSE`.
 #'
 #' @return Caso `manter_cols_extras` seja `TRUE`, o mesmo dataframe de input,
 #'   mas sem as colunas descrevendo o logradouro e com uma coluna padronizada
@@ -50,14 +54,23 @@
 #'   manter_cols_extras = FALSE
 #' )
 #'
+#' enderecos <- data.frame(
+#'   tipoLogradouro = "r",
+#'   logradouro = "r ns sra da piedade",
+#'   nroLogradouro = 20
+#' )
+#' padronizar_logradouros_completos(enderecos, campos, checar_tipos = TRUE)
+#'
 #' @export
 padronizar_logradouros_completos <- function(
   enderecos,
   campos_do_logradouro = correspondencia_logradouro(),
-  manter_cols_extras = TRUE
+  manter_cols_extras = TRUE,
+  checar_tipos = FALSE
 ) {
   checkmate::assert_data_frame(enderecos)
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
+  checkmate::assert_logical(checar_tipos, any.missing = FALSE, len = 1)
   checa_campos_do_logradouro(campos_do_logradouro, enderecos)
 
   checa_se_nome_ausente(campos_do_logradouro)
@@ -74,7 +87,7 @@ padronizar_logradouros_completos <- function(
   }
 
   if ("tipo_de_logradouro" %in% names(campos_do_logradouro)) {
-    int_padronizar_tipo(enderecos_padrao, campos_do_logradouro)
+    int_padronizar_tipo(enderecos_padrao, campos_do_logradouro, checar_tipos)
   }
 
   data.table::setnames(
@@ -132,7 +145,9 @@ int_padronizar_numero <- function(enderecos_padrao, campos_do_logradouro) {
   cli::cli_progress_done(id = prog)
 }
 
-int_padronizar_tipo <- function(enderecos_padrao, campos_do_logradouro) {
+int_padronizar_tipo <- function(enderecos_padrao,
+                                campos_do_logradouro,
+                                checar_tipos) {
   prog <- mensagem_progresso_endpad("Padronizando tipos de logradouro...")
 
   enderecos_padrao[
@@ -143,6 +158,29 @@ int_padronizar_tipo <- function(enderecos_padrao, campos_do_logradouro) {
   ]
 
   cli::cli_progress_done(id = prog)
+
+  if (checar_tipos) {
+    prog <- mensagem_progresso_endpad(
+      "Verificando duplicatas entre o tipo e o nome do logradouro..."
+    )
+
+    enderecos_padrao[
+      ,
+      .prim_palav_logr := stringr::word(.tmp_log_padrao, start = 1)
+    ]
+    enderecos_padrao[
+      ,
+      .tmp_tipo_padrao := data.table::fifelse(
+        .prim_palav_logr == .tmp_tipo_padrao,
+        NA_character_,
+        .tmp_tipo_padrao
+      )
+    ]
+    enderecos_padrao[, .prim_palav_logr := NULL]
+
+    cli::cli_progress_done(id = prog)
+  }
+
   prog <- mensagem_progresso_endpad(
     "Trazendo tipos de logradouro para o logradouro completo..."
   )

@@ -7,7 +7,8 @@
 padronizar_logradouros_completos(
   enderecos,
   campos_do_logradouro = correspondencia_logradouro(),
-  manter_cols_extras = TRUE
+  manter_cols_extras = TRUE,
+  checar_tipos = FALSE
 )
 }
 \arguments{
@@ -26,6 +27,11 @@ da função \code{correspondencia_logradouro()}.}
 \code{campos_do_logradouro} devem ser mantidas no output ou não (por exemplo,
 uma coluna com a informação de bairro ou com o id do conjunto de dados
 sendo padronizado). Por padrão, \code{TRUE}.}
+
+\item{checar_tipos}{Um logical. Se a ocorrência de duplicatas entre os tipos
+e nomes dos logradouros deve ser verificada ao combiná-los (por exemplo,
+quando o tipo é descrito como "RUA" e o nome é descrito como "RUA
+BOTAFOGO"). Por padrão, \code{FALSE}.}
 }
 \value{
 Caso \code{manter_cols_extras} seja \code{TRUE}, o mesmo dataframe de input,
@@ -64,5 +70,12 @@ padronizar_logradouros_completos(
   campos,
   manter_cols_extras = FALSE
 )
+
+enderecos <- data.frame(
+  tipoLogradouro = "r",
+  logradouro = "r ns sra da piedade",
+  nroLogradouro = 20
+)
+padronizar_logradouros_completos(enderecos, campos, checar_tipos = TRUE)
 
 }
