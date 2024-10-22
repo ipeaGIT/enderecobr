@@ -14,7 +14,7 @@
     Condition <erro_endpad_cep_com_letra>
       Error in `padronizar_ceps()`:
       ! CEP não deve conter letras.
-      i Os elementos com índices 2 and 4 possuem letras.
+      i Os elementos com índices 2 e 4 possuem letras.
 
 ---
 
@@ -50,7 +50,7 @@
     Condition <erro_endpad_cep_com_digitos_demais>
       Error in `padronizar_ceps()`:
       ! CEP não deve conter mais que 8 dígitos.
-      i Os elementos com índices 2 and 3 possuem mais que 8 dígitos após padronização.
+      i Os elementos com índices 2 e 3 possuem mais que 8 dígitos após padronização.
 
 ---
 

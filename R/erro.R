@@ -1,4 +1,4 @@
-erro_endpad <- function(message, call) {
+erro_endpad <- function(message, call, .envir) {
   chamada_erro <- sys.call(-1)
   funcao_atribuida <- as.name(chamada_erro[[1]])
 
@@ -10,6 +10,7 @@ erro_endpad <- function(message, call) {
   cli::cli_abort(
     message,
     class = classes_erro,
-    call = call
+    call = call,
+    .envir = .envir
   )
 }
