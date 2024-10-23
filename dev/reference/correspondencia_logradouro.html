@@ -60,19 +60,11 @@ campos de logradouro (tipo, nome e número) em um dataframe de endereços.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-tipo-de-logradouro">tipo_de_logradouro<a class="anchor" aria-label="anchor" href="#arg-tipo-de-logradouro"></a></dt>
-<dd><p>O nome da coluna que representa o tipo de
-logradouro no dataframe de endereços.</p></dd>
-
-
-<dt id="arg-nome-do-logradouro">nome_do_logradouro<a class="anchor" aria-label="anchor" href="#arg-nome-do-logradouro"></a></dt>
-<dd><p>O nome da coluna que representa o nome do
-logradouro no dataframe de endereços.</p></dd>
-
-
-<dt id="arg-numero">numero<a class="anchor" aria-label="anchor" href="#arg-numero"></a></dt>
-<dd><p>O nome da coluna que representa o numero do logradouro no
-dataframe de endereços.</p></dd>
+<dl><dt id="arg-tipo-de-logradouro-nome-do-logradouro-numero">tipo_de_logradouro, nome_do_logradouro, numero<a class="anchor" aria-label="anchor" href="#arg-tipo-de-logradouro-nome-do-logradouro-numero"></a></dt>
+<dd><p>Uma string. O nome da
+coluna que representa o respectivo campo do logradouro no dataframe. Pode
+ser <code>NULL</code>, no caso do campo não estar listado. Ao menos um dos campos deve
+receber um valor não nulo.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -83,13 +75,21 @@ do logradouro e os valores as colunas que os descrevem no dataframe.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">correspondencia_logradouro</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo_de_logradouro"</span>,</span></span>
-<span class="r-in"><span>  nome_do_logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span></span>
-<span class="r-in"><span>  numero <span class="op">=</span> <span class="st">"numero"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">enderecos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  tipo <span class="op">=</span> <span class="st">"r"</span>,</span></span>
+<span class="r-in"><span>  log <span class="op">=</span> <span class="st">"ns sra da piedade"</span>,</span></span>
+<span class="r-in"><span>  nroLogradouro <span class="op">=</span> <span class="fl">20</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   tipo_de_logradouro   nome_do_logradouro               numero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "tipo_de_logradouro"         "logradouro"             "numero" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># dado o dataframe acima, a seguinte chamada cria a correspondencia entre</span></span></span>
+<span class="r-in"><span><span class="co"># suas colunas e os campos</span></span></span>
+<span class="r-in"><span><span class="fu">correspondencia_logradouro</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo"</span>,</span></span>
+<span class="r-in"><span>  nome_do_logradouro <span class="op">=</span> <span class="st">"log"</span>,</span></span>
+<span class="r-in"><span>  numero <span class="op">=</span> <span class="st">"nroLogradouro"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tipo_de_logradouro nome_do_logradouro             numero </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             "tipo"              "log"    "nroLogradouro" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

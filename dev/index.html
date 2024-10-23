@@ -59,27 +59,27 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="enderecopadrao">enderecopadrao<a class="anchor" aria-label="anchor" href="#enderecopadrao"></a>
 </h1></div>
-<p><a href="https://CRAN.R-project.org/package=enderecopadrao" class="external-link"><img src="https://www.r-pkg.org/badges/version/enderecopadrao" alt="CRAN status"></a> <a href="https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck" class="external-link"><img src="https://github.com/ipeaGIT/enderecopadrao/workflows/check/badge.svg" alt="B status"></a> <a href="https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main" class="external-link"><img src="https://codecov.io/gh/ipeaGIT/enderecopadrao/branch/main/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
+<p><a href="https://CRAN.R-project.org/package=enderecopadrao" class="external-link"><img src="https://www.r-pkg.org/badges/version/enderecopadrao" alt="CRAN status"></a> <a href="https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck" class="external-link"><img src="https://github.com/ipeaGIT/enderecopadrao/workflows/check/badge.svg" alt="B status"></a> <a href="https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main" class="external-link"><img src="https://codecov.io/gh/ipeaGIT/enderecopadrao/branch/main/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: stable"></a></p>
 <p><strong>enderecopadrao</strong> é um pacote de R que permite padronizar endereços brasileiros a partir de diferentes critérios. Os métodos de padronização atualmente incluem apenas manipulações de strings, não oferecendo suporte a correspondências probabilísticas entre strings.</p>
 <div class="section level2">
 <h2 id="instalação">Instalação<a class="anchor" aria-label="anchor" href="#instala%C3%A7%C3%A3o"></a>
 </h2>
-<p>O pacote ainda não se encontra no CRAN. Para baixar a última versão estável, use o código abaixo:</p>
+<p>A última versão estável pode ser baixada do CRAN com o comando a seguir:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecopadrao@v0.1.0"</span><span class="op">)</span></span></code></pre></div>
-<p>Para baixar a versão em desenvolvimento, use o seguinte código:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
+<p>Caso prefira, a versão em desenvolvimento também pode ser usada. Para isso, use o seguinte comando:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="utilização">Utilização<a class="anchor" aria-label="anchor" href="#utiliza%C3%A7%C3%A3o"></a>
 </h2>
-<p>Esta seção visa oferecer apenas uma rápida visão das funcionalidades do pacote. Para mais detalhes, leia a vignette introdutória:</p>
+<p>Esta seção visa oferecer apenas uma visão geral das funcionalidades do pacote. Para mais detalhes, leia a vignette introdutória:</p>
 <ul>
 <li><a href="https://ipeagit.github.io/enderecopadrao/articles/enderecopadrao.html"><strong>enderecopadrao</strong>: padronizador de endereços brasileiros</a></li>
 </ul>
-<p>O pacote fornece funções para padronizar diferentes campos de um endereço. A <code><a href="reference/padronizar_enderecos.html">padronizar_enderecos()</a></code> padroniza diversos campos simultaneamente, recebendo, para isso, um dataframe e uma relação de correspondência entre as colunas desse dataframe e os campos a serem padronizados:</p>
+<p>O <strong>enderecopadrao</strong> disponibiliza funções para padronizar diferentes campos de um endereço. A <code><a href="reference/padronizar_enderecos.html">padronizar_enderecos()</a></code>, carro-chefe do pacote, atua de forma simultânea sobre os vários campos que podem compor um endereço. Para isso, ela recebe um dataframe e a correspondência entre suas colunas e os campos a serem padronizados:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ipeaGIT/enderecopadrao" class="external-link">enderecopadrao</a></span><span class="op">)</span></span>
 <span></span>
@@ -104,12 +104,15 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/padronizar_enderecos.html">padronizar_enderecos</a></span><span class="op">(</span><span class="va">enderecos</span>, campos_do_endereco <span class="op">=</span> <span class="va">campos</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                      logradouro numero complemento       cep          bairro</span></span>
-<span><span class="co">#&gt;                          &lt;char&gt; &lt;char&gt;      &lt;char&gt;    &lt;char&gt;          &lt;char&gt;</span></span>
-<span><span class="co">#&gt; 1: RUA NOSSA SENHORA DA PIEDADE     20   QUADRA 20 25220-020 JARDIM BOTANICO</span></span>
-<span><span class="co">#&gt;         municipio         estado</span></span>
-<span><span class="co">#&gt;            &lt;char&gt;         &lt;char&gt;</span></span>
-<span><span class="co">#&gt; 1: RIO DE JANEIRO RIO DE JANEIRO</span></span></code></pre></div>
+<span><span class="co">#&gt;             logradouro nroLogradouro complemento      cep      bairro</span></span>
+<span><span class="co">#&gt;                 &lt;char&gt;         &lt;num&gt;      &lt;char&gt;    &lt;num&gt;      &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1: r ns sra da piedade            20       qd 20 25220020 jd botanico</span></span>
+<span><span class="co">#&gt;    codmun_dom uf_dom              logradouro_padr numero_padr complemento_padr</span></span>
+<span><span class="co">#&gt;         &lt;num&gt; &lt;char&gt;                       &lt;char&gt;      &lt;char&gt;           &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE          20        QUADRA 20</span></span>
+<span><span class="co">#&gt;     cep_padr     bairro_padr municipio_padr    estado_padr</span></span>
+<span><span class="co">#&gt;       &lt;char&gt;          &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1: 25220-020 JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO</span></span></code></pre></div>
 <p>Por trás dos panos, essa função utiliza diversas outras funções que padronizam campos de forma individual. Cada uma delas recebe um vetor com valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos valores padronizados. Algumas das funções disponíveis são apresentadas abaixo:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"21"</span>, <span class="st">" 21"</span>, <span class="st">"MA"</span>, <span class="st">" MA "</span>, <span class="st">"ma"</span>, <span class="st">"MARANHÃO"</span><span class="op">)</span></span>
