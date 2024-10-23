@@ -8,7 +8,8 @@ padronizar_enderecos(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
   manter_cols_extras = TRUE,
-  combinar_logradouro = FALSE
+  combinar_logradouro = FALSE,
+  checar_tipos = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,12 @@ logradouro (tipo, nome e número, por exemplo) devem ser combinados em um
 único campo de logradouro completo. Nesse caso, o parâmetro \code{logradouro} da
 \code{correspondencia_campos()} deve ser interpretado como o nome do logradouro.
 Por padrão, \code{FALSE}.}
+
+\item{checar_tipos}{Um logical. Apenas tem efeito quando
+\code{combinar_logradouro} é \code{TRUE}. Se a ocorrência de duplicatas entre os
+tipos e nomes dos logradouros deve ser verificada ao combiná-los (por
+exemplo, quando o tipo é descrito como "RUA" e o nome é descrito como "RUA
+BOTAFOGO"). Por padrão, \code{FALSE}.}
 }
 \value{
 Um dataframe com colunas adicionais, representando os campos de
@@ -69,5 +76,17 @@ padronizar_enderecos(enderecos, campos)
 padronizar_enderecos(enderecos, campos, manter_cols_extras = FALSE)
 
 padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
+
+ends_tipo_duplicado <- data.frame(tipo = "r", nome = "r ns sra da piedade")
+
+padronizar_enderecos(
+  ends_tipo_duplicado,
+  campos_do_endereco = correspondencia_campos(
+    tipo_de_logradouro = "tipo",
+    logradouro = "nome"
+  ),
+  combinar_logradouro = TRUE,
+  checar_tipos = TRUE
+)
 
 }

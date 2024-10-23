@@ -21,6 +21,11 @@
 #'   único campo de logradouro completo. Nesse caso, o parâmetro `logradouro` da
 #'   `correspondencia_campos()` deve ser interpretado como o nome do logradouro.
 #'   Por padrão, `FALSE`.
+#' @param checar_tipos Um logical. Apenas tem efeito quando
+#'   `combinar_logradouro` é `TRUE`. Se a ocorrência de duplicatas entre os
+#'   tipos e nomes dos logradouros deve ser verificada ao combiná-los (por
+#'   exemplo, quando o tipo é descrito como "RUA" e o nome é descrito como "RUA
+#'   BOTAFOGO"). Por padrão, `FALSE`.
 #'
 #' @return Um dataframe com colunas adicionais, representando os campos de
 #'   endereço padronizados.
@@ -53,16 +58,30 @@
 #'
 #' padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
 #'
+#' ends_tipo_duplicado <- data.frame(tipo = "r", nome = "r ns sra da piedade")
+#'
+#' padronizar_enderecos(
+#'   ends_tipo_duplicado,
+#'   campos_do_endereco = correspondencia_campos(
+#'     tipo_de_logradouro = "tipo",
+#'     logradouro = "nome"
+#'   ),
+#'   combinar_logradouro = TRUE,
+#'   checar_tipos = TRUE
+#' )
+#'
 #' @export
 padronizar_enderecos <- function(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
   manter_cols_extras = TRUE,
-  combinar_logradouro = FALSE
+  combinar_logradouro = FALSE,
+  checar_tipos = FALSE
 ) {
   checkmate::assert_data_frame(enderecos)
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
   checkmate::assert_logical(combinar_logradouro, any.missing = FALSE, len = 1)
+  checkmate::assert_logical(checar_tipos, any.missing = FALSE, len = 1)
   checa_campos_do_endereco(campos_do_endereco, enderecos)
 
   enderecos_padrao <- data.table::as.data.table(enderecos)
@@ -85,7 +104,8 @@ padronizar_enderecos <- function(
     enderecos_padrao <- int_padronizar_ends_com_log_compl(
       enderecos_padrao,
       campos_do_endereco,
-      campos_do_logradouro
+      campos_do_logradouro,
+      checar_tipos
     )
 
     relacao_campos <- subset(
@@ -129,7 +149,8 @@ padronizar_enderecos <- function(
 
 int_padronizar_ends_com_log_compl <- function(enderecos_padrao,
                                               campos_do_endereco,
-                                              campos_do_logradouro) {
+                                              campos_do_logradouro,
+                                              checar_tipos) {
   campos_do_log_listados <- campos_do_endereco[
     which(names(campos_do_endereco) %in% campos_do_logradouro)
   ]
@@ -143,7 +164,8 @@ int_padronizar_ends_com_log_compl <- function(enderecos_padrao,
 
     enderecos_padrao <- padronizar_logradouros_completos(
       enderecos_padrao,
-      campos_do_logradouro = campos_do_log_listados
+      campos_do_logradouro = campos_do_log_listados,
+      checar_tipos = checar_tipos
     )
   }
 

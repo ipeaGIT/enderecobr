@@ -22,12 +22,14 @@ tester <- function(enderecos = get("enderecos", envir = parent.frame()),
                      estado = "estado"
                    ),
                    manter_cols_extras = TRUE,
-                   combinar_logradouro = FALSE) {
+                   combinar_logradouro = FALSE,
+                   checar_tipos = FALSE) {
   padronizar_enderecos(
     enderecos,
     campos_do_endereco,
     manter_cols_extras,
-    combinar_logradouro
+    combinar_logradouro,
+    checar_tipos
   )
 }
 
@@ -45,6 +47,10 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(combinar_logradouro = 1))
   expect_error(tester(combinar_logradouro = NA))
   expect_error(tester(combinar_logradouro = c(TRUE, TRUE)))
+
+  expect_error(tester(checar_tipos = 1))
+  expect_error(tester(checar_tipos = NA))
+  expect_error(tester(checar_tipos = c(TRUE, TRUE)))
 })
 
 test_that("funciona mas da warning quando colunas com nome padrao ja existem", {
@@ -154,6 +160,11 @@ test_that("printa mensagens de progresso quando verboso", {
 
   expect_snapshot(
     res <- tester(combinar_logradouro = TRUE),
+    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+  )
+
+  expect_snapshot(
+    res <- tester(combinar_logradouro = TRUE, checar_tipos = TRUE),
     transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
   )
 })
@@ -277,6 +288,38 @@ test_that("combina colunas de logradouro quando pedido", {
       bairro_padr = "JARDIM BOTANICO",
       municipio_padr = "RIO DE JANEIRO",
       estado_padr = "RIO DE JANEIRO"
+    )
+  )
+})
+
+test_that("checa duplicatas de tipos e nomes de log quando checar_tipos=TRUE", {
+  ends <- data.frame(tipo = "r", nome = "r ns sra da piedade")
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(tipo_de_logradouro = "tipo", logradouro = "nome"),
+      combinar_logradouro = TRUE,
+      checar_tipos = FALSE
+    ),
+    data.table::data.table(
+      tipo = "r",
+      nome = "r ns sra da piedade",
+      logradouro_completo_padr = "RUA RUA NOSSA SENHORA DA PIEDADE"
+    )
+  )
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(tipo_de_logradouro = "tipo", logradouro = "nome"),
+      combinar_logradouro = TRUE,
+      checar_tipos = TRUE
+    ),
+    data.table::data.table(
+      tipo = "r",
+      nome = "r ns sra da piedade",
+      logradouro_completo_padr = "RUA NOSSA SENHORA DA PIEDADE"
     )
   )
 })
