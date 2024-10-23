@@ -21,8 +21,7 @@ probabilísticas entre strings.
 
 ## Instalação
 
-Para usar o pacote, é necessário primeiro instalá-lo. A última versão estável
-pode ser baixada do CRAN com o comando a seguir:
+A última versão estável pode ser baixada do CRAN com o comando a seguir:
 
 ```r
 install.packages("enderecopadrao")

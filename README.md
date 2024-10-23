@@ -8,7 +8,7 @@ status](https://github.com/ipeaGIT/enderecopadrao/workflows/check/badge.svg)](ht
 [![Codecov test
 coverage](https://codecov.io/gh/ipeaGIT/enderecopadrao/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 **enderecopadrao** é um pacote de R que permite padronizar endereços
 brasileiros a partir de diferentes critérios. Os métodos de padronização
@@ -17,33 +17,33 @@ suporte a correspondências probabilísticas entre strings.
 
 ## Instalação
 
-O pacote ainda não se encontra no CRAN. Para baixar a última versão
-estável, use o código abaixo:
+A última versão estável pode ser baixada do CRAN com o comando a seguir:
+
+``` r
+install.packages("enderecopadrao")
+```
+
+Caso prefira, a versão em desenvolvimento também pode ser usada. Para
+isso, use o seguinte comando:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("ipeaGIT/enderecopadrao@v0.1.0")
-```
-
-Para baixar a versão em desenvolvimento, use o seguinte código:
-
-``` r
 remotes::install_github("ipeaGIT/enderecopadrao")
 ```
 
 ## Utilização
 
-Esta seção visa oferecer apenas uma rápida visão das funcionalidades do
+Esta seção visa oferecer apenas uma visão geral das funcionalidades do
 pacote. Para mais detalhes, leia a vignette introdutória:
 
 - [**enderecopadrao**: padronizador de endereços
   brasileiros](https://ipeagit.github.io/enderecopadrao/articles/enderecopadrao.html)
 
-O pacote fornece funções para padronizar diferentes campos de um
-endereço. A `padronizar_enderecos()` padroniza diversos campos
-simultaneamente, recebendo, para isso, um dataframe e uma relação de
-correspondência entre as colunas desse dataframe e os campos a serem
-padronizados:
+O **enderecopadrao** disponibiliza funções para padronizar diferentes
+campos de um endereço. A `padronizar_enderecos()`, carro-chefe do
+pacote, atua de forma simultânea sobre os vários campos que podem compor
+um endereço. Para isso, ela recebe um dataframe e a correspondência
+entre suas colunas e os campos a serem padronizados:
 
 ``` r
 library(enderecopadrao)
@@ -69,12 +69,15 @@ campos <- correspondencia_campos(
 )
 
 padronizar_enderecos(enderecos, campos_do_endereco = campos)
-#>                      logradouro numero complemento       cep          bairro
-#>                          <char> <char>      <char>    <char>          <char>
-#> 1: RUA NOSSA SENHORA DA PIEDADE     20   QUADRA 20 25220-020 JARDIM BOTANICO
-#>         municipio         estado
-#>            <char>         <char>
-#> 1: RIO DE JANEIRO RIO DE JANEIRO
+#>             logradouro nroLogradouro complemento      cep      bairro
+#>                 <char>         <num>      <char>    <num>      <char>
+#> 1: r ns sra da piedade            20       qd 20 25220020 jd botanico
+#>    codmun_dom uf_dom              logradouro_padr numero_padr complemento_padr
+#>         <num> <char>                       <char>      <char>           <char>
+#> 1:    3304557     rj RUA NOSSA SENHORA DA PIEDADE          20        QUADRA 20
+#>     cep_padr     bairro_padr municipio_padr    estado_padr
+#>       <char>          <char>         <char>         <char>
+#> 1: 25220-020 JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO
 ```
 
 Por trás dos panos, essa função utiliza diversas outras funções que
