@@ -91,7 +91,7 @@ poderíamos simplesmente passar um vetor de caracteres no formato
 garantindo que o vetor a ser passado pra `padronizar_enderecos()` esteja
 corretamente formatado.
 
-A `padronizar_enderecos()` contém, ainda, dois parâmetros adicionais. O
+A `padronizar_enderecos()` contém, ainda, três parâmetros adicionais. O
 `manter_cols_extras` determina as colunas incluídas no output da função. Caso
 seja `TRUE` (valor padrão), todas as colunas do dataframe original são mantidas;
 caso seja `FALSE`, apenas as colunas usadas na padronização e seus respectivos
@@ -133,12 +133,42 @@ padronizar_enderecos(enderecos, campos, combinar_logradouro = FALSE)
 padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
 ```
 
-O parâmetro `combinar_logradouro` aciona, de forma oculta, outra função que lida
-com múltiplos campos simultaneamente: a `padronizar_logradouros_completos()`.
-Essa função também pode ser usada de forma separada e, de forma similiar à
-`padronizar_enderecos()`, recebe um dataframe com as informações do logradouro
-(tipo, nome e número) e a correspondência entre suas colunas e os campos a serem
-padronizados:
+O terceiro parâmetro, `checar_tipos`, tem efeito apenas quando
+`combinar_logradouro` é `TRUE`, e deve ser usado para sinalizar se a ocorrência
+de duplicatas entre os tipos e nomes de logradouros deve ser verificada ao
+combiná-los (por exemplo, quando o tipo é descrito como "RUA" e o nome como "RUA
+BOTAFOGO"). Caso seja `FALSE` (valor padrão), a verificação não é feita; se for
+`TRUE`, a verificação é realizada e valores duplicados são removidos, como
+apresentado a seguir:
+
+```{r}
+enderecos <- data.frame(
+  tipo = "r",
+  logradouro = "r ns sra da piedade",
+  nroLogradouro = 20
+)
+
+padronizar_enderecos(
+  enderecos,
+  campos,
+  combinar_logradouro = TRUE,
+  checar_tipos = FALSE
+)
+
+padronizar_enderecos(
+  enderecos,
+  campos,
+  combinar_logradouro = TRUE,
+  checar_tipos = TRUE
+)
+```
+
+Os parâmetros `combinar_logradouro` e `checar_tipos` acionam, de forma oculta,
+outra função que lida com múltiplos campos simultaneamente: a
+`padronizar_logradouros_completos()`. Essa função também pode ser usada de forma
+separada e, de forma similiar à `padronizar_enderecos()`, recebe um dataframe
+com as informações do logradouro (tipo, nome e número) e a correspondência entre
+suas colunas e os campos a serem padronizados:
 
 ```{r}
 campos <- correspondencia_logradouro(
