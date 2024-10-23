@@ -19,7 +19,7 @@ Padroniza um vetor de caracteres ou números representando CEPs. Veja a seção
 \section{Detalhes}{
 
 Operações realizadas durante a padronização:
-\enumerate{
+\itemize{
 \item conversão para caracter, se o input for numérico;
 \item adição de zeros à esquerda, se o input contiver menos de 8 dígitos;
 \item remoção de espaços em branco, pontos e vírgulas;

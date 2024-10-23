@@ -11,12 +11,15 @@
 #' @section Detalhes:
 #' Operações realizadas durante a padronização:
 #'
-#' 1. remoção de espaços em branco antes e depois das strings e remoção de
+#' - remoção de espaços em branco antes e depois das strings e remoção de
 #' espaços em excesso entre palavras;
-#' 2. conversão de caracteres para caixa alta;
-#' 3. remoção de acentos e caracteres não ASCII;
-#' 4. adição de espaços após abreviações sinalizadas por pontos;
-#' 5. substituição de abreviações pelos termos completos.
+#' - conversão de caracteres para caixa alta;
+#' - remoção de acentos e caracteres não ASCII;
+#' - adição de espaços após abreviações sinalizadas por pontos;
+#' - expansão de abreviações frequentemente utilizadas através de diversas
+#' [expressões regulares
+#' (regexes)](https://en.wikipedia.org/wiki/Regular_expression);
+#' - correção de alguns pequenos erros ortográficos.
 #'
 #' @examples
 #' complementos <- c("", "QD1 LT2 CS3", "APTO. 405")

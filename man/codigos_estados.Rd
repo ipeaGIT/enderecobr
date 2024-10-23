@@ -19,9 +19,9 @@ Um data frame com 27 linhas e 3 colunas:
 codigos_estados
 }
 \description{
-Uma relação entre os códigos e nomes dos estados brasileiros. Os códigos
-foram convertidos para caracteres; os nomes foram convertidos para caracteres
-ASCII em caixa alta.
+Tabela com a relação entre os códigos e nomes dos estados brasileiros. Os
+códigos foram convertidos para caracteres; os nomes foram convertidos para
+caracteres ASCII em caixa alta.
 }
 \seealso{
 \link{codigos_municipios}

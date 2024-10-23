@@ -1,4 +1,4 @@
-#' Correspondência entre campos e colunas
+#' Correspondência entre os campos do endereço e as colunas que os descrevem
 #'
 #' Cria um vetor de caracteres que especifica as colunas que representam cada
 #' campo de endereço em um dataframe.
@@ -12,11 +12,25 @@
 #'   do endereço e os valores as colunas que os descrevem no dataframe.
 #'
 #' @examples
+#' enderecos <- data.frame(
+#'   id = 1,
+#'   tipo = "r",
+#'   log = "ns sra da piedade",
+#'   nroLogradouro = 20,
+#'   compl = "qd 20",
+#'   cep = 25220020,
+#'   bairro = "jd botanico",
+#'   codmun_dom = 3304557,
+#'   uf_dom = "rj"
+#' )
+#'
+#' # dado o dataframe acima, a seguinte chamada cria a correspondencia entre
+#' # suas colunas e os campos
 #' correspondencia_campos(
-#'   tipo_de_logradouro = "tipo_de_logradouro",
-#'   logradouro = "logradouro",
+#'   tipo_de_logradouro = "tipo",
+#'   logradouro = "log",
 #'   numero = "nroLogradouro",
-#'   complemento = "complemento",
+#'   complemento = "compl",
 #'   cep = "cep",
 #'   bairro = "bairro",
 #'   municipio = "codmun_dom",

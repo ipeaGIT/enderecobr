@@ -12,14 +12,10 @@ correspondencia_logradouro(
 )
 }
 \arguments{
-\item{tipo_de_logradouro}{O nome da coluna que representa o tipo de
-logradouro no dataframe de endereços.}
-
-\item{nome_do_logradouro}{O nome da coluna que representa o nome do
-logradouro no dataframe de endereços.}
-
-\item{numero}{O nome da coluna que representa o numero do logradouro no
-dataframe de endereços.}
+\item{tipo_de_logradouro, nome_do_logradouro, numero}{Uma string. O nome da
+coluna que representa o respectivo campo do logradouro no dataframe. Pode
+ser \code{NULL}, no caso do campo não estar listado. Ao menos um dos campos deve
+receber um valor não nulo.}
 }
 \value{
 Um vetor nomeado de caracteres, em que os nomes representam os campos
@@ -30,10 +26,18 @@ Cria um vetor de caracteres que especifica as colunas que representam os
 campos de logradouro (tipo, nome e número) em um dataframe de endereços.
 }
 \examples{
+enderecos <- data.frame(
+  tipo = "r",
+  log = "ns sra da piedade",
+  nroLogradouro = 20
+)
+
+# dado o dataframe acima, a seguinte chamada cria a correspondencia entre
+# suas colunas e os campos
 correspondencia_logradouro(
-  tipo_de_logradouro = "tipo_de_logradouro",
-  nome_do_logradouro = "logradouro",
-  numero = "numero"
+  tipo_de_logradouro = "tipo",
+  nome_do_logradouro = "log",
+  numero = "nroLogradouro"
 )
 
 }

@@ -12,13 +12,13 @@
 #' @section Detalhes:
 #' Operações realizadas durante a padronização:
 #'
-#' 1. conversão para caracter, se o input for numérico;
-#' 2. remoção de espaços em branco antes e depois dos valores e remoção de
+#' - conversão para caracter, se o input for numérico;
+#' - remoção de espaços em branco antes e depois dos valores e remoção de
 #' espaços em excesso entre palavras;
-#' 3. conversão de caracteres para caixa alta;
-#' 4. remoção de zeros à esquerda;
-#' 5. busca, a partir do código numérico, do nome completo de cada município;
-#' 6. caso a busca não tenha encontrado determinado valor, remoção de acentos e
+#' - conversão de caracteres para caixa alta;
+#' - remoção de zeros à esquerda;
+#' - busca, a partir do código numérico, do nome completo de cada município;
+#' - caso a busca não tenha encontrado determinado valor, remoção de acentos e
 #' caracteres não ASCII, correção de erros ortográficos frequentes e atualização
 #' de nomes conforme listagem de municípios do IBGE de 2022.
 #'

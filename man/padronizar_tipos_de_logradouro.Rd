@@ -20,15 +20,15 @@ seção \emph{Detalhes} para mais informações sobre a padronização.
 \section{Detalhes}{
 
 Operações realizadas durante a padronização:
-\enumerate{
+\itemize{
 \item remoção de espaços em branco antes e depois das strings e remoção de
 espaços em excesso entre palavras;
 \item conversão de caracteres para caixa alta;
 \item remoção de acentos e caracteres não ASCII;
 \item adição de espaços após abreviações sinalizadas por pontos;
-\item substituição de abreviações pelos termos completos;
-\item remoção de valores inválidos (i.e. que não representam tipos de
-logradouro).
+\item expansão de abreviações frequentemente utilizadas através de diversas
+\href{https://en.wikipedia.org/wiki/Regular_expression}{expressões regulares (regexes)};
+\item correção de alguns pequenos erros ortográficos.
 }
 }
 

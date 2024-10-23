@@ -21,7 +21,7 @@ padronização.
 \section{Detalhes}{
 
 Operações realizadas durante a padronização:
-\enumerate{
+\itemize{
 \item conversão para caracter, se o input for numérico;
 \item remoção de espaços em branco antes e depois dos valores e remoção de
 espaços em excesso entre palavras;
@@ -30,9 +30,7 @@ espaços em excesso entre palavras;
 \item busca, a partir do código numérico ou da abreviação da UF, do nome
 completo de cada estado;
 \item caso a busca não tenha encontrado determinado valor, remoção de acentos e
-caracteres não ASCII - esta etapa, de manipulação de strings, pode ser
-incrementada para adequação futura a bases de dados com as quais as etapas
-anteriores não resultem em valores padronizados.
+caracteres não ASCII.
 }
 }
 

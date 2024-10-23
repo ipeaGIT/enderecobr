@@ -10,10 +10,10 @@
 #' @section Detalhes:
 #' Operações realizadas durante a padronização:
 #'
-#' 1. conversão para caracter, se o input for numérico;
-#' 2. adição de zeros à esquerda, se o input contiver menos de 8 dígitos;
-#' 3. remoção de espaços em branco, pontos e vírgulas;
-#' 4. adição de traço separando o radical (5 primeiros dígitos) do sufixo (3
+#' - conversão para caracter, se o input for numérico;
+#' - adição de zeros à esquerda, se o input contiver menos de 8 dígitos;
+#' - remoção de espaços em branco, pontos e vírgulas;
+#' - adição de traço separando o radical (5 primeiros dígitos) do sufixo (3
 #' últimos digitos).
 #'
 #' @examples

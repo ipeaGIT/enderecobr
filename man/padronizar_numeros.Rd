@@ -21,7 +21,7 @@ padronização.
 \section{Detalhes}{
 
 Operações realizadas durante a padronização:
-\enumerate{
+\itemize{
 \item conversão para caracter, se o input for numérico;
 \item remoção de espaços em branco antes e depois dos números e de espaços em
 branco em excesso entre números;

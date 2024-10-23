@@ -47,7 +47,8 @@ Um dataframe com colunas adicionais, representando os campos de
 endereço padronizados.
 }
 \description{
-Padroniza um dataframe contendo diversos campos de um endereço.
+Padroniza simultaneamente os diversos campos de um endereço listados em um
+dataframe.
 }
 \examples{
 enderecos <- data.frame(

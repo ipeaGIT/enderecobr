@@ -12,11 +12,11 @@
 #' @section Detalhes:
 #' Operações realizadas durante a padronização:
 #'
-#' 1. conversão para caracter, se o input for numérico;
-#' 2. remoção de espaços em branco antes e depois dos números e de espaços em
+#' - conversão para caracter, se o input for numérico;
+#' - remoção de espaços em branco antes e depois dos números e de espaços em
 #' branco em excesso entre números;
-#' 3. remoção de zeros à esquerda;
-#' 4. substituição de números vazios e de variações de SN (SN, S N, S.N., S./N.,
+#' - remoção de zeros à esquerda;
+#' - substituição de números vazios e de variações de SN (SN, S N, S.N., S./N.,
 #' etc) por S/N.
 #'
 #' @examples

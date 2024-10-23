@@ -1,8 +1,8 @@
 #' Códigos e nomes dos estados brasileiros (2022)
 #'
-#' Uma relação entre os códigos e nomes dos estados brasileiros. Os códigos
-#' foram convertidos para caracteres; os nomes foram convertidos para caracteres
-#' ASCII em caixa alta.
+#' Tabela com a relação entre os códigos e nomes dos estados brasileiros. Os
+#' códigos foram convertidos para caracteres; os nomes foram convertidos para
+#' caracteres ASCII em caixa alta.
 #'
 #' @format
 #' Um data frame com 27 linhas e 3 colunas:
@@ -20,9 +20,9 @@
 
 #' Códigos e nomes dos municípios brasileiros (2022)
 #'
-#' Uma relação entre os códigos e nomes dos municípios brasileiros. Os códigos
-#' foram convertidos para caracteres; os nomes foram convertidos para caracteres
-#' ASCII em caixa alta.
+#' Tabela com a relação entre os códigos e nomes dos municípios brasileiros. Os
+#' códigos foram convertidos para caracteres; os nomes foram convertidos para
+#' caracteres ASCII em caixa alta.
 #'
 #' @format
 #' Um data frame com 5570 linhas e 3 colunas:

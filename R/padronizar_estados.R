@@ -12,17 +12,15 @@
 #' @section Detalhes:
 #' Operações realizadas durante a padronização:
 #'
-#' 1. conversão para caracter, se o input for numérico;
-#' 2. remoção de espaços em branco antes e depois dos valores e remoção de
+#' - conversão para caracter, se o input for numérico;
+#' - remoção de espaços em branco antes e depois dos valores e remoção de
 #' espaços em excesso entre palavras;
-#' 3. conversão de caracteres para caixa alta;
-#' 4. remoção de zeros à esquerda;
-#' 5. busca, a partir do código numérico ou da abreviação da UF, do nome
+#' - conversão de caracteres para caixa alta;
+#' - remoção de zeros à esquerda;
+#' - busca, a partir do código numérico ou da abreviação da UF, do nome
 #' completo de cada estado;
-#' 6. caso a busca não tenha encontrado determinado valor, remoção de acentos e
-#' caracteres não ASCII - esta etapa, de manipulação de strings, pode ser
-#' incrementada para adequação futura a bases de dados com as quais as etapas
-#' anteriores não resultem em valores padronizados.
+#' - caso a busca não tenha encontrado determinado valor, remoção de acentos e
+#' caracteres não ASCII.
 #'
 #' @examples
 #' estados <- c("21", "021", "MA", " 21", " MA ", "ma", "", NA)

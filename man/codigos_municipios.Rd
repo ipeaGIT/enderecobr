@@ -19,9 +19,9 @@ Um data frame com 5570 linhas e 3 colunas:
 codigos_municipios
 }
 \description{
-Uma relação entre os códigos e nomes dos municípios brasileiros. Os códigos
-foram convertidos para caracteres; os nomes foram convertidos para caracteres
-ASCII em caixa alta.
+Tabela com a relação entre os códigos e nomes dos municípios brasileiros. Os
+códigos foram convertidos para caracteres; os nomes foram convertidos para
+caracteres ASCII em caixa alta.
 }
 \seealso{
 \link{codigos_estados}

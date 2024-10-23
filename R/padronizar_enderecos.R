@@ -1,6 +1,7 @@
 #' Padronizar endereços
 #'
-#' Padroniza um dataframe contendo diversos campos de um endereço.
+#' Padroniza simultaneamente os diversos campos de um endereço listados em um
+#' dataframe.
 #'
 #' @param enderecos Um dataframe. Os endereços a serem padronizados. Cada uma de
 #'   suas colunas deve corresponder a um campo do endereço (e.g. logradouro,
