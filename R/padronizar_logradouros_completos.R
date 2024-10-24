@@ -242,7 +242,7 @@ erro_nome_do_logradouro_ausente <- function() {
 
   n_caller_env <- 2
 
-  chamada_upstream <-  sys.call(-3)
+  chamada_upstream <- tryCatch(sys.call(-3), error = function(cnd) NULL)
   if (!is.null(chamada_upstream)) {
     funcao_upstream <- as.name(chamada_upstream[[1]])
     if (funcao_upstream == "int_padronizar_ends_com_log_compl") {
