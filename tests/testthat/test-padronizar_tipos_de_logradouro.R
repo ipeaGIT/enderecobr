@@ -11,8 +11,6 @@ test_that("lida com vetores vazios corretamente", {
 })
 
 test_that("padroniza corretamente", {
-  skip_if_not_installed("tibble")
-
   gabarito <- tibble::tribble(
     ~original,    ~padronizado_esperado,
     " RUA ",      "RUA",
