@@ -340,3 +340,26 @@ complementos de logradouros.
 complementos <- c("QD1 LT2 CS3", "APTO. 405", "PRX CX POST 450")
 padronizar_complementos(complementos)
 ```
+
+### Controle de verbosidade
+
+O disparo de mensagens com informações sobre a execução das funções pode ser
+controlado pela opção `enderecopadrao.verbose`, que recebe os valores `"quiet"`
+ou `"verbose"`, como demonstrado a seguir:
+
+```r
+campos <- correspondencia_logradouro(
+  nome_do_logradouro = "logradouro",
+  numero = "nroLogradouro"
+)
+
+# quieto, por padrão
+res <- padronizar_logradouros_completos(enderecos, campos)
+
+# verboso, se desejado
+rlang::local_options("enderecopadrao.verbose" = "verbose")
+res <- padronizar_logradouros_completos(enderecos, campos)
+#> ✔ Padronizando nomes dos logradouros... [130ms]
+#> ✔ Padronizando números... [111ms]
+#> ✔ Trazendo números para o logradouro completo... [107ms]
+```

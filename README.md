@@ -84,7 +84,7 @@ Por trás dos panos, essa função utiliza diversas outras funções que
 padronizam campos de forma individual. Cada uma delas recebe um vetor
 com valores não padronizados e retorna um vetor de mesmo tamanho com os
 respectivos valores padronizados. Algumas das funções disponíveis são
-apresentadas abaixo:
+apresentadas a seguir:
 
 ``` r
 estados <- c("21", " 21", "MA", " MA ", "ma", "MARANHÃO")
@@ -129,6 +129,29 @@ numeros <- c("0210", "001", "1", "", "S N", "S/N", "SN", "0180  0181")
 padronizar_numeros(numeros)
 #> [1] "210"     "1"       "1"       NA        "S/N"     "S/N"     "S/N"    
 #> [8] "180 181"
+```
+
+## Controle de verbosidade
+
+O disparo de mensagens com informações sobre a execução das funções pode
+ser controlado pela opção `enderecopadrao.verbose`, que recebe os
+valores `"quiet"` ou `"verbose"`, como demonstrado a seguir:
+
+``` r
+campos <- correspondencia_logradouro(
+  nome_do_logradouro = "logradouro",
+  numero = "nroLogradouro"
+)
+
+# quieto, por padrão
+res <- padronizar_logradouros_completos(enderecos, campos)
+
+# verboso, se desejado
+rlang::local_options("enderecopadrao.verbose" = "verbose")
+res <- padronizar_logradouros_completos(enderecos, campos)
+#> ✔ Padronizando nomes dos logradouros... [130ms]
+#> ✔ Padronizando números... [111ms]
+#> ✔ Trazendo números para o logradouro completo... [107ms]
 ```
 
 ## Nota <a href="https://www.ipea.gov.br"><img src="man/figures/ipea_logo.png" alt="Ipea" align="right" width="300"/></a>

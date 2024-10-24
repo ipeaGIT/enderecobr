@@ -148,7 +148,7 @@ test_that("erros relacionados ao cep sao atribuidos a pad enderecos", {
 })
 
 test_that("printa mensagens de progresso quando verboso", {
-  rlang::local_options(endereco_padrao.verbose = "verbose")
+  rlang::local_options(enderecopadrao.verbose = "verbose")
 
   # os tempos de execução variam entre execuções, então precisamos removê-los do
   # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram
