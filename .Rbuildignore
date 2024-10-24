@@ -12,3 +12,4 @@
 ^codecov\.yml$
 ^data-raw$
 tests/test-grandes_bases.R
+pkgdown/
