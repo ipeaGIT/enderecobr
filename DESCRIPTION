@@ -1,4 +1,4 @@
-Package: enderecopadrao
+Package: enderecobr
 Title: Padronizador de Endereços Brasileiros (Brazilian Addresses
     Standardizer)
 Version: 0.1.0.9000
@@ -12,9 +12,9 @@ Description: Padroniza endereços brasileiros a partir de diferentes
     different criteria. Standardization methods include only basic string
     manipulation, not supporting probabilistic matches between strings.)
 License: MIT + file LICENSE
-URL: https://github.com/ipeaGIT/enderecopadrao,
-    https://ipeagit.github.io/enderecopadrao/
-BugReports: https://github.com/ipeaGIT/enderecopadrao/issues
+URL: https://github.com/ipeaGIT/enderecobr,
+    https://ipeagit.github.io/enderecobr/
+BugReports: https://github.com/ipeaGIT/enderecobr/issues
 Depends: 
     R (>= 2.10)
 Imports: 

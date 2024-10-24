@@ -74,7 +74,7 @@ correspondencia_campos <- function(tipo_de_logradouro = NULL,
 }
 
 erro_correspondencia_nula <- function() {
-  erro_endpad(
+  erro_endbr(
     paste0(
       "Ao menos um dos argumentos da {.fn correspondencia_campos} ",
       "deve ser diferente de {.code NULL}."

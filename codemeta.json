@@ -1,12 +1,12 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "identifier": "enderecopadrao",
+  "identifier": "enderecobr",
   "description": "Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos de padronização incluem apenas manipulações básicas de strings, não oferecendo suporte a correspondências probabilísticas entre strings. (Standardizes brazilian addresses using different criteria. Standardization methods include only basic string manipulation, not supporting probabilistic matches between strings.)",
-  "name": "enderecopadrao: Padronizador de Endereços Brasileiros (Brazilian Addresses\n    Standardizer)",
-  "relatedLink": "https://ipeagit.github.io/enderecopadrao/",
-  "codeRepository": "https://github.com/ipeaGIT/enderecopadrao",
-  "issueTracker": "https://github.com/ipeaGIT/enderecopadrao/issues",
+  "name": "enderecobr: Padronizador de Endereços Brasileiros (Brazilian Addresses\n    Standardizer)",
+  "relatedLink": "https://ipeagit.github.io/enderecobr/",
+  "codeRepository": "https://github.com/ipeaGIT/enderecobr",
+  "issueTracker": "https://github.com/ipeaGIT/enderecobr/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.1.0.9000",
   "programmingLanguage": {
@@ -165,9 +165,9 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "242.22KB",
-  "releaseNotes": "https://github.com/ipeaGIT/enderecopadrao/blob/master/NEWS.md",
-  "readme": "https://github.com/ipeaGIT/enderecopadrao/blob/main/README.md",
-  "contIntegration": ["https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main"],
+  "fileSize": "257.987KB",
+  "releaseNotes": "https://github.com/ipeaGIT/enderecobr/blob/master/NEWS.md",
+  "readme": "https://github.com/ipeaGIT/enderecobr/blob/main/README.md",
+  "contIntegration": ["https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"
 }

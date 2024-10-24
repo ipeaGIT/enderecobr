@@ -49,7 +49,7 @@ correspondencia_logradouro <- function(tipo_de_logradouro = NULL,
 }
 
 erro_correspondencia_logradouro_nula <- function() {
-  erro_endpad(
+  erro_endbr(
     paste0(
       "Ao menos um dos argumentos da {.fn correspondencia_logradouro} ",
       "deve ser diferente de {.code NULL}."

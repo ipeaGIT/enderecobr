@@ -51,7 +51,7 @@ test_that("da erro quando nome do logradouro nao eh especificado", {
 })
 
 test_that("printa mensagens de progresso quando verboso", {
-  rlang::local_options(enderecopadrao.verbose = "verbose")
+  rlang::local_options(enderecobr.verbose = "verbose")
 
   # os tempos de execução variam entre execuções, então precisamos removê-los do
   # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram

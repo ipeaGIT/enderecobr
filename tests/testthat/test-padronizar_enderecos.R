@@ -148,7 +148,7 @@ test_that("erros relacionados ao cep sao atribuidos a pad enderecos", {
 })
 
 test_that("printa mensagens de progresso quando verboso", {
-  rlang::local_options(enderecopadrao.verbose = "verbose")
+  rlang::local_options(enderecobr.verbose = "verbose")
 
   # os tempos de execução variam entre execuções, então precisamos removê-los do
   # snapshot. caso contrário, o snapshot consideraria que as mensagens mudaram
@@ -233,7 +233,7 @@ test_that("respeita manter_cols_extras", {
   )
 })
 
-# issue #13 - https://github.com/ipeaGIT/enderecopadrao/issues/13
+# issue #13 - https://github.com/ipeaGIT/enderecobr/issues/13
 test_that("funciona qnd coluna existe mas nao eh pra ser padronizada", {
   ends <- data.frame(logradouro = "r ns sra da piedade", numero = 20)
   expect_identical(

@@ -2,7 +2,7 @@
 
     Code
       funcao_pai()
-    Condition <warning_endpad_teste>
+    Condition <warning_endbr_teste>
       Warning in `funcao_pai()`:
       teste
       * informacao

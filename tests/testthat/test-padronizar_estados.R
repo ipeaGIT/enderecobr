@@ -23,7 +23,7 @@ test_that("lida com vetores vazios corretamente", {
   expect_equal(padronizar_estados(numeric(0)), character(0))
 })
 
-# issue #26 - https://github.com/ipeaGIT/enderecopadrao/issues/26
+# issue #26 - https://github.com/ipeaGIT/enderecobr/issues/26
 test_that("não recicla valores do vetor de estados original", {
   estados <- c(rep("RIO DE JANEIRO", 2), "ACRE")
 

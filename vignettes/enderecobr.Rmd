@@ -1,8 +1,8 @@
 ---
-title: "enderecopadrao: padronizador de endereços brasileiros"
+title: "enderecobr: padronizador de endereços brasileiros"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{enderecopadrao: padronizador de endereços brasileiros}
+  %\VignetteIndexEntry{enderecobr: padronizador de endereços brasileiros}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**enderecopadrao** é um pacote de R que permite padronizar endereços brasileiros
+**enderecobr** é um pacote de R que permite padronizar endereços brasileiros
 a partir de diferentes critérios. Os métodos de padronização atualmente incluem
 apenas manipulações de strings, não oferecendo suporte a correspondências
 probabilísticas entre strings.
@@ -24,7 +24,7 @@ probabilísticas entre strings.
 A última versão estável pode ser baixada do CRAN com o comando a seguir:
 
 ```r
-install.packages("enderecopadrao")
+install.packages("enderecobr")
 ```
 
 Caso prefira, a versão em desenvolvimento também pode ser usada. Para isso, use
@@ -32,12 +32,12 @@ o seguinte comando:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("ipeaGIT/enderecopadrao")
+remotes::install_github("ipeaGIT/enderecobr")
 ```
 
 ## Utilização
 
-O **enderecopadrao** disponibiliza funções para padronizar os diversos campos de
+O **enderecobr** disponibiliza funções para padronizar os diversos campos de
 um endereço. Essas funções agem tanto sobre campos individuais quanto sobre um
 conjunto de campos. Vamos ver, primeiro, como funcionam as funções que agem
 sobre múltiplos campos simultaneamente.
@@ -50,7 +50,7 @@ dataframe e a correspondência entre suas colunas e os campos a serem
 padronizados:
 
 ```{r}
-library(enderecopadrao)
+library(enderecobr)
 
 enderecos <- data.frame(
   id = 1,
@@ -344,8 +344,8 @@ padronizar_complementos(complementos)
 ### Controle de verbosidade
 
 O disparo de mensagens com informações sobre a execução das funções pode ser
-controlado pela opção `enderecopadrao.verbose`, que recebe os valores `"quiet"`
-ou `"verbose"`, como demonstrado a seguir:
+controlado pela opção `enderecobr.verbose`, que recebe os valores `"quiet"` ou
+`"verbose"`, como demonstrado a seguir:
 
 ```r
 campos <- correspondencia_logradouro(
@@ -357,7 +357,7 @@ campos <- correspondencia_logradouro(
 res <- padronizar_logradouros_completos(enderecos, campos)
 
 # verboso, se desejado
-rlang::local_options("enderecopadrao.verbose" = "verbose")
+rlang::local_options("enderecobr.verbose" = "verbose")
 res <- padronizar_logradouros_completos(enderecos, campos)
 #> ✔ Padronizando nomes dos logradouros... [130ms]
 #> ✔ Padronizando números... [111ms]

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(enderecopadrao)
+library(enderecobr)
 
-test_check("enderecopadrao")
+test_check("enderecobr")

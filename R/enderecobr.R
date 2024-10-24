@@ -1,6 +1,6 @@
 #' @docType package
-#' @name enderecopadrao
-#' @aliases enderecopadrao-package pacote-enderecopadrao
+#' @name enderecobr
+#' @aliases enderecobr-package pacote-enderecobr
 #'
 #' @importFrom data.table ":="
 #'

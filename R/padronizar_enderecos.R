@@ -125,7 +125,7 @@ padronizar_enderecos <- function(
           col_orig <- campos_do_endereco[nome_campo]
           col_padr <- paste0(nome_campo, "_padr")
 
-          prog <- mensagem_progresso_endpad(
+          prog <- mensagem_progresso_endbr(
             paste0("Padronizando ", nome_formatado, "...")
           )
 
@@ -223,7 +223,7 @@ warning_coluna_existente <- function(campos_padr_existentes) {
     list("vec-last" = " e ", "vec-sep2" = " e ")
   )
 
-  warning_endpad(
+  warning_endbr(
     c(
       paste0(
         "A{?s} seguinte{?s} coluna{?s} fo{?i/ram} encontrada{?s} no input e ",

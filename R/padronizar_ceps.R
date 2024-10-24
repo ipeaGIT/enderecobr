@@ -113,7 +113,7 @@ erro_cep_com_letra <- function(possui_letras) {
     list("vec-trunc" = 5, "vec-last" = " e ", "vec-sep2" = " e ")
   )
 
-  erro_endpad(
+  erro_endbr(
     c(
       "CEP n\u00e3o deve conter letras.",
       "i" = paste0(
@@ -150,7 +150,7 @@ erro_cep_com_digitos_demais <- function(possui_digitos_demais) {
     list("vec-trunc" = 5, "vec-last" = " e ", "vec-sep2" = " e ")
   )
 
-  erro_endpad(
+  erro_endbr(
     c(
       "CEP n\u00e3o deve conter mais que 8 d\u00edgitos.",
       "i" = paste0(

@@ -105,7 +105,7 @@ padronizar_logradouros_completos <- function(
 }
 
 int_padronizar_nome <- function(enderecos_padrao, campos_do_logradouro) {
-  prog <- mensagem_progresso_endpad("Padronizando nomes dos logradouros...")
+  prog <- mensagem_progresso_endbr("Padronizando nomes dos logradouros...")
 
   enderecos_padrao[
     ,
@@ -118,7 +118,7 @@ int_padronizar_nome <- function(enderecos_padrao, campos_do_logradouro) {
 }
 
 int_padronizar_numero <- function(enderecos_padrao, campos_do_logradouro) {
-  prog <- mensagem_progresso_endpad("Padronizando n\u00fameros...")
+  prog <- mensagem_progresso_endbr("Padronizando n\u00fameros...")
 
   enderecos_padrao[
     ,
@@ -128,7 +128,7 @@ int_padronizar_numero <- function(enderecos_padrao, campos_do_logradouro) {
   ]
 
   cli::cli_progress_done(id = prog)
-  prog <- mensagem_progresso_endpad(
+  prog <- mensagem_progresso_endbr(
     "Trazendo n\u00fameros para o logradouro completo..."
   )
 
@@ -148,7 +148,7 @@ int_padronizar_numero <- function(enderecos_padrao, campos_do_logradouro) {
 int_padronizar_tipo <- function(enderecos_padrao,
                                 campos_do_logradouro,
                                 checar_tipos) {
-  prog <- mensagem_progresso_endpad("Padronizando tipos de logradouro...")
+  prog <- mensagem_progresso_endbr("Padronizando tipos de logradouro...")
 
   enderecos_padrao[
     ,
@@ -160,7 +160,7 @@ int_padronizar_tipo <- function(enderecos_padrao,
   cli::cli_progress_done(id = prog)
 
   if (checar_tipos) {
-    prog <- mensagem_progresso_endpad(
+    prog <- mensagem_progresso_endbr(
       "Verificando duplicatas entre o tipo e o nome do logradouro..."
     )
 
@@ -181,7 +181,7 @@ int_padronizar_tipo <- function(enderecos_padrao,
     cli::cli_progress_done(id = prog)
   }
 
-  prog <- mensagem_progresso_endpad(
+  prog <- mensagem_progresso_endbr(
     "Trazendo tipos de logradouro para o logradouro completo..."
   )
 
@@ -250,7 +250,7 @@ erro_nome_do_logradouro_ausente <- function() {
     }
   }
 
-  erro_endpad(
+  erro_endbr(
     c(
       paste0(
         "N\u00e3o \u00e9 poss\u00edvel fazer uma padroniza\u00e7\u00e3o de ",

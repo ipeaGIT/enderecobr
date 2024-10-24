@@ -1,16 +1,16 @@
 
-# enderecopadrao
+# enderecobr
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/enderecopadrao)](https://CRAN.R-project.org/package=enderecopadrao)
+status](https://www.r-pkg.org/badges/version/enderecobr)](https://CRAN.R-project.org/package=enderecobr)
 [![B
-status](https://github.com/ipeaGIT/enderecopadrao/workflows/check/badge.svg)](https://github.com/ipeaGIT/enderecopadrao/actions?query=workflow%3Acheck)
+status](https://github.com/ipeaGIT/enderecobr/workflows/check/badge.svg)](https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck)
 [![Codecov test
-coverage](https://codecov.io/gh/ipeaGIT/enderecopadrao/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ipeaGIT/enderecopadrao?branch=main)
+coverage](https://codecov.io/gh/ipeaGIT/enderecobr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main)
 [![Lifecycle:
 stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-**enderecopadrao** é um pacote de R que permite padronizar endereços
+**enderecobr** é um pacote de R que permite padronizar endereços
 brasileiros a partir de diferentes critérios. Os métodos de padronização
 atualmente incluem apenas manipulações de strings, não oferecendo
 suporte a correspondências probabilísticas entre strings.
@@ -20,7 +20,7 @@ suporte a correspondências probabilísticas entre strings.
 A última versão estável pode ser baixada do CRAN com o comando a seguir:
 
 ``` r
-install.packages("enderecopadrao")
+install.packages("enderecobr")
 ```
 
 Caso prefira, a versão em desenvolvimento também pode ser usada. Para
@@ -28,7 +28,7 @@ isso, use o seguinte comando:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("ipeaGIT/enderecopadrao")
+remotes::install_github("ipeaGIT/enderecobr")
 ```
 
 ## Utilização
@@ -36,17 +36,17 @@ remotes::install_github("ipeaGIT/enderecopadrao")
 Esta seção visa oferecer apenas uma visão geral das funcionalidades do
 pacote. Para mais detalhes, leia a vignette introdutória:
 
-- [**enderecopadrao**: padronizador de endereços
-  brasileiros](https://ipeagit.github.io/enderecopadrao/articles/enderecopadrao.html)
+- [**enderecobr**: padronizador de endereços
+  brasileiros](https://ipeagit.github.io/enderecobr/articles/enderecobr.html)
 
-O **enderecopadrao** disponibiliza funções para padronizar diferentes
-campos de um endereço. A `padronizar_enderecos()`, carro-chefe do
-pacote, atua de forma simultânea sobre os vários campos que podem compor
-um endereço. Para isso, ela recebe um dataframe e a correspondência
-entre suas colunas e os campos a serem padronizados:
+O **enderecobr** disponibiliza funções para padronizar diferentes campos
+de um endereço. A `padronizar_enderecos()`, carro-chefe do pacote, atua
+de forma simultânea sobre os vários campos que podem compor um endereço.
+Para isso, ela recebe um dataframe e a correspondência entre suas
+colunas e os campos a serem padronizados:
 
 ``` r
-library(enderecopadrao)
+library(enderecobr)
 
 enderecos <- data.frame(
   logradouro = "r ns sra da piedade",
@@ -127,15 +127,15 @@ padronizar_logradouros(logradouros)
 
 numeros <- c("0210", "001", "1", "", "S N", "S/N", "SN", "0180  0181")
 padronizar_numeros(numeros)
-#> [1] "210"     "1"       "1"       NA        "S/N"     "S/N"     "S/N"    
+#> [1] "210"     "1"       "1"       "S/N"     "S/N"     "S/N"     "S/N"    
 #> [8] "180 181"
 ```
 
 ## Controle de verbosidade
 
 O disparo de mensagens com informações sobre a execução das funções pode
-ser controlado pela opção `enderecopadrao.verbose`, que recebe os
-valores `"quiet"` ou `"verbose"`, como demonstrado a seguir:
+ser controlado pela opção `enderecobr.verbose`, que recebe os valores
+`"quiet"` ou `"verbose"`, como demonstrado a seguir:
 
 ``` r
 campos <- correspondencia_logradouro(
@@ -147,7 +147,7 @@ campos <- correspondencia_logradouro(
 res <- padronizar_logradouros_completos(enderecos, campos)
 
 # verboso, se desejado
-rlang::local_options("enderecopadrao.verbose" = "verbose")
+rlang::local_options("enderecobr.verbose" = "verbose")
 res <- padronizar_logradouros_completos(enderecos, campos)
 #> ✔ Padronizando nomes dos logradouros... [130ms]
 #> ✔ Padronizando números... [111ms]
@@ -156,5 +156,5 @@ res <- padronizar_logradouros_completos(enderecos, campos)
 
 ## Nota <a href="https://www.ipea.gov.br"><img src="man/figures/ipea_logo.png" alt="Ipea" align="right" width="300"/></a>
 
-**enderecopadrao** é desenvolvido por uma equipe de pesquisadores do
+**enderecobr** é desenvolvido por uma equipe de pesquisadores do
 Instituto de Pesquisa Econômica Aplicada (Ipea).
