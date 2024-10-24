@@ -113,7 +113,7 @@
 <span><span class="co">#&gt;     cep_padr     bairro_padr municipio_padr    estado_padr</span></span>
 <span><span class="co">#&gt;       &lt;char&gt;          &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
 <span><span class="co">#&gt; 1: 25220-020 JARDIM BOTANICO RIO DE JANEIRO RIO DE JANEIRO</span></span></code></pre></div>
-<p>Por trás dos panos, essa função utiliza diversas outras funções que padronizam campos de forma individual. Cada uma delas recebe um vetor com valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos valores padronizados. Algumas das funções disponíveis são apresentadas abaixo:</p>
+<p>Por trás dos panos, essa função utiliza diversas outras funções que padronizam campos de forma individual. Cada uma delas recebe um vetor com valores não padronizados e retorna um vetor de mesmo tamanho com os respectivos valores padronizados. Algumas das funções disponíveis são apresentadas a seguir:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"21"</span>, <span class="st">" 21"</span>, <span class="st">"MA"</span>, <span class="st">" MA "</span>, <span class="st">"ma"</span>, <span class="st">"MARANHÃO"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
@@ -157,6 +157,26 @@
 <span><span class="fu"><a href="reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "210"     "1"       "1"       NA        "S/N"     "S/N"     "S/N"    </span></span>
 <span><span class="co">#&gt; [8] "180 181"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="controle-de-verbosidade">Controle de verbosidade<a class="anchor" aria-label="anchor" href="#controle-de-verbosidade"></a>
+</h2>
+<p>O disparo de mensagens com informações sobre a execução das funções pode ser controlado pela opção <code>enderecopadrao.verbose</code>, que recebe os valores <code>"quiet"</code> ou <code>"verbose"</code>, como demonstrado a seguir:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">campos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/correspondencia_logradouro.html">correspondencia_logradouro</a></span><span class="op">(</span></span>
+<span>  nome_do_logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span>
+<span>  numero <span class="op">=</span> <span class="st">"nroLogradouro"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># quieto, por padrão</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/padronizar_logradouros_completos.html">padronizar_logradouros_completos</a></span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># verboso, se desejado</span></span>
+<span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">local_options</a></span><span class="op">(</span><span class="st">"enderecopadrao.verbose"</span> <span class="op">=</span> <span class="st">"verbose"</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/padronizar_logradouros_completos.html">padronizar_logradouros_completos</a></span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Padronizando nomes dos logradouros... [130ms]</span></span>
+<span><span class="co">#&gt; ✔ Padronizando números... [111ms]</span></span>
+<span><span class="co">#&gt; ✔ Trazendo números para o logradouro completo... [107ms]</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="nota-">Nota <a href="https://www.ipea.gov.br" class="external-link"><img src="reference/figures/ipea_logo.png" alt="Ipea" align="right" width="300"></a>
