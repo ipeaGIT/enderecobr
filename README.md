@@ -1,5 +1,5 @@
 
-# enderecobr
+# enderecobr <img align="right" src="man/figures/logo.svg" alt="" width="180">
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/enderecobr)](https://CRAN.R-project.org/package=enderecobr)
