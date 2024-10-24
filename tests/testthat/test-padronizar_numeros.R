@@ -11,36 +11,18 @@ test_that("lida com vetores vazios corretamente", {
 })
 
 test_that("padroniza corretamente - numero", {
-  skip_if_not_installed("tibble")
-
   gabarito <- tibble::tribble(
     ~original,   ~padronizado_esperado,
     1,           "1",
     1.1,         "1",
-    NA_integer_, NA_character_,
-    NA_real_,    NA_character_
-  )
-
-  expect_equal(tester(gabarito$original), gabarito$padronizado_esperado)
-})
-
-test_that("padroniza corretamente - numero", {
-  skip_if_not_installed("tibble")
-
-  gabarito <- tibble::tribble(
-    ~original,   ~padronizado_esperado,
-    1,           "1",
-    1.1,         "1",
-    NA_integer_, NA_character_,
-    NA_real_,    NA_character_
+    NA_integer_, "S/N",
+    NA_real_,    "S/N"
   )
 
   expect_equal(tester(gabarito$original), gabarito$padronizado_esperado)
 })
 
 test_that("padroniza corretamente - caracter", {
-  skip_if_not_installed("tibble")
-
   gabarito <- tibble::tribble(
     ~original,     ~padronizado_esperado,
     " 1 ",           "1",
@@ -74,8 +56,8 @@ test_that("padroniza corretamente - caracter", {
     "-",             "S/N",
     "--",            "S/N",
 
-    "",              NA_character_,
-    NA_character_,   NA_character_
+    "",              "S/N",
+    NA_character_,   "S/N"
   )
 
   expect_equal(tester(gabarito$original), gabarito$padronizado_esperado)

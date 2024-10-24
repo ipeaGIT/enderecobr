@@ -38,7 +38,7 @@ padronizar_numeros <- function(numeros) {
     numeros_na <- which(is.na(numeros))
 
     numeros_padrao <- formatC(numeros, format = "d")
-    numeros_padrao[numeros_na] <- NA_character_
+    numeros_padrao[numeros_na] <- "S/N"
 
     return(numeros_padrao)
   }
@@ -63,7 +63,7 @@ padronizar_numeros <- function(numeros) {
     )
   )
 
-  numeros_padrao[numeros_padrao == ""] <- NA_character_
+  numeros_padrao[is.na(numeros_padrao) | numeros_padrao == ""] <- "S/N"
 
   return(numeros_padrao)
 }
