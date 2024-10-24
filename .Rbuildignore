@@ -13,3 +13,4 @@
 ^data-raw$
 tests/test-grandes_bases.R
 pkgdown/
+^cran-comments\.md$

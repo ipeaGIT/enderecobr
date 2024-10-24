@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Daniel Herszenhut \email{dhersz@gmail.com} (\href{https://orcid.org/0000-0001-8066-1105}{ORCID})
 
+Authors:
+\itemize{
+  \item Rafael H. M. Pereira (\href{https://orcid.org/0000-0003-2125-7465}{ORCID})
+}
+
 }
 \keyword{internal}
