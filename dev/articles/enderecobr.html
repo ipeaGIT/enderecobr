@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>enderecopadrao: padronizador de endereços brasileiros • enderecopadrao</title>
+<title>enderecobr: padronizador de endereços brasileiros • enderecobr</title>
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="enderecopadrao: padronizador de endereços brasileiros">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="enderecobr: padronizador de endereços brasileiros">
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">enderecopadrao</a>
+    <a class="navbar-brand me-2" href="../index.html">enderecobr</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
 
@@ -30,7 +30,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item"><a class="nav-link" href="../articles/enderecopadrao.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/enderecobr.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
@@ -38,7 +38,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ipeaGIT/enderecopadrao/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ipeaGIT/enderecobr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
@@ -60,40 +60,39 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>enderecopadrao: padronizador de endereços brasileiros</h1>
+      <h1>enderecobr: padronizador de endereços brasileiros</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ipeaGIT/enderecopadrao/blob/main/vignettes/enderecopadrao.Rmd" class="external-link"><code>vignettes/enderecopadrao.Rmd</code></a></small>
-      <div class="d-none name"><code>enderecopadrao.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ipeaGIT/enderecobr/blob/main/vignettes/enderecobr.Rmd" class="external-link"><code>vignettes/enderecobr.Rmd</code></a></small>
+      <div class="d-none name"><code>enderecobr.Rmd</code></div>
     </div>
 
     
     
-<p><strong>enderecopadrao</strong> é um pacote de R que permite
-padronizar endereços brasileiros a partir de diferentes critérios. Os
-métodos de padronização atualmente incluem apenas manipulações de
-strings, não oferecendo suporte a correspondências probabilísticas entre
-strings.</p>
+<p><strong>enderecobr</strong> é um pacote de R que permite padronizar
+endereços brasileiros a partir de diferentes critérios. Os métodos de
+padronização atualmente incluem apenas manipulações de strings, não
+oferecendo suporte a correspondências probabilísticas entre strings.</p>
 <div class="section level2">
 <h2 id="instalação">Instalação<a class="anchor" aria-label="anchor" href="#instala%C3%A7%C3%A3o"></a>
 </h2>
 <p>A última versão estável pode ser baixada do CRAN com o comando a
 seguir:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"enderecobr"</span><span class="op">)</span></span></code></pre></div>
 <p>Caso prefira, a versão em desenvolvimento também pode ser usada. Para
 isso, use o seguinte comando:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecopadrao"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ipeaGIT/enderecobr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="utilização">Utilização<a class="anchor" aria-label="anchor" href="#utiliza%C3%A7%C3%A3o"></a>
 </h2>
-<p>O <strong>enderecopadrao</strong> disponibiliza funções para
-padronizar os diversos campos de um endereço. Essas funções agem tanto
-sobre campos individuais quanto sobre um conjunto de campos. Vamos ver,
-primeiro, como funcionam as funções que agem sobre múltiplos campos
+<p>O <strong>enderecobr</strong> disponibiliza funções para padronizar
+os diversos campos de um endereço. Essas funções agem tanto sobre campos
+individuais quanto sobre um conjunto de campos. Vamos ver, primeiro,
+como funcionam as funções que agem sobre múltiplos campos
 simultaneamente.</p>
 <div class="section level3">
 <h3 id="padronização-de-múltiplos-campos-simultaneamente">Padronização de múltiplos campos simultaneamente<a class="anchor" aria-label="anchor" href="#padroniza%C3%A7%C3%A3o-de-m%C3%BAltiplos-campos-simultaneamente"></a>
@@ -103,7 +102,7 @@ forma simultânea sobre os vários campos que podem compor um endereço.
 Para isso, ela recebe um dataframe e a correspondência entre suas
 colunas e os campos a serem padronizados:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ipeaGIT/enderecopadrao" class="external-link">enderecopadrao</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ipeaGIT/enderecobr" class="external-link">enderecobr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">enderecos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -442,7 +441,7 @@ logradouros.</p>
 <h3 id="controle-de-verbosidade">Controle de verbosidade<a class="anchor" aria-label="anchor" href="#controle-de-verbosidade"></a>
 </h3>
 <p>O disparo de mensagens com informações sobre a execução das funções
-pode ser controlado pela opção <code>enderecopadrao.verbose</code>, que
+pode ser controlado pela opção <code>enderecobr.verbose</code>, que
 recebe os valores <code>"quiet"</code> ou <code>"verbose"</code>, como
 demonstrado a seguir:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -455,7 +454,7 @@ demonstrado a seguir:</p>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padronizar_logradouros_completos.html">padronizar_logradouros_completos</a></span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># verboso, se desejado</span></span>
-<span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">local_options</a></span><span class="op">(</span><span class="st">"enderecopadrao.verbose"</span> <span class="op">=</span> <span class="st">"verbose"</span><span class="op">)</span></span>
+<span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">local_options</a></span><span class="op">(</span><span class="st">"enderecobr.verbose"</span> <span class="op">=</span> <span class="st">"verbose"</span><span class="op">)</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/padronizar_logradouros_completos.html">padronizar_logradouros_completos</a></span><span class="op">(</span><span class="va">enderecos</span>, <span class="va">campos</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ Padronizando nomes dos logradouros... [130ms]</span></span>
 <span><span class="co">#&gt; ✔ Padronizando números... [111ms]</span></span>
