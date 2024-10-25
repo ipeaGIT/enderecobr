@@ -1,66 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/enderecopadrao.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/codigos_estados.html</loc>
-  </url>
-  <url>
-    <loc>/reference/codigos_municipios.html</loc>
-  </url>
-  <url>
-    <loc>/reference/correspondencia_campos.html</loc>
-  </url>
-  <url>
-    <loc>/reference/enderecopadrao.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_bairros.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_ceps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_complementos.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_enderecos.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_estados.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_logradouros.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_municipios.html</loc>
-  </url>
-  <url>
-    <loc>/reference/padronizar_numeros.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ipeagit.github.io/enderecobr/404.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/LICENSE-text.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/LICENSE.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/articles/enderecobr.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/articles/index.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/authors.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/index.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/news/index.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/codigos_estados.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/codigos_municipios.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/correspondencia_logradouro.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/enderecobr.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/index.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_bairros.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_ceps.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_complementos.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_estados.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros_completos.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_municipios.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_numeros.html</loc></url>
+<url><loc>https://ipeagit.github.io/enderecobr/reference/padronizar_tipos_de_logradouro.html</loc></url>
 </urlset>
+
