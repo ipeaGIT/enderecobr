@@ -4,17 +4,23 @@
   "identifier": "enderecobr",
   "description": "Padroniza endereços brasileiros a partir de diferentes critérios. Os métodos de padronização incluem apenas manipulações básicas de strings, não oferecendo suporte a correspondências probabilísticas entre strings. (Standardizes brazilian addresses using different criteria. Standardization methods include only basic string manipulation, not supporting probabilistic matches between strings.)",
   "name": "enderecobr: Padronizador de Endereços Brasileiros (Brazilian Addresses\n    Standardizer)",
-  "relatedLink": "https://ipeagit.github.io/enderecobr/",
+  "relatedLink": ["https://ipeagit.github.io/enderecobr/", "https://CRAN.R-project.org/package=enderecobr"],
   "codeRepository": "https://github.com/ipeaGIT/enderecobr",
   "issueTracker": "https://github.com/ipeaGIT/enderecobr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.0",
+  "version": "0.2.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -171,7 +177,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "271.818KB",
+  "fileSize": "271.905KB",
   "releaseNotes": "https://github.com/ipeaGIT/enderecobr/blob/master/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecobr/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main"],
