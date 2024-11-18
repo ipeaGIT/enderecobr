@@ -1,10 +1,8 @@
-# enderecobr (versão em desenvolvimento)
-
-## Correção de bugs
-
-## Novas funcionalidades
+# enderecobr 0.2.1
 
 ## Notas
+
+- Lucas Mation adicionado como autor do pacote.
 
 # enderecobr 0.2.0
 
