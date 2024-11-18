@@ -24,6 +24,7 @@ Useful links:
 Authors:
 \itemize{
   \item Rafael H. M. Pereira (\href{https://orcid.org/0000-0003-2125-7465}{ORCID})
+  \item Lucas Mation (\href{https://orcid.org/0000-0002-7461-932X}{ORCID})
 }
 
 }
