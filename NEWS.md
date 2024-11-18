@@ -1,3 +1,11 @@
+# enderecobr (versão em desenvolvimento)
+
+## Correção de bugs
+
+## Novas funcionalidades
+
+## Notas
+
 # enderecobr 0.2.1
 
 ## Notas
