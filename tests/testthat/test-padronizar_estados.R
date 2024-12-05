@@ -1,8 +1,14 @@
-test_that("da erro com inputs != de caracteres e estados", {
+test_that("da erro com inputs incorretos", {
   expect_error(padronizar_estados(as.factor(21)))
+
+  expect_error(padronizar_estados("21", formato = 1))
+  expect_error(padronizar_estados("21", formato = "oie"))
+  expect_error(padronizar_estados("21", formato = c("sigla", "sigla")))
 })
 
-test_that("padroniza corretamente", {
+test_that("padroniza corretamente segundo o parametro formato", {
+  # por padrão, por extenso
+
   expect_equal(padronizar_estados("21"), "MARANHAO")
   expect_equal(padronizar_estados("021"), "MARANHAO")
   expect_equal(padronizar_estados(" 21 "), "MARANHAO")
@@ -15,6 +21,30 @@ test_that("padroniza corretamente", {
   expect_equal(padronizar_estados(c(21, NA)), c("MARANHAO", NA_character_))
 
   expect_equal(padronizar_estados("MARANHÃO"), "MARANHAO")
+
+  # ou só a sigla, se especificado
+
+  expect_equal(padronizar_estados("21", formato = "sigla"), "MA")
+  expect_equal(padronizar_estados("021", formato = "sigla"), "MA")
+  expect_equal(padronizar_estados(" 21 ", formato = "sigla"), "MA")
+  expect_equal(padronizar_estados("ma", formato = "sigla"), "MA")
+  expect_equal(
+    padronizar_estados(NA_character_, formato = "sigla"),
+    NA_character_
+  )
+  expect_equal(padronizar_estados("", formato = "sigla"), NA_character_)
+
+  expect_equal(padronizar_estados(21, formato = "sigla"), "MA")
+  expect_equal(
+    padronizar_estados(NA_integer_, formato = "sigla"),
+    NA_character_
+  )
+  expect_equal(
+    padronizar_estados(c(21, NA), formato = "sigla"),
+    c("MA", NA_character_)
+  )
+
+  expect_equal(padronizar_estados("MARANHÃO", formato = "sigla"), "MA")
 })
 
 test_that("lida com vetores vazios corretamente", {

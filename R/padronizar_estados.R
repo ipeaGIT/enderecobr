@@ -6,6 +6,9 @@
 #'
 #' @param estados Um vetor de caracteres ou números. Os estados a serem
 #'   padronizados.
+#' @param formato Uma string. Como o resultado padronizado deve ser formatado.
+#'   Por padrão, `"por_extenso"`, fazendo com que a função retorne o nome dos
+#'   estados por extenso. Se `"sigla"`, a função retorna a sigla dos estados.
 #'
 #' @return Um vetor de caracteres com os estados padronizados.
 #'
@@ -28,13 +31,19 @@
 #'
 #' estados <- c(21, NA)
 #' padronizar_estados(estados)
+#' padronizar_estados(estados, formato = "sigla")
 #'
 #' @export
-padronizar_estados <- function(estados) {
+padronizar_estados <- function(estados, formato = "por_extenso") {
   checkmate::assert(
     checkmate::check_character(estados),
     checkmate::check_numeric(estados),
     combine = "or"
+  )
+  checkmate::assert(
+    checkmate::check_string(formato),
+    checkmate::check_names(formato, subset.of = c("por_extenso", "sigla")),
+    combine = "and"
   )
 
   estados_dedup <- unique(estados)
@@ -50,28 +59,42 @@ padronizar_estados <- function(estados) {
   } else {
     estados_padrao_dedup <- stringr::str_squish(estados_dedup)
     estados_padrao_dedup <- toupper(estados_padrao_dedup)
+    estados_padrao_dedup <- stringi::stri_trans_general(
+      estados_padrao_dedup,
+      "Latin-ASCII"
+    )
     estados_padrao_dedup <- stringr::str_replace_all(
       estados_padrao_dedup,
       c("\\b0+(\\d+)\\b" = "\\1")
     )
   }
 
-  # em uma primeira etapa, fazemos uma busca dos nomes completos dos estados a
-  # partir de seus códigos numericos e de suas abreviacoes. apos essa etapa, se
-  # ainda houver algum registro de valor diferente dos nomes completos padroes,
-  # fazemos uma serie de manipulacoes de string que tomam um pouco mais de tempo
+  variavel_buscada <- ifelse(
+    formato == "por_extenso",
+    "nome_estado",
+    "abrev_estado"
+  )
 
-  vetor_busca_com_cod <- vetor_busca_com_abrev <- codigos_estados$nome_estado
+  vetor_busca_com_cod <- codigos_estados[[variavel_buscada]]
+  vetor_busca_com_abrev <- vetor_busca_com_nome <- vetor_busca_com_cod
+
   names(vetor_busca_com_cod) <- codigos_estados$codigo_estado
   names(vetor_busca_com_abrev) <- codigos_estados$abrev_estado
+  names(vetor_busca_com_nome) <- codigos_estados$nome_estado
 
   result_busca_com_cod <- vetor_busca_com_cod[estados_padrao_dedup]
   result_busca_com_abrev <- vetor_busca_com_abrev[estados_padrao_dedup]
+  result_busca_com_nome <- vetor_busca_com_nome[estados_padrao_dedup]
 
   estados_padrao_dedup <- ifelse(
     is.na(result_busca_com_cod),
     result_busca_com_abrev,
     result_busca_com_cod
+  )
+  estados_padrao_dedup <- ifelse(
+    is.na(estados_padrao_dedup),
+    result_busca_com_nome,
+    estados_padrao_dedup
   )
 
   names(estados_padrao_dedup) <- NULL
@@ -81,20 +104,6 @@ padronizar_estados <- function(estados) {
     estados_dedup,
     estados_padrao_dedup
   )
-
-  if (any(! estados_padrao_dedup %in% c(codigos_estados$nome_estado, "", NA))) {
-    # aqui com certeza podem entrar outras manipulacoes, como substituir GDE por
-    # GRANDE (em RIO GDE DO SUL, por exemplo), corrigir registros com ortografia
-    # errada, etc. mas ainda nao encontrei nenhuma base com esse problemas,
-    # entao optei por deixar apenas o comando abaixo como exemplo de manipulacao
-    # a ser feita, e a medida que forem surgindo problemas vou atualizando aqui.
-
-    estados_padrao_dedup <- toupper(estados_padrao_dedup)
-    estados_padrao_dedup <- stringi::stri_trans_general(
-      estados_padrao_dedup,
-      "Latin-ASCII"
-    )
-  }
 
   names(estados_padrao_dedup) <- estados_dedup
   estados_padrao <- estados_padrao_dedup[as.character(estados)]

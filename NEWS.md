@@ -4,6 +4,10 @@
 
 ## Novas funcionalidades
 
+- Novo argumento na `padronizar_estados()`, `formato`, responsável por controlar
+como o resultado deve ser padronizado: se usando o nome por extenso de cada
+estado ou sua sigla.
+
 ## Notas
 
 # enderecobr 0.2.1

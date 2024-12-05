@@ -4,11 +4,15 @@
 \alias{padronizar_estados}
 \title{Padronizar estados}
 \usage{
-padronizar_estados(estados)
+padronizar_estados(estados, formato = "por_extenso")
 }
 \arguments{
 \item{estados}{Um vetor de caracteres ou números. Os estados a serem
 padronizados.}
+
+\item{formato}{Uma string. Como o resultado padronizado deve ser formatado.
+Por padrão, \code{"por_extenso"}, fazendo com que a função retorne o nome dos
+estados por extenso. Se \code{"sigla"}, a função retorna a sigla dos estados.}
 }
 \value{
 Um vetor de caracteres com os estados padronizados.
@@ -40,5 +44,6 @@ padronizar_estados(estados)
 
 estados <- c(21, NA)
 padronizar_estados(estados)
+padronizar_estados(estados, formato = "sigla")
 
 }
