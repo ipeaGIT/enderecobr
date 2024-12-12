@@ -1,10 +1,15 @@
 ## Test environments
 
-- Local Windows 11 installation (R 4.4.1)
+- Local Windows Server 2022 installation (R 4.4.2)
 - GitHub Actions:
   - Windows (release)
   - MacOS (release)
   - Ubuntu 20.04 (devel, release, oldrel)
+- Rhub:
+  - linux (release)
+  - macos (release)
+  - macos-arm64 (release)
+  - windows (release)
 
 ## R CMD check results
 
