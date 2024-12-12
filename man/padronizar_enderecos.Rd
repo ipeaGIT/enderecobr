@@ -7,6 +7,7 @@
 padronizar_enderecos(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
+  formato_estados = "por_extenso",
   manter_cols_extras = TRUE,
   combinar_logradouro = FALSE,
   checar_tipos = FALSE
@@ -25,6 +26,11 @@ algumas verificações do conteúdo imputado. Argumentos dessa função com
 valor \code{NULL} são ignorados, e ao menos um valor diferente de nulo deve ser
 fornecido. Caso deseje criar o vetor manualmente, note que seus nomes devem
 ser os mesmos nomes dos parâmetros da função \code{correspondencia_campos()}.}
+
+\item{formato_estados}{Uma string. Como o estado padronizado deve ser
+formatado. Por padrão, \code{"por_extenso"}, fazendo com que a função retorne o
+nome dos estados por extenso. Se \code{"sigla"}, a função retorna a sigla dos
+estados.}
 
 \item{manter_cols_extras}{Um logical. Se colunas não especificadas em
 \code{campos_do_endereco} devem ser mantidas ou não (por exemplo, uma coluna de

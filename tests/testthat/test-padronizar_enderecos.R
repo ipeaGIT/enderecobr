@@ -21,12 +21,14 @@ tester <- function(enderecos = get("enderecos", envir = parent.frame()),
                      municipio = "municipio",
                      estado = "estado"
                    ),
+                   formato_estados = "por_extenso",
                    manter_cols_extras = TRUE,
                    combinar_logradouro = FALSE,
                    checar_tipos = FALSE) {
   padronizar_enderecos(
     enderecos,
     campos_do_endereco,
+    formato_estados,
     manter_cols_extras,
     combinar_logradouro,
     checar_tipos
@@ -39,6 +41,10 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(campos_do_endereco = c(logradouro = 1)))
   expect_error(tester(campos_do_endereco = c(oie = "logradouro")))
   expect_error(tester(campos_do_endereco = c(logradouro = "oie")))
+
+  expect_error(tester(formato_estados = 1))
+  expect_error(tester(formato_estados = "oie"))
+  expect_error(tester(formato_estados = c("sigla", "sigla")))
 
   expect_error(tester(manter_cols_extras = 1))
   expect_error(tester(manter_cols_extras = NA))
@@ -321,5 +327,27 @@ test_that("checa duplicatas de tipos e nomes de log quando checar_tipos=TRUE", {
       nome = "r ns sra da piedade",
       logradouro_completo_padr = "RUA NOSSA SENHORA DA PIEDADE"
     )
+  )
+})
+
+test_that("formata os estados conforme o argumento formato_estados", {
+  ends <- data.frame(estados = 33)
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(estado = "estados"),
+      formato_estados = "por_extenso"
+    ),
+    data.table::data.table(estados = 33, estado_padr = "RIO DE JANEIRO")
+  )
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(estado = "estados"),
+      formato_estados = "sigla"
+    ),
+    data.table::data.table(estados = 33, estado_padr = "RJ")
   )
 })

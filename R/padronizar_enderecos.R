@@ -14,6 +14,10 @@
 #'   valor `NULL` são ignorados, e ao menos um valor diferente de nulo deve ser
 #'   fornecido. Caso deseje criar o vetor manualmente, note que seus nomes devem
 #'   ser os mesmos nomes dos parâmetros da função `correspondencia_campos()`.
+#' @param formato_estados Uma string. Como o estado padronizado deve ser
+#'   formatado. Por padrão, `"por_extenso"`, fazendo com que a função retorne o
+#'   nome dos estados por extenso. Se `"sigla"`, a função retorna a sigla dos
+#'   estados.
 #' @param manter_cols_extras Um logical. Se colunas não especificadas em
 #'   `campos_do_endereco` devem ser mantidas ou não (por exemplo, uma coluna de
 #'   id do conjunto de dados sendo padronizado). Por padrão, `TRUE`.
@@ -75,11 +79,20 @@
 padronizar_enderecos <- function(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
+  formato_estados = "por_extenso",
   manter_cols_extras = TRUE,
   combinar_logradouro = FALSE,
   checar_tipos = FALSE
 ) {
   checkmate::assert_data_frame(enderecos)
+  checkmate::assert(
+    checkmate::check_string(formato_estados),
+    checkmate::check_names(
+      formato_estados,
+      subset.of = c("por_extenso", "sigla")
+    ),
+    combine = "and"
+  )
   checkmate::assert_logical(manter_cols_extras, any.missing = FALSE, len = 1)
   checkmate::assert_logical(combinar_logradouro, any.missing = FALSE, len = 1)
   checkmate::assert_logical(checar_tipos, any.missing = FALSE, len = 1)
@@ -88,15 +101,15 @@ padronizar_enderecos <- function(
   enderecos_padrao <- data.table::as.data.table(enderecos)
 
   relacao_campos <- tibble::tribble(
-    ~nome_campo,          ~nome_formatado,       ~funcao,
-    "tipo_de_logradouro", "tipos de logradouro", padronizar_tipos_de_logradouro,
-    "logradouro",         "logradouros",         padronizar_logradouros,
-    "numero",             "n\u00fameros",        padronizar_numeros,
-    "complemento",        "complementos",        padronizar_complementos,
-    "cep",                "CEPs",                padronizar_ceps,
-    "bairro",             "bairros",             padronizar_bairros,
-    "municipio",          "munic\u00edpios",     padronizar_municipios,
-    "estado",             "estados",             padronizar_estados
+    ~nome_campo,          ~nome_formatado,       ~funcao,                        ~args_extra,
+    "tipo_de_logradouro", "tipos de logradouro", padronizar_tipos_de_logradouro, NULL,
+    "logradouro",         "logradouros",         padronizar_logradouros,         NULL,
+    "numero",             "n\u00fameros",        padronizar_numeros,             NULL,
+    "complemento",        "complementos",        padronizar_complementos,        NULL,
+    "cep",                "CEPs",                padronizar_ceps,                NULL,
+    "bairro",             "bairros",             padronizar_bairros,             NULL,
+    "municipio",          "munic\u00edpios",     padronizar_municipios,          NULL,
+    "estado",             "estados",             padronizar_estados,             list(formato = formato_estados)
   )
 
   if (combinar_logradouro) {
@@ -120,7 +133,8 @@ padronizar_enderecos <- function(
       relacao_campos$nome_campo,
       relacao_campos$nome_formatado,
       relacao_campos$funcao,
-      FUN = function(nome_campo, nome_formatado, funcao) {
+      relacao_campos$args_extra,
+      FUN = function(nome_campo, nome_formatado, funcao, args_extra) {
         if (nome_campo %in% names(campos_do_endereco)) {
           col_orig <- campos_do_endereco[nome_campo]
           col_padr <- paste0(nome_campo, "_padr")
@@ -129,7 +143,13 @@ padronizar_enderecos <- function(
             paste0("Padronizando ", nome_formatado, "...")
           )
 
-          enderecos_padrao[, c(col_padr) := funcao(enderecos[[col_orig]])]
+          enderecos_padrao[
+            ,
+            c(col_padr) := do.call(
+              funcao,
+              args = append(list(enderecos[[col_orig]]), args_extra)
+            )
+          ]
 
           cli::cli_progress_done(id = prog)
         }

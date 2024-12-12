@@ -7,6 +7,8 @@
 - Novo argumento na `padronizar_estados()`, `formato`, responsável por controlar
 como o resultado deve ser padronizado: se usando o nome por extenso de cada
 estado ou sua sigla.
+- Novo argumento na `padronizar_enderecos()`, `formato_estados`, que controla
+como deve ser feita a padronização de estados dentro dessa função.
 
 ## Notas
 
