@@ -99,7 +99,7 @@ erro_cep_com_letra <- function(possui_letras) {
 
   n_caller_env <- 2
 
-  chamada_upstream <- tryCatch(sys.call(-9), error = function(cnd) NULL)
+  chamada_upstream <- tryCatch(sys.call(-10), error = function(cnd) NULL)
   if (!is.null(chamada_upstream)) {
     funcao_upstream <- as.name(chamada_upstream[[1]])
     if (funcao_upstream == "padronizar_enderecos") n_caller_env <- 8
@@ -136,7 +136,7 @@ erro_cep_com_digitos_demais <- function(possui_digitos_demais) {
 
   n_caller_env <- 2
 
-  chamada_upstream <- tryCatch(sys.call(-9), error = function(cnd) NULL)
+  chamada_upstream <- tryCatch(sys.call(-10), error = function(cnd) NULL)
   if (!is.null(chamada_upstream)) {
     funcao_upstream <- as.name(chamada_upstream[[1]])
     if (funcao_upstream == "padronizar_enderecos") n_caller_env <- 8
