@@ -9,7 +9,7 @@ dataframe."><meta property="og:image" content="https://ipeagit.github.io/enderec
 
     <a class="navbar-brand me-2" href="../index.html">enderecobr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@ dataframe.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">padronizar_enderecos</span><span class="op">(</span></span>
 <span>  <span class="va">enderecos</span>,</span>
 <span>  campos_do_endereco <span class="op">=</span> <span class="fu"><a href="correspondencia_campos.html">correspondencia_campos</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  formato_estados <span class="op">=</span> <span class="st">"por_extenso"</span>,</span>
 <span>  manter_cols_extras <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  combinar_logradouro <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  checar_tipos <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -76,6 +77,13 @@ algumas verificações do conteúdo imputado. Argumentos dessa função com
 valor <code>NULL</code> são ignorados, e ao menos um valor diferente de nulo deve ser
 fornecido. Caso deseje criar o vetor manualmente, note que seus nomes devem
 ser os mesmos nomes dos parâmetros da função <code><a href="correspondencia_campos.html">correspondencia_campos()</a></code>.</p></dd>
+
+
+<dt id="arg-formato-estados">formato_estados<a class="anchor" aria-label="anchor" href="#arg-formato-estados"></a></dt>
+<dd><p>Uma string. Como o estado padronizado deve ser
+formatado. Por padrão, <code>"por_extenso"</code>, fazendo com que a função retorne o
+nome dos estados por extenso. Se <code>"sigla"</code>, a função retorna a sigla dos
+estados.</p></dd>
 
 
 <dt id="arg-manter-cols-extras">manter_cols_extras<a class="anchor" aria-label="anchor" href="#arg-manter-cols-extras"></a></dt>
