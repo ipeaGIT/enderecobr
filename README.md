@@ -5,7 +5,7 @@
 status](https://www.r-pkg.org/badges/version/enderecobr)](https://CRAN.R-project.org/package=enderecobr)
 [![B
 status](https://github.com/ipeaGIT/enderecobr/workflows/check/badge.svg)](https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck)
-[![Codecov test
+[![CRAN/METACRAN Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/enderecobr?color=blue)](https://CRAN.R-project.org/package=enderecobr) [![Codecov test
 coverage](https://codecov.io/gh/ipeaGIT/enderecobr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main)
 [![Lifecycle:
 stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
