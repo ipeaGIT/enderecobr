@@ -35,6 +35,8 @@ test_that("padroniza corretamente - caracter", {
     "20.100",        "20100",
     "20.100 20.101", "20100 20101",
 
+    "1.028",         "1028", # mistura dos dois casos acima - issue #37 (https://github.com/ipeaGIT/enderecobr/issues/37)
+
     "SN",            "S/N",
     "SNº",           "S/N",
     "S N",           "S/N",

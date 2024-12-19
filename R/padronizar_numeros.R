@@ -53,7 +53,7 @@ padronizar_numeros <- function(numeros) {
   numeros_padrao <- stringr::str_replace_all(
     numeros_padrao,
     c(
-      r"{\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181
+      r"{(?<!\.)\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181, mas não 1.028 -> 1.28
 
       r"{(\d+)\.(\d{3})}" = "\\1\\2", # separador de milhar
 
