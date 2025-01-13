@@ -6,6 +6,9 @@
 #'
 #' @param numeros Um vetor de caracteres ou números. Os números de logradouro a
 #'   serem padronizados.
+#' @param formato Uma string. Como o resultado padronizado deve ser formatado.
+#'   Por padrão, `"character"`, fazendo com que a função retorne um vetor de
+#'   caracteres. Se `"integer"`, a função retorna um vetor de números inteiros.
 #'
 #' @return Um vetor de caracteres com os números de logradouros padronizados.
 #'
@@ -27,15 +30,29 @@
 #' padronizar_numeros(numeros)
 #'
 #' @export
-padronizar_numeros <- function(numeros) {
+padronizar_numeros <- function(numeros, formato = "character") {
   checkmate::assert(
     checkmate::check_character(numeros),
     checkmate::check_numeric(numeros),
     combine = "or"
   )
+  checkmate::assert(
+    checkmate::check_string(formato),
+    checkmate::check_names(
+      formato,
+      subset.of = c("character", "integer")
+    ),
+    combine = "and"
+  )
 
   if (is.numeric(numeros)) {
     numeros_padrao <- data.table::fifelse(numeros == 0, NA_integer_, numeros)
+
+    if (formato == "integer") {
+      numeros_padrao <- as.integer(numeros_padrao)
+      return(numeros_padrao)
+    }
+
     numeros_padrao <- formatC(numeros_padrao, format = "d")
     numeros_padrao[numeros_padrao == "NA"] <- "S/N"
 
@@ -62,7 +79,30 @@ padronizar_numeros <- function(numeros) {
     )
   )
 
-  numeros_padrao[is.na(numeros_padrao) | numeros_padrao == ""] <- "S/N"
+  if (formato == "character") {
+    numeros_padrao[is.na(numeros_padrao) | numeros_padrao == ""] <- "S/N"
+  } else {
+    numeros_padrao[numeros_padrao == "S/N"] <- NA_character_
+
+    #warning_conversao_invalida()
+    numeros_padrao <- withCallingHandlers(
+      as.integer(numeros_padrao),
+      warning = function(cnd) {
+        warning_conversao_invalida()
+        rlang::cnd_muffle(cnd)
+      }
+    )
+  }
 
   return(numeros_padrao)
+}
+
+warning_conversao_invalida <- function() {
+  warning_endbr(
+    paste0(
+      "Alguns elementos n\u00e3o puderam ser convertidos para integer, ",
+      "introduzindo NAs no resultado."
+    ),
+    call = sys.frame(-7) # rlang::parent_env() pula direto do function(cnd) pro GlobalEnv, não sei por quê
+  )
 }

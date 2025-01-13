@@ -11,6 +11,10 @@ eram adequadamente transformados em "S/N". Relacionado ao [issue
 
 ## Novas funcionalidades
 
+- Novo argumento na `padronizar_numeros()`, `formato`, responsável por controlar
+como o resultado deve ser padronizado: se como um vetor de caracteres ou de
+inteiros.
+
 ## Notas
 
 # enderecobr 0.3.0

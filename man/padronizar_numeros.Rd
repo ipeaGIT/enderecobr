@@ -4,11 +4,15 @@
 \alias{padronizar_numeros}
 \title{Padronizar números de logradouros}
 \usage{
-padronizar_numeros(numeros)
+padronizar_numeros(numeros, formato = "character")
 }
 \arguments{
 \item{numeros}{Um vetor de caracteres ou números. Os números de logradouro a
 serem padronizados.}
+
+\item{formato}{Uma string. Como o resultado padronizado deve ser formatado.
+Por padrão, \code{"character"}, fazendo com que a função retorne um vetor de
+caracteres. Se \code{"integer"}, a função retorna um vetor de números inteiros.}
 }
 \value{
 Um vetor de caracteres com os números de logradouros padronizados.
