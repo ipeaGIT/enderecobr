@@ -117,7 +117,7 @@ warning_conversao_invalida <- function() {
 
   warning_endbr(
     paste0(
-      "Alguns elementos n\u00e3o puderam ser convertidos para integer, ",
+      "Alguns n\u00fameros n\u00e3o puderam ser convertidos para integer, ",
       "introduzindo NAs no resultado."
     ),
     call = sys.frame(n_frame)

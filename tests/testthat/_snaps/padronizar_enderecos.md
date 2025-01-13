@@ -163,7 +163,7 @@
       tester(ends, correspondencia_campos(numero = "numeros"), formato_numeros = "integer")
     Condition <warning_endbr_conversao_invalida>
       Warning in `padronizar_enderecos()`:
-      Alguns elementos não puderam ser convertidos para integer, introduzindo NAs no resultado.
+      Alguns números não puderam ser convertidos para integer, introduzindo NAs no resultado.
     Output
          numeros numero_padr
           <char>       <int>
