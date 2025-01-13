@@ -98,11 +98,28 @@ padronizar_numeros <- function(numeros, formato = "character") {
 }
 
 warning_conversao_invalida <- function() {
+  # a padronizar_numeros() pode tanto ser chamada individualmente ou como parte
+  # da função padronizar_enderecos(). nesse caso, precisamos que o erro aponte
+  # pra chamada da padronizar_enderecos(), já que o usuário não sabe que a
+  # padronizar_numeros é chamada internamente. pra isso, verificamos as chamadas
+  # feitas na stack e, caso seja feita pela função interna usada na
+  # padronizar_enderecos(), mudamos a chamada do erro
+
+  chamada_upstream <- tryCatch(sys.call(-15), error = function(cnd) NULL)
+
+  # rlang::parent_env() pula direto do function(cnd) pro GlobalEnv, não sei por
+  # quê, então usando sys.frame()
+  if (is.null(chamada_upstream) || as.character(chamada_upstream[[1]]) != "padronizar_enderecos") {
+    n_frame <- -7
+  } else {
+    n_frame <- -15
+  }
+
   warning_endbr(
     paste0(
       "Alguns elementos n\u00e3o puderam ser convertidos para integer, ",
       "introduzindo NAs no resultado."
     ),
-    call = sys.frame(-7) # rlang::parent_env() pula direto do function(cnd) pro GlobalEnv, não sei por quê
+    call = sys.frame(n_frame)
   )
 }

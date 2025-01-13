@@ -18,6 +18,10 @@
 #'   formatado. Por padrão, `"por_extenso"`, fazendo com que a função retorne o
 #'   nome dos estados por extenso. Se `"sigla"`, a função retorna a sigla dos
 #'   estados.
+#' @param formato_numeros Uma string. Como o número padronizado deve ser
+#'   formatado. Por padrão, `"character"`, fazendo com que a função retorne o
+#'   número como caractere. Se `"integer"`, a função retorna o número como
+#'   inteiro.
 #' @param manter_cols_extras Um logical. Se colunas não especificadas em
 #'   `campos_do_endereco` devem ser mantidas ou não (por exemplo, uma coluna de
 #'   id do conjunto de dados sendo padronizado). Por padrão, `TRUE`.
@@ -80,6 +84,7 @@ padronizar_enderecos <- function(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
   formato_estados = "por_extenso",
+  formato_numeros = "character",
   manter_cols_extras = TRUE,
   combinar_logradouro = FALSE,
   checar_tipos = FALSE
@@ -90,6 +95,14 @@ padronizar_enderecos <- function(
     checkmate::check_names(
       formato_estados,
       subset.of = c("por_extenso", "sigla")
+    ),
+    combine = "and"
+  )
+  checkmate::assert(
+    checkmate::check_string(formato_numeros),
+    checkmate::check_names(
+      formato_numeros,
+      subset.of = c("character", "integer")
     ),
     combine = "and"
   )
@@ -104,7 +117,7 @@ padronizar_enderecos <- function(
     ~nome_campo,          ~nome_formatado,       ~funcao,                        ~args_extra,
     "tipo_de_logradouro", "tipos de logradouro", padronizar_tipos_de_logradouro, NULL,
     "logradouro",         "logradouros",         padronizar_logradouros,         NULL,
-    "numero",             "n\u00fameros",        padronizar_numeros,             NULL,
+    "numero",             "n\u00fameros",        padronizar_numeros,             list(formato = formato_numeros),
     "complemento",        "complementos",        padronizar_complementos,        NULL,
     "cep",                "CEPs",                padronizar_ceps,                NULL,
     "bairro",             "bairros",             padronizar_bairros,             NULL,

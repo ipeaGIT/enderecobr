@@ -14,6 +14,8 @@ eram adequadamente transformados em "S/N". Relacionado ao [issue
 - Novo argumento na `padronizar_numeros()`, `formato`, responsável por controlar
 como o resultado deve ser padronizado: se como um vetor de caracteres ou de
 inteiros.
+- Novo argumento na `padronizar_numeros()`, `formato_numeros`, que controla como
+deve ser feita a padronização de números dentro dessa função.
 
 ## Notas
 

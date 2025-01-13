@@ -8,6 +8,7 @@ padronizar_enderecos(
   enderecos,
   campos_do_endereco = correspondencia_campos(),
   formato_estados = "por_extenso",
+  formato_numeros = "character",
   manter_cols_extras = TRUE,
   combinar_logradouro = FALSE,
   checar_tipos = FALSE
@@ -31,6 +32,11 @@ ser os mesmos nomes dos parâmetros da função \code{correspondencia_campos()}.
 formatado. Por padrão, \code{"por_extenso"}, fazendo com que a função retorne o
 nome dos estados por extenso. Se \code{"sigla"}, a função retorna a sigla dos
 estados.}
+
+\item{formato_numeros}{Uma string. Como o número padronizado deve ser
+formatado. Por padrão, \code{"character"}, fazendo com que a função retorne o
+número como caractere. Se \code{"integer"}, a função retorna o número como
+inteiro.}
 
 \item{manter_cols_extras}{Um logical. Se colunas não especificadas em
 \code{campos_do_endereco} devem ser mantidas ou não (por exemplo, uma coluna de

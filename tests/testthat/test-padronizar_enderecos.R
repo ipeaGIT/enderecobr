@@ -22,6 +22,7 @@ tester <- function(enderecos = get("enderecos", envir = parent.frame()),
                      estado = "estado"
                    ),
                    formato_estados = "por_extenso",
+                   formato_numeros = "character",
                    manter_cols_extras = TRUE,
                    combinar_logradouro = FALSE,
                    checar_tipos = FALSE) {
@@ -29,6 +30,7 @@ tester <- function(enderecos = get("enderecos", envir = parent.frame()),
     enderecos,
     campos_do_endereco,
     formato_estados,
+    formato_numeros,
     manter_cols_extras,
     combinar_logradouro,
     checar_tipos
@@ -45,6 +47,10 @@ test_that("da erro com inputs incorretos", {
   expect_error(tester(formato_estados = 1))
   expect_error(tester(formato_estados = "oie"))
   expect_error(tester(formato_estados = c("sigla", "sigla")))
+
+  expect_error(tester(formato_numeros = 1))
+  expect_error(tester(formato_numeros = "oie"))
+  expect_error(tester(formato_numeros = c("character", "character")))
 
   expect_error(tester(manter_cols_extras = 1))
   expect_error(tester(manter_cols_extras = NA))
@@ -349,5 +355,40 @@ test_that("formata os estados conforme o argumento formato_estados", {
       formato_estados = "sigla"
     ),
     data.table::data.table(estados = 33, estado_padr = "RJ")
+  )
+})
+
+test_that("formata os numeros conforme o argumento formato_numeros", {
+  ends <- data.frame(numeros = 0)
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(numero = "numeros"),
+      formato_numeros = "character"
+    ),
+    data.table::data.table(numeros = 0, numero_padr = "S/N")
+  )
+
+  expect_identical(
+    tester(
+      ends,
+      correspondencia_campos(numero = "numeros"),
+      formato_numeros = "integer"
+    ),
+    data.table::data.table(numeros = 0, numero_padr = NA_integer_)
+  )
+})
+
+test_that("warning relacionado ao numero eh atribuido a pad enderecos", {
+  ends <- data.frame(numeros = "1 2 ")
+
+  expect_snapshot(
+    tester(
+      ends,
+      correspondencia_campos(numero = "numeros"),
+      formato_numeros = "integer"
+    ),
+    cnd_class = TRUE
   )
 })
