@@ -13,6 +13,7 @@ test_that("lida com vetores vazios corretamente", {
 test_that("padroniza corretamente - numero", {
   gabarito <- tibble::tribble(
     ~original,   ~padronizado_esperado,
+    0,           "S/N", # issue #38 (https://github.com/ipeaGIT/enderecobr/issues/38)
     1,           "1",
     1.1,         "1",
     NA_integer_, "S/N",

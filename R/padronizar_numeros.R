@@ -35,10 +35,9 @@ padronizar_numeros <- function(numeros) {
   )
 
   if (is.numeric(numeros)) {
-    numeros_na <- which(is.na(numeros))
-
-    numeros_padrao <- formatC(numeros, format = "d")
-    numeros_padrao[numeros_na] <- "S/N"
+    numeros_padrao <- data.table::fifelse(numeros == 0, NA_integer_, numeros)
+    numeros_padrao <- formatC(numeros_padrao, format = "d")
+    numeros_padrao[numeros_padrao == "NA"] <- "S/N"
 
     return(numeros_padrao)
   }

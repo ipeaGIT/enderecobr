@@ -2,9 +2,12 @@
 
 ## Correção de bugs
 
-- Corrigido bug na `padronizar_numeros()` em que zeros após o separador de milhares
-eram suprimidos. Por exemplo, "1.028" virava "1.28". Relacionado ao [issue
-#37](https://github.com/ipeaGIT/enderecobr/issues/37).
+- Corrigido bug na `padronizar_numeros()` em que zeros após o separador de
+milhares eram suprimidos. Por exemplo, "1.028" virava "1.28". Relacionado ao
+[issue #37](https://github.com/ipeaGIT/enderecobr/issues/37).
+- Corrigido bug na `padronizar_numeros()` em que zeros de vetores numéricos não
+eram adequadamente transformados em "S/N". Relacionado ao [issue
+#38](https://github.com/ipeaGIT/enderecobr/issues/38).
 
 ## Novas funcionalidades
 
