@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">enderecobr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,14 +158,68 @@ formato
 A <code><a href="../reference/correspondencia_campos.html">correspondencia_campos()</a></code>, no entanto, realiza alguns
 testes no input, garantindo que o vetor a ser passado pra
 <code><a href="../reference/padronizar_enderecos.html">padronizar_enderecos()</a></code> esteja corretamente formatado.</p>
-<p>A <code><a href="../reference/padronizar_enderecos.html">padronizar_enderecos()</a></code> contém, ainda, três parâmetros
-adicionais. O <code>manter_cols_extras</code> determina as colunas
-incluídas no output da função. Caso seja <code>TRUE</code> (valor
-padrão), todas as colunas do dataframe original são mantidas; caso seja
+<p>A <code><a href="../reference/padronizar_enderecos.html">padronizar_enderecos()</a></code> contém, ainda, cinco parâmetros
+adicionais. O <code>formato_estados</code> e o
+<code>formato_numeros</code> controlam como os estados e números
+padronizados, respectivamente, devem ser formatados. Caso
+<code>formato_estados</code> seja <code>"por_extenso"</code> (valor
+padrão), a função retorna o nome dos estados por extenso; caso seja
+<code>"sigla"</code>, os estados são padronizados conforme suas
+respectivas siglas. Por sua vez, caso <code>formato_numeros</code> seja
+<code>"character"</code>, a função retorna os números padronizados como
+caracteres, preservando valores como <code>"S/N"</code>, que possuem
+letras e outros dígitos que não podem ser convertidos para valores
+numéricos; caso seja <code>"integer"</code>, no entanto, os números são
+retornados como valores inteiros. Caso algum valor não possa ser
+convertido para inteiro, a função o substitui por <code>NA</code> e
+lança um warning alertando sobre a situação. Os exemplos a seguir
+demonstram esses parâmetros detalhadamente:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">campos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correspondencia_campos.html">correspondencia_campos</a></span><span class="op">(</span></span>
+<span>  numero <span class="op">=</span> <span class="st">"nroLogradouro"</span>,</span>
+<span>  estado <span class="op">=</span> <span class="st">"uf_dom"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/padronizar_enderecos.html">padronizar_enderecos</a></span><span class="op">(</span></span>
+<span>  <span class="va">enderecos</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nroLogradouro"</span>, <span class="st">"uf_dom"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  <span class="va">campos</span>,</span>
+<span>  formato_estados <span class="op">=</span> <span class="st">"por_extenso"</span>,</span>
+<span>  formato_numeros <span class="op">=</span> <span class="st">"character"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;    nroLogradouro uf_dom numero_padr    estado_padr</span></span>
+<span><span class="co">#&gt;            &lt;num&gt; &lt;char&gt;      &lt;char&gt;         &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:            20     rj          20 RIO DE JANEIRO</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/padronizar_enderecos.html">padronizar_enderecos</a></span><span class="op">(</span></span>
+<span>  <span class="va">enderecos</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nroLogradouro"</span>, <span class="st">"uf_dom"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  <span class="va">campos</span>,</span>
+<span>  formato_estados <span class="op">=</span> <span class="st">"sigla"</span>,</span>
+<span>  formato_numeros <span class="op">=</span> <span class="st">"integer"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;    nroLogradouro uf_dom numero_padr estado_padr</span></span>
+<span><span class="co">#&gt;            &lt;num&gt; &lt;char&gt;       &lt;int&gt;      &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:            20     rj          20          RJ</span></span>
+<span></span>
+<span><span class="co"># o exemplo abaixo gera um warning, pois o número não pode ser convertido para</span></span>
+<span><span class="co"># inteiro de forma adequada</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/padronizar_enderecos.html">padronizar_enderecos</a></span><span class="op">(</span></span>
+<span>  <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>numero <span class="op">=</span> <span class="st">"12A 13B"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/correspondencia_campos.html">correspondencia_campos</a></span><span class="op">(</span>numero <span class="op">=</span> <span class="st">"numero"</span><span class="op">)</span>,</span>
+<span>  formato_numeros <span class="op">=</span> <span class="st">"integer"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in padronizar_enderecos(data.table::data.table(numero = "12A 13B"), : Alguns números não puderam ser convertidos para integer, introduzindo NAs no</span></span>
+<span><span class="co">#&gt; resultado.</span></span>
+<span><span class="co">#&gt;     numero numero_padr</span></span>
+<span><span class="co">#&gt;     &lt;char&gt;       &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1: 12A 13B          NA</span></span></code></pre></div>
+<p>O <code>manter_cols_extras</code> determina as colunas incluídas no
+output da função. Caso seja <code>TRUE</code> (valor padrão), todas as
+colunas do dataframe original são mantidas; caso seja
 <code>FALSE</code>, apenas as colunas usadas na padronização e seus
 respectivos resultados são preservados. O bloco abaixo demonstra essa
 funcionalidade:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">campos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correspondencia_campos.html">correspondencia_campos</a></span><span class="op">(</span></span>
 <span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo"</span>,</span>
 <span>  logradouro <span class="op">=</span> <span class="st">"logradouro"</span></span>
@@ -191,7 +245,7 @@ se for <code>TRUE</code>, são combinados. Nesse caso, o parâmetro
 <code>logradouro</code> da <code><a href="../reference/correspondencia_campos.html">correspondencia_campos()</a></code> deve
 ser interpretado como o <em>nome</em> do logradouro. A seguir,
 demonstramos essa funcionalidade:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">enderecos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  tipo <span class="op">=</span> <span class="st">"r"</span>,</span>
 <span>  logradouro <span class="op">=</span> <span class="st">"ns sra da piedade"</span>,</span>
@@ -216,7 +270,7 @@ demonstramos essa funcionalidade:</p>
 <span><span class="co">#&gt;      tipo        logradouro nroLogradouro        logradouro_completo_padr</span></span>
 <span><span class="co">#&gt;    &lt;char&gt;            &lt;char&gt;         &lt;num&gt;                          &lt;char&gt;</span></span>
 <span><span class="co">#&gt; 1:      r ns sra da piedade            20 RUA NOSSA SENHORA DA PIEDADE 20</span></span></code></pre></div>
-<p>O terceiro parâmetro, <code>checar_tipos</code>, tem efeito apenas
+<p>O quinto parâmetro, <code>checar_tipos</code>, tem efeito apenas
 quando <code>combinar_logradouro</code> é <code>TRUE</code>, e deve ser
 usado para sinalizar se a ocorrência de duplicatas entre os tipos e
 nomes de logradouros deve ser verificada ao combiná-los (por exemplo,
@@ -224,7 +278,7 @@ quando o tipo é descrito como “RUA” e o nome como “RUA BOTAFOGO”). Caso
 seja <code>FALSE</code> (valor padrão), a verificação não é feita; se
 for <code>TRUE</code>, a verificação é realizada e valores duplicados
 são removidos, como apresentado a seguir:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">enderecos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  tipo <span class="op">=</span> <span class="st">"r"</span>,</span>
 <span>  logradouro <span class="op">=</span> <span class="st">"r ns sra da piedade"</span>,</span>
@@ -258,7 +312,7 @@ ser usada de forma separada e, de forma similiar à
 <code><a href="../reference/padronizar_enderecos.html">padronizar_enderecos()</a></code>, recebe um dataframe com as
 informações do logradouro (tipo, nome e número) e a correspondência
 entre suas colunas e os campos a serem padronizados:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">campos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correspondencia_logradouro.html">correspondencia_logradouro</a></span><span class="op">(</span></span>
 <span>  tipo_de_logradouro <span class="op">=</span> <span class="st">"tipo"</span>,</span>
 <span>  nome_do_logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span>
@@ -300,17 +354,23 @@ funções atualmente disponíveis são:</p>
 <p>A <code><a href="../reference/padronizar_estados.html">padronizar_estados()</a></code> aceita vetores de strings e
 números. Caso numérico, o vetor deve conter o <a href="https://www.ibge.gov.br/explica/codigos-dos-municipios.php" class="external-link">código
 do IBGE</a> de cada estado. Caso seja composto de strings, o vetor pode
-conter a sigla do estado, seu código ou seu nome por extenso. Nese caso,
-a função ainda aplica diversas manipulações para chegar a um valor
-padronizado, como a conversão de caracteres para caixa alta, remoção de
-acentos e caracteres não ASCII e remoção de espaços em branco antes e
-depois dos valores e de espaços em excesso entre palavras. O código
-abaixo apresenta exemplos de aplicação da função com vetores numéricos e
-de strings.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+conter a sigla do estado, seu código ou seu nome por extenso. O
+parâmetro <code>formato</code> controla como o output deve ser
+padronizado, se conforme a sigla de cada estado (<code>"sigla"</code>)
+ou se conforme seu nome por extenso (<code>"por_extenso"</code>, valor
+padrão). Quando recebe um vetor de strings, a função aplica diversas
+manipulações para chegar a um valor padronizado, como a conversão de
+caracteres para caixa alta, remoção de acentos e caracteres não ASCII e
+remoção de espaços em branco antes e depois dos valores e de espaços em
+excesso entre palavras. O código abaixo apresenta exemplos de aplicação
+da função.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"21"</span>, <span class="st">" 21"</span>, <span class="st">"MA"</span>, <span class="st">" MA "</span>, <span class="st">"ma"</span>, <span class="st">"MARANHÃO"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span>, formato <span class="op">=</span> <span class="st">"sigla"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "MA" "MA" "MA" "MA" "MA" "MA"</span></span>
 <span></span>
 <span><span class="va">estados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">32</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_estados.html">padronizar_estados</a></span><span class="op">(</span><span class="va">estados</span><span class="op">)</span></span>
@@ -324,7 +384,7 @@ conversão para caixa alta e conversão para caracteres são aplicadas
 apresentados a seguir), mas a função também verifica erros ortográficos
 frequentemente observados nos nomes dos municípios (e.g. Moji Mirim
 -&gt; Mogi Mirim, Parati -&gt; Paraty).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">municipios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"3304557"</span>, <span class="st">"003304557"</span>, <span class="st">" 3304557 "</span>, <span class="st">"RIO DE JANEIRO"</span>, <span class="st">"rio de janeiro"</span>,</span>
 <span>  <span class="st">"SÃO PAULO"</span></span>
@@ -347,7 +407,7 @@ municípios, a função se atém a corrigir erros ortográficos e a expandir
 abreviações frequentemente utilizadas através de diversas <a href="https://en.wikipedia.org/wiki/Regular_expression" class="external-link">expressões
 regulares (regexes)</a>. O exemplo abaixo mostra algumas das muitas
 abreviações usualmente empregadas no preenchimento de endereços.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bairros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"PRQ IND"</span>,</span>
 <span>  <span class="st">"NSA SEN DE FATIMA"</span>,</span>
@@ -372,7 +432,7 @@ três últimos está presente, adicionando-o caso contrário. A função ainda
 produz erros se recebe como input valores que não podem ser corretamente
 convertidos em CEPs, como no caso de strings contendo caracteres não
 numéricos e de strings com caracteres em excesso.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ceps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"22290-140"</span>, <span class="st">"22.290-140"</span>, <span class="st">"22290 140"</span>, <span class="st">"22290140"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_ceps.html">padronizar_ceps</a></span><span class="op">(</span><span class="va">ceps</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "22290-140" "22290-140" "22290-140" "22290-140"</span></span>
@@ -398,7 +458,7 @@ padronização de bairros, se limita a expandir abreviações frequentemente
 utilizadas e a corrigir alguns poucos erros de digitação, fora o
 tratamento usual dado a strings, como conversão para caixa alta, remoção
 de espaços em excesso e antes e depois das strings, etc.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">logradouros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"r. gen.. glicério, 137"</span>,</span>
 <span>  <span class="st">"cond pres j. k., qd 05 lt 02 1"</span>,</span>
@@ -411,13 +471,28 @@ de espaços em excesso e antes e depois das strings, etc.</p>
 <p>A <code><a href="../reference/padronizar_numeros.html">padronizar_numeros()</a></code> tem como objetivo padronizar o
 número do logradouro, caso este esteja em um campo separado do
 logradouro propriamente dito. A função aceita vetores de números e
-strings e retorna um vetor de strings. Os tratamentos incluem a remoção
-de zeros à esquerda, remoção de espaços em branco em excesso e a
-substituição de variações de SN (sem número) por “S/N”.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+strings e retorna um vetor de strings ou inteiros, a depender do
+parâmetro <code>formato</code> (que pode receber os valores
+<code>"character"</code> e <code>"integer"</code>, auto-explicativos).
+Os tratamentos incluem a remoção de zeros à esquerda, remoção de espaços
+em branco em excesso e a substituição de variações de SN (sem número)
+por “S/N”. Note que o equivalente de “S/N” quando o output é numérico é
+<code>NA</code>. Valores que não puderem ser adequadamente convertidos
+para inteiro também são substituídos por <code>NA</code>, o que é
+sinalizado por um warning.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0210"</span>, <span class="st">"001"</span>, <span class="st">"1"</span>, <span class="st">"S N"</span>, <span class="st">"S/N"</span>, <span class="st">"SN"</span>, <span class="st">"0180  0181"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "210"     "1"       "1"       "S/N"     "S/N"     "S/N"     "180 181"</span></span>
+<span></span>
+<span><span class="co"># o exemplo abaixo gera um warning, pois "0180 0181" não pode ser adequadamente</span></span>
+<span><span class="co"># convertido para um único valor inteiro - as variações de S/N, por sua vez, já</span></span>
+<span><span class="co"># seriam convertidas para NA</span></span>
+<span><span class="va">numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0210"</span>, <span class="st">"001"</span>, <span class="st">"1"</span>, <span class="st">"S N"</span>, <span class="st">"S/N"</span>, <span class="st">"SN"</span>, <span class="st">"0180  0181"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span>, formato <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in padronizar_numeros(numeros, formato = "integer"): Alguns números não puderam ser convertidos para integer, introduzindo NAs no</span></span>
+<span><span class="co">#&gt; resultado.</span></span>
+<span><span class="co">#&gt; [1] 210   1   1  NA  NA  NA  NA</span></span>
 <span></span>
 <span><span class="va">numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">210</span>, <span class="fl">1</span>, <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_numeros.html">padronizar_numeros</a></span><span class="op">(</span><span class="va">numeros</span><span class="op">)</span></span>
@@ -427,7 +502,7 @@ caso essa seja fornecida separadamente, é a
 <code><a href="../reference/padronizar_tipos_de_logradouro.html">padronizar_tipos_de_logradouro()</a></code>. Fora o tratamento usual
 dado a strings, a função também expande abreviações frequentemente
 observadas no campo de tipo de logradouro.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tipos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"R."</span>, <span class="st">"AVN"</span>, <span class="st">"AVE"</span>, <span class="st">"JDM"</span>, <span class="st">"QD"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_tipos_de_logradouro.html">padronizar_tipos_de_logradouro</a></span><span class="op">(</span><span class="va">tipos</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "RUA"     "RUA"     "AVENIDA" "AVENIDA" "JARDIM"  "QUADRA"</span></span></code></pre></div>
@@ -436,7 +511,7 @@ similar às funções de padronização de logradouros e bairros, porém
 agindo de forma mais específica em abreviações e observações
 frequentemente observados na especificação de complementos de
 logradouros.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">complementos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QD1 LT2 CS3"</span>, <span class="st">"APTO. 405"</span>, <span class="st">"PRX CX POST 450"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/padronizar_complementos.html">padronizar_complementos</a></span><span class="op">(</span><span class="va">complementos</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "QUADRA 1 LOTE 2 CASA 3"   "APARTAMENTO 405"         </span></span>
@@ -449,7 +524,7 @@ logradouros.</p>
 pode ser controlado pela opção <code>enderecobr.verbose</code>, que
 recebe os valores <code>"quiet"</code> ou <code>"verbose"</code>, como
 demonstrado a seguir:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">campos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correspondencia_logradouro.html">correspondencia_logradouro</a></span><span class="op">(</span></span>
 <span>  nome_do_logradouro <span class="op">=</span> <span class="st">"logradouro"</span>,</span>
 <span>  numero <span class="op">=</span> <span class="st">"nroLogradouro"</span></span>

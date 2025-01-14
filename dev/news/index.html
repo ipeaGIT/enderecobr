@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">enderecobr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,19 @@
       <small>Source: <a href="https://github.com/ipeaGIT/enderecobr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="enderecobr-040">enderecobr 0.4.0<a class="anchor" aria-label="anchor" href="#enderecobr-040"></a></h2>
+<div class="section level3">
+<h3 id="correção-de-bugs-0-4-0">Correção de bugs<a class="anchor" aria-label="anchor" href="#corre%C3%A7%C3%A3o-de-bugs-0-4-0"></a></h3>
+<ul><li>Corrigido bug na <code><a href="../reference/padronizar_numeros.html">padronizar_numeros()</a></code> em que zeros após o separador de milhares eram suprimidos. Por exemplo, “1.028” virava “1.28”. Relacionado ao <a href="https://github.com/ipeaGIT/enderecobr/issues/37" class="external-link">issue </a><a href="https://github.com/ipeaGIT/enderecobr/issues/37" class="external-link">#37</a>.</li>
+<li>Corrigido bug na <code><a href="../reference/padronizar_numeros.html">padronizar_numeros()</a></code> em que zeros de vetores numéricos não eram adequadamente transformados em “S/N”. Relacionado ao <a href="https://github.com/ipeaGIT/enderecobr/issues/38" class="external-link">issue </a><a href="https://github.com/ipeaGIT/enderecobr/issues/38" class="external-link">#38</a>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="novas-funcionalidades-0-4-0">Novas funcionalidades<a class="anchor" aria-label="anchor" href="#novas-funcionalidades-0-4-0"></a></h3>
+<ul><li>Novo argumento na <code><a href="../reference/padronizar_numeros.html">padronizar_numeros()</a></code>, <code>formato</code>, responsável por controlar como o resultado deve ser padronizado: se como um vetor de caracteres ou de inteiros.</li>
+<li>Novo argumento na <code><a href="../reference/padronizar_numeros.html">padronizar_numeros()</a></code>, <code>formato_numeros</code>, que controla como deve ser feita a padronização de números dentro dessa função.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="enderecobr-030">enderecobr 0.3.0<a class="anchor" aria-label="anchor" href="#enderecobr-030"></a></h2><p class="text-muted">CRAN release: 2024-12-12</p>
 <div class="section level3">
