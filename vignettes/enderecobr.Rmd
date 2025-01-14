@@ -90,8 +90,50 @@ poderíamos simplesmente passar um vetor de caracteres no formato
 garantindo que o vetor a ser passado pra `padronizar_enderecos()` esteja
 corretamente formatado.
 
-A `padronizar_enderecos()` contém, ainda, três parâmetros adicionais. O
-`manter_cols_extras` determina as colunas incluídas no output da função. Caso
+A `padronizar_enderecos()` contém, ainda, cinco parâmetros adicionais. O
+`formato_estados` e o `formato_numeros` controlam como os estados e números
+padronizados, respectivamente, devem ser formatados. Caso `formato_estados` seja
+`"por_extenso"` (valor padrão), a função retorna o nome dos estados por extenso;
+caso seja `"sigla"`, os estados são padronizados conforme suas respectivas
+siglas. Por sua vez, caso `formato_numeros` seja `"character"`, a função retorna
+os números padronizados como caracteres, preservando valores como `"S/N"`, que
+possuem letras e outros dígitos que não podem ser convertidos para valores
+numéricos; caso seja `"integer"`, no entanto, os números são retornados como
+valores inteiros. Caso algum valor não possa ser convertido para inteiro, a
+função o substitui por `NA` e lança um warning alertando sobre a situação. Os
+exemplos a seguir demonstram esses parâmetros detalhadamente:
+
+```{r}
+campos <- correspondencia_campos(
+  numero = "nroLogradouro",
+  estado = "uf_dom"
+)
+
+padronizar_enderecos(
+  enderecos[, c("nroLogradouro", "uf_dom")],
+  campos,
+  formato_estados = "por_extenso",
+  formato_numeros = "character"
+)
+
+padronizar_enderecos(
+  enderecos[, c("nroLogradouro", "uf_dom")],
+  campos,
+  formato_estados = "sigla",
+  formato_numeros = "integer"
+)
+
+# o exemplo abaixo gera um warning, pois o número não pode ser convertido para
+# inteiro de forma adequada
+
+padronizar_enderecos(
+  data.table::data.table(numero = "12A 13B"),
+  correspondencia_campos(numero = "numero"),
+  formato_numeros = "integer"
+)
+```
+
+O `manter_cols_extras` determina as colunas incluídas no output da função. Caso
 seja `TRUE` (valor padrão), todas as colunas do dataframe original são mantidas;
 caso seja `FALSE`, apenas as colunas usadas na padronização e seus respectivos
 resultados são preservados. O bloco abaixo demonstra essa funcionalidade:
@@ -132,7 +174,7 @@ padronizar_enderecos(enderecos, campos, combinar_logradouro = FALSE)
 padronizar_enderecos(enderecos, campos, combinar_logradouro = TRUE)
 ```
 
-O terceiro parâmetro, `checar_tipos`, tem efeito apenas quando
+O quinto parâmetro, `checar_tipos`, tem efeito apenas quando
 `combinar_logradouro` é `TRUE`, e deve ser usado para sinalizar se a ocorrência
 de duplicatas entre os tipos e nomes de logradouros deve ser verificada ao
 combiná-los (por exemplo, quando o tipo é descrito como "RUA" e o nome como "RUA
@@ -207,16 +249,20 @@ A `padronizar_estados()` aceita vetores de strings e números. Caso numérico, o
 vetor deve conter o [código do
 IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php) de cada
 estado. Caso seja composto de strings, o vetor pode conter a sigla do estado,
-seu código ou seu nome por extenso. Nese caso, a função ainda aplica diversas
-manipulações para chegar a um valor padronizado, como a conversão de caracteres
-para caixa alta, remoção de acentos e caracteres não ASCII e remoção de espaços
-em branco antes e depois dos valores e de espaços em excesso entre palavras. O
-código abaixo apresenta exemplos de aplicação da função com vetores numéricos e
-de strings.
+seu código ou seu nome por extenso. O parâmetro `formato` controla como o output
+deve ser padronizado, se conforme a sigla de cada estado (`"sigla"`) ou se
+conforme seu nome por extenso (`"por_extenso"`, valor padrão). Quando recebe um
+vetor de strings, a função aplica diversas manipulações para chegar a um valor
+padronizado, como a conversão de caracteres para caixa alta, remoção de acentos
+e caracteres não ASCII e remoção de espaços em branco antes e depois dos valores
+e de espaços em excesso entre palavras. O código abaixo apresenta exemplos de
+aplicação da função.
 
 ```{r}
 estados <- c("21", " 21", "MA", " MA ", "ma", "MARANHÃO")
 padronizar_estados(estados)
+
+padronizar_estados(estados, formato = "sigla")
 
 estados <- c(21, 32)
 padronizar_estados(estados)
@@ -309,13 +355,23 @@ padronizar_logradouros(logradouros)
 
 A `padronizar_numeros()` tem como objetivo padronizar o número do logradouro,
 caso este esteja em um campo separado do logradouro propriamente dito. A função
-aceita vetores de números e strings e retorna um vetor de strings. Os
-tratamentos incluem a remoção de zeros à esquerda, remoção de espaços em branco
-em excesso e a substituição de variações de SN (sem número) por "S/N".
+aceita vetores de números e strings e retorna um vetor de strings ou inteiros, a
+depender do parâmetro `formato` (que pode receber os valores `"character"` e
+`"integer"`, auto-explicativos). Os tratamentos incluem a remoção de zeros à
+esquerda, remoção de espaços em branco em excesso e a substituição de variações
+de SN (sem número) por "S/N". Note que o equivalente de "S/N" quando o output é
+numérico é `NA`. Valores que não puderem ser adequadamente convertidos para
+inteiro também são substituídos por `NA`, o que é sinalizado por um warning.
 
 ```{r}
 numeros <- c("0210", "001", "1", "S N", "S/N", "SN", "0180  0181")
 padronizar_numeros(numeros)
+
+# o exemplo abaixo gera um warning, pois "0180 0181" não pode ser adequadamente
+# convertido para um único valor inteiro - as variações de S/N, por sua vez, já
+# seriam convertidas para NA
+numeros <- c("0210", "001", "1", "S N", "S/N", "SN", "0180  0181")
+padronizar_numeros(numeros, formato = "integer")
 
 numeros <- c(210, 1, 10000)
 padronizar_numeros(numeros)
