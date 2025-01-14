@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ipeaGIT/enderecobr",
   "issueTracker": "https://github.com/ipeaGIT/enderecobr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.0.9000",
+  "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -183,7 +183,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "275.823KB",
+  "fileSize": "286.395KB",
   "releaseNotes": "https://github.com/ipeaGIT/enderecobr/blob/master/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecobr/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main"],

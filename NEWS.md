@@ -1,4 +1,4 @@
-# enderecobr (versão em desenvolvimento)
+# enderecobr 0.4.0
 
 ## Correção de bugs
 
@@ -16,8 +16,6 @@ como o resultado deve ser padronizado: se como um vetor de caracteres ou de
 inteiros.
 - Novo argumento na `padronizar_numeros()`, `formato_numeros`, que controla como
 deve ser feita a padronização de números dentro dessa função.
-
-## Notas
 
 # enderecobr 0.3.0
 
