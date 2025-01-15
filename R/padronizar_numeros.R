@@ -109,7 +109,9 @@ warning_conversao_invalida <- function() {
 
   # rlang::parent_env() pula direto do function(cnd) pro GlobalEnv, não sei por
   # quê, então usando sys.frame()
-  if (is.null(chamada_upstream) || as.character(chamada_upstream[[1]]) != "padronizar_enderecos") {
+  funcao_chamada <- as.character(chamada_upstream[[1]])
+  funcao_chamada <- setdiff(funcao_chamada, c("::", "enderecobr"))
+  if (is.null(chamada_upstream) || funcao_chamada != "padronizar_enderecos") {
     n_frame <- -7
   } else {
     n_frame <- -15

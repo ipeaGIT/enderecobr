@@ -391,4 +391,17 @@ test_that("warning relacionado ao numero eh atribuido a pad enderecos", {
     ),
     cnd_class = TRUE
   )
+
+  # funciona também quando a função é chamada via namespace explícito
+  # i.e. enderecobr::padronizar_enderecos()
+  # relacionado ao issue #38 (https://github.com/ipeaGIT/enderecobr/issues/38)
+
+  expect_snapshot(
+    enderecobr::padronizar_enderecos(
+      ends,
+      correspondencia_campos(numero = "numeros"),
+      formato_numeros = "integer"
+    ),
+    cnd_class = TRUE
+  )
 })

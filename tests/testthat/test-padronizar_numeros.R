@@ -142,3 +142,4 @@ test_that("padroniza corretamente - character", {
     gabarito$padronizado_esperado
   )
 })
+

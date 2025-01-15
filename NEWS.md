@@ -2,6 +2,11 @@
 
 ## Correção de bugs
 
+- corrigido bug na `padronizar_enderecos()` (quando chamada via
+`enderecobr::padronizar_enderecos()`) em que a função resultava num erro quando,
+internamente, a `padronizar_numeros()` lançava um warning. relacionado ao [issue
+#38](https://github.com/ipeagit/enderecobr/issues/38).
+
 ## Novas funcionalidades
 
 ## Notas

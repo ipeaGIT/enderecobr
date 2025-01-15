@@ -169,3 +169,16 @@
           <char>       <int>
       1:    1 2           NA
 
+---
+
+    Code
+      enderecobr::padronizar_enderecos(ends, correspondencia_campos(numero = "numeros"),
+      formato_numeros = "integer")
+    Condition <warning_endbr_conversao_invalida>
+      Warning in `enderecobr::padronizar_enderecos()`:
+      Alguns números não puderam ser convertidos para integer, introduzindo NAs no resultado.
+    Output
+         numeros numero_padr
+          <char>       <int>
+      1:    1 2           NA
+
