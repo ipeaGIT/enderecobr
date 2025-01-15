@@ -142,10 +142,19 @@ test_that("erro de nome do nome de log ausente eh atribuido a pad enderecos", {
 })
 
 test_that("erros relacionados ao cep sao atribuidos a pad enderecos", {
+  # funciona também quando a função é chamada via namespace explícito
+  # i.e. enderecobr::padronizar_enderecos()
+  # relacionado ao issue #38 (https://github.com/ipeaGIT/enderecobr/issues/38)
+
   ends <- data.frame(cep = "222100600")
 
   expect_snapshot(
     tester(ends, correspondencia_campos(cep = "cep")),
+    error = TRUE,
+    cnd_class = TRUE
+  )
+  expect_snapshot(
+    enderecobr::padronizar_enderecos(ends, correspondencia_campos(cep = "cep")),
     error = TRUE,
     cnd_class = TRUE
   )
@@ -154,6 +163,11 @@ test_that("erros relacionados ao cep sao atribuidos a pad enderecos", {
 
   expect_snapshot(
     tester(ends, correspondencia_campos(cep = "cep")),
+    error = TRUE,
+    cnd_class = TRUE
+  )
+  expect_snapshot(
+    enderecobr::padronizar_enderecos(ends, correspondencia_campos(cep = "cep")),
     error = TRUE,
     cnd_class = TRUE
   )

@@ -46,9 +46,27 @@
 ---
 
     Code
+      enderecobr::padronizar_enderecos(ends, correspondencia_campos(cep = "cep"))
+    Condition <erro_endbr_cep_com_digitos_demais>
+      Error in `enderecobr::padronizar_enderecos()`:
+      ! CEP não deve conter mais que 8 dígitos.
+      i O elemento com índice 1 possui mais que 8 dígitos após padronização.
+
+---
+
+    Code
       tester(ends, correspondencia_campos(cep = "cep"))
     Condition <erro_endbr_cep_com_letra>
       Error in `padronizar_enderecos()`:
+      ! CEP não deve conter letras.
+      i O elemento com índice 1 possui letras.
+
+---
+
+    Code
+      enderecobr::padronizar_enderecos(ends, correspondencia_campos(cep = "cep"))
+    Condition <erro_endbr_cep_com_letra>
+      Error in `enderecobr::padronizar_enderecos()`:
       ! CEP não deve conter letras.
       i O elemento com índice 1 possui letras.
 
