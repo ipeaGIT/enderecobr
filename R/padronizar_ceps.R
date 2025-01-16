@@ -48,14 +48,14 @@ padronizar_ceps <- function(ceps) {
     ceps_padrao_dedup <- ceps_dedup
   }
 
-  ceps_padrao_dedup <- stringr::str_replace_all(
+  ceps_padrao_dedup <- re2::re2_replace_all(
     ceps_padrao_dedup,
-    c("\\.|,| " = "")
+    c("\\.|,| ") , ""
   )
   ceps_padrao_dedup <- stringr::str_pad(ceps_padrao_dedup, width = 8, pad = "0")
-  ceps_padrao_dedup <- stringr::str_replace_all(
+  ceps_padrao_dedup <- re2::re2_replace_all(
     ceps_padrao_dedup,
-    c("(\\d{5})(\\d{3})" = "\\1-\\2")
+    c("(\\d{5})(\\d{3})"),  "\\1-\\2"
   )
 
   names(ceps_padrao_dedup) <- ceps_dedup
@@ -72,7 +72,7 @@ padronizar_ceps <- function(ceps) {
 # checks ------------------------------------------------------------------
 
 checa_se_letra_presente <- function(ceps) {
-  possui_letras <- stringr::str_detect(ceps, "[a-zA-Z]")
+  possui_letras <- re2::re2_detect(ceps, "[a-zA-Z]")
 
   if (any(possui_letras[!is.na(possui_letras)])) {
     erro_cep_com_letra(possui_letras)
