@@ -57,9 +57,9 @@ padronizar_municipios <- function(municipios) {
   } else {
     municipios_padrao_dedup <- stringr::str_squish(municipios_dedup)
     municipios_padrao_dedup <- toupper(municipios_padrao_dedup)
-    municipios_padrao_dedup <- stringr::str_replace_all(
+    municipios_padrao_dedup <- re2::re2_replace_all(
       municipios_padrao_dedup,
-      c("\\b0+(\\d+)\\b" = "\\1")
+      "\\b0+(\\d+)\\b", "\\1"
     )
   }
 
@@ -112,37 +112,34 @@ padronizar_municipios <- function(municipios) {
 manipular_nome_muni <- function(muni) {
   muni <- stringi::stri_trans_general(muni, "Latin-ASCII")
 
-  muni <- stringr::str_replace_all(
+  muni <- re2::re2_replace_all(
     muni,
-    c(
-      "^MOJI MIRIM$" = "MOGI MIRIM",
-      "^GRAO PARA$" = "GRAO-PARA",
-      "^BIRITIBA-MIRIM$" = "BIRITIBA MIRIM",
-      "^SAO LUIS DO PARAITINGA$" = "SAO LUIZ DO PARAITINGA",
-      "^TRAJANO DE MORAIS$" = "TRAJANO DE MORAES",
-      "^PARATI$" = "PARATY",
-      "^LAGOA DO ITAENGA$" = "LAGOA DE ITAENGA",
-      "^ELDORADO DOS CARAJAS$" = "ELDORADO DO CARAJAS",
-      "^SANTANA DO LIVRAMENTO$" = "SANT'ANA DO LIVRAMENTO",
-      "^BELEM DE SAO FRANCISCO$" = "BELEM DO SAO FRANCISCO",
-      "^SANTO ANTONIO DO LEVERGER$" = "SANTO ANTONIO DE LEVERGER",
-      "^POXOREO$" = "POXOREU",
-      "^SAO THOME DAS LETRAS$" = "SAO TOME DAS LETRAS",
-      "^OLHO-D'AGUA DO BORGES$" = "OLHO D'AGUA DO BORGES",
-      "^ITAPAGE$" = "ITAPAJE",
-      "^MUQUEM DE SAO FRANCISCO$" = "MUQUEM DO SAO FRANCISCO",
-      "^DONA EUSEBIA$" = "DONA EUZEBIA",
-      "^PASSA-VINTE$" = "PASSA VINTE",
-      "^AMPARO DE SAO FRANCISCO$" = "AMPARO DO SAO FRANCISCO",
-      "^BRASOPOLIS$" = "BRAZOPOLIS",
-      "^SERIDO$" = "SAO VICENTE DO SERIDO",
-      "^IGUARACI$" = "IGUARACY",
-      "^AUGUSTO SEVERO$" = "CAMPO GRANDE",
-      "^FLORINIA$" = "FLORINEA",
-      "^FORTALEZA DO TABOCAO$" = "TABOCAO",
-      "^SAO VALERIO DA NATIVIDADE$" = "SAO VALERIO"
-    )
-  )
+      "^MOJI MIRIM$", "MOGI MIRIM") |>
+      re2::re2_replace_all("^GRAO PARA$", "GRAO-PARA") |>
+      re2::re2_replace_all("^BIRITIBA-MIRIM$", "BIRITIBA MIRIM") |>
+      re2::re2_replace_all("^SAO LUIS DO PARAITINGA$", "SAO LUIZ DO PARAITINGA") |>
+      re2::re2_replace_all("^TRAJANO DE MORAIS$", "TRAJANO DE MORAES") |>
+      re2::re2_replace_all("^PARATI$", "PARATY") |>
+      re2::re2_replace_all("^LAGOA DO ITAENGA$", "LAGOA DE ITAENGA") |>
+      re2::re2_replace_all("^ELDORADO DOS CARAJAS$", "ELDORADO DO CARAJAS") |>
+      re2::re2_replace_all("^SANTANA DO LIVRAMENTO$", "SANT'ANA DO LIVRAMENTO") |>
+      re2::re2_replace_all("^BELEM DE SAO FRANCISCO$", "BELEM DO SAO FRANCISCO") |>
+      re2::re2_replace_all("^SANTO ANTONIO DO LEVERGER$", "SANTO ANTONIO DE LEVERGER") |>
+      re2::re2_replace_all("^POXOREO$", "POXOREU") |>
+      re2::re2_replace_all("^SAO THOME DAS LETRAS$", "SAO TOME DAS LETRAS") |>
+      re2::re2_replace_all("^OLHO-D'AGUA DO BORGES$", "OLHO D'AGUA DO BORGES") |>
+      re2::re2_replace_all("^ITAPAGE$", "ITAPAJE") |>
+      re2::re2_replace_all("^MUQUEM DE SAO FRANCISCO$", "MUQUEM DO SAO FRANCISCO") |>
+      re2::re2_replace_all("^DONA EUSEBIA$", "DONA EUZEBIA") |>
+      re2::re2_replace_all("^PASSA-VINTE$", "PASSA VINTE") |>
+      re2::re2_replace_all("^AMPARO DE SAO FRANCISCO$", "AMPARO DO SAO FRANCISCO") |>
+      re2::re2_replace_all("^BRASOPOLIS$", "BRAZOPOLIS") |>
+      re2::re2_replace_all("^SERIDO$", "SAO VICENTE DO SERIDO") |>
+      re2::re2_replace_all("^IGUARACI$", "IGUARACY") |>
+      re2::re2_replace_all("^AUGUSTO SEVERO$", "CAMPO GRANDE") |>
+      re2::re2_replace_all("^FLORINIA$", "FLORINEA") |>
+      re2::re2_replace_all("^FORTALEZA DO TABOCAO$", "TABOCAO") |>
+      re2::re2_replace_all("^SAO VALERIO DA NATIVIDADE$", "SAO VALERIO")
 
   return(muni)
 }

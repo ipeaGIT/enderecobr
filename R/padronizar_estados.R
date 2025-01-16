@@ -63,9 +63,9 @@ padronizar_estados <- function(estados, formato = "por_extenso") {
       estados_padrao_dedup,
       "Latin-ASCII"
     )
-    estados_padrao_dedup <- stringr::str_replace_all(
+    estados_padrao_dedup <- re2::re2_replace_all(
       estados_padrao_dedup,
-      c("\\b0+(\\d+)\\b" = "\\1")
+      "\\b0+(\\d+)\\b", "\\1"
     )
   }
 

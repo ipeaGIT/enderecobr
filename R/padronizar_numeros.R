@@ -70,14 +70,16 @@ padronizar_numeros <- function(numeros, formato = "character") {
     numeros_padrao,
     c(
       r"{(?<!\.)\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181, mas não 1.028 -> 1.28
-
-      r"{(\d+)\.(\d{3})}" = "\\1\\2", # separador de milhar
-
-      r"{S\.?( |\/)?N(O|\u00BA)?\.?}" = "S/N", # SN ou S.N. ou S N ou .... -> S/N
-      r"{SEM NUMERO}" = "S/N",
-      r"{^(X|0|-)+$}" = "S/N"
+      r"{S\.?( |\/)?N(O|\u00BA)?\.?}" = "S/N" # SN ou S.N. ou S N ou .... -> S/N
     )
   )
+
+  numeros_padrao <- re2::re2_replace_all(
+    numeros_padrao,
+      r"{(\d+)\.(\d{3})}", "\\1\\2") |> # separador de milhar
+      re2::re2_replace_all(r"{SEM NUMERO}", "S/N") |>
+      re2::re2_replace_all(r"{^(X|0|-)+$}", "S/N")
+
 
   if (formato == "character") {
     numeros_padrao[is.na(numeros_padrao) | numeros_padrao == ""] <- "S/N"
