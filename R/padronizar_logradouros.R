@@ -90,7 +90,7 @@ padronizar_logradouros <- function(logradouros) {
       "^(BECO|RUA|RODOVIA) BE?CO?\\b(\\.|,)?" = "BECO",
       "^BE?CO?\\b(-|,|\\.) *" = "BECO ",
 
-      "^(TV|TRV|TRAV?)\\b(\\.|,)?" = "TRAVESSA", # tem varios casos de TR tambem, mas varios desses sao abreviacao de TRECHO, entao eh dificil fazer uma generalizacao
+      "^(TV|TR|TRV|TRVS|TRAV?)\\b(\\.|,)?" = "TRAVESSA", # tem varios casos de TR tambem, mas varios desses sao abreviacao de TRECHO, entao eh dificil fazer uma generalizacao
       "^(TRAVESSA|RODOVIA) (TRAVESSA|TV|TRV|TRAV?)\\b(\\.|,)?" = "TRAVESSA", # nao botei RUA nas opcoes iniciais porque tem varios ruas que realmente sao RUA TRAVESSA ...
       "^TRAVESSA\\b(-|,|\\.) *" = "TRAVESSA ",
       "^(TRAVESSA|RUA|RODOVIA) (TRAVESSA|TV|TRV|TRAV?)\\b- *" = "TRAVESSA ", # aqui ja acho que faz sentido botar o RUA porque so da match com padroes como RUA TRAVESSA-1
@@ -122,6 +122,18 @@ padronizar_logradouros <- function(logradouros) {
       "^LAD\\b(\\.|,)?" = "LADEIRA",
       "^LADEIRA LADEIRA\\b(\\.|,)?" = "LADEIRA",
       "^LADEIRA?\\b(-|,|\\.) *" = "LADEIRA ",
+
+      "^(SER)\\b(\\.|,)?" = "SERRA",
+      "^(MR|MRR|MO|MOR)\\b(\\.|,)?" = "MORRO",
+      "^(LD|LAD|LDR)\\b(\\.|,)?" = "LADEIRA",
+      "^(CPO)\\b(\\.|,)?" = "CAMPO",
+      "^(FV|FAV)\\b(\\.|,)?" = "FAVELA",
+      "^(CAN)\\b(\\.|,)?" = "CANAL",
+      "^(CB|CAB)\\b(\\.|,)?" = "CABO",
+      "^(VIAD|VDT)\\b(\\.|,)?" = "VIADUTO",
+      "^(PTE|PNT)\\b(\\.|,)?" = "PONTE",
+      "^(ESC)\\b(\\.|,)?" = "ESCOLA",
+      "^(TUN)\\b(\\.|,)?" = "TUNEL",
 
       "^DT\\b(\\.|,)?" = "DISTRITO",
       "\\bDISTR?\\b\\.?" = "DISTRITO",
@@ -249,7 +261,7 @@ padronizar_logradouros <- function(logradouros) {
       "\\bBEIRA-MAR\\b" = "BEIRA MAR",
 
       # rodovias
-      "\\b(RODOVIA|BR\\.?|RODOVIA BR\\.?) CENTO D?E (DESESSEIS|DESESEIS|DEZESSEIS|DEZESEIS)\\b" = "RODOVIA BR-116",
+      "\\b(RD|RODOVIA|BR\\.?|RODOVIA BR\\.?) CENTO D?E (DESESSEIS|DESESEIS|DEZESSEIS|DEZESEIS)\\b" = "RODOVIA BR-116",
       "\\b(RODOVIA|BR\\.?|RODOVIA BR\\.?) CENTO D?E H?UM\\b" = "RODOVIA BR-101",
       # será que essas duas de baixo valem?
       "\\bBR\\.? ?(\\d{3})" = "BR-\\1",
