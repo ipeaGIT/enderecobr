@@ -5,6 +5,7 @@
   - Windows (release)
   - MacOS (release)
   - Ubuntu 20.04 (devel, release, oldrel)
+- win-builder (devel, release, oldrel)
 - Rhub:
   - linux (release)
   - macos (release)

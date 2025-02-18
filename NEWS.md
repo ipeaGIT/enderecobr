@@ -1,4 +1,4 @@
-# enderecobr (versão em desenvolvimento)
+# enderecobr 0.4.1
 
 ## Correção de bugs
 
@@ -9,10 +9,6 @@ internamente, a `padronizar_numeros()` lançava um warning. Relacionado ao [issu
 - Corrigido bug na `padronizar_enderecos()` (quando chamada via
 `enderecobr::padronizar_enderecos()`) em que a função resultava num erro quando,
 internamente, a `padronizar_ceps()` identificava um CEP inválido.
-
-## Novas funcionalidades
-
-## Notas
 
 # enderecobr 0.4.0
 
