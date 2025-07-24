@@ -1,0 +1,29 @@
+[project]
+name = "enderecobr"
+version = "0.1.0"
+description = "Padronizador de Endereços Brasileiros em Python"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "Pedro Jorge", email = "pedrojorge_holanda@hotmail.com" }
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: Portuguese (Brazil)"
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"enderecobr.data" = ["codigos_brasil.xls"]

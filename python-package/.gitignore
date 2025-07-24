@@ -1,0 +1,49 @@
+# Ignorar arquivos gerados pelo R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+README.html
+data-raw/RELATORIO_DTB_BRASIL_MUNICIPIO.xls
+inst/doc/
+
+# Byte-compiled / arquivos Python otimizados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Artefatos de distribuição
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# Logs de instalação
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ambientes virtuais
+.venv/
+env/
+venv/
+ENV/
+
+# Cache do pytest
+.pytest_cache/
+
+# Pastas de IDE/editor
+.vscode/
+.idea/
+
+# Metadados do macOS
+.DS_Store
+
+# Relatórios de cobertura
+coverage.xml
+htmlcov/
+docs/_build/
+
+# Outros arquivos de log e banco de dados
+*.log
+*.sqlite3
