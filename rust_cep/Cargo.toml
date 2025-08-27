@@ -1,0 +1,27 @@
+[package]
+name = "padronizar_cep"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+authors = ["Marcelo Bragatte <marcelo.bragatte@itps.org.br>"]
+description = "Rust implementation of Brazilian ZIP code (CEP) standardization from enderecobr R package"
+license = "MIT"
+repository = "https://github.com/ipeaGIT/enderecobr"
+homepage = "https://github.com/ipeaGIT/enderecobr/tree/main/rust_cep"
+readme = "README.md"
+keywords = ["brazil", "cep", "zipcode", "address", "standardization"]
+categories = ["text-processing", "localization"]
+
+[dependencies]
+arrow = "53.0"
+parquet = "53.0"
+regex = "1.10"
+
+# Development dependencies for benchmarking (optional)
+[dev-dependencies]
+criterion = { version = "0.5", optional = true }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
