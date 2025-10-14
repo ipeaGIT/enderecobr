@@ -5,3 +5,6 @@
 README.html
 data-raw/RELATORIO_DTB_BRASIL_MUNICIPIO.xls
 inst/doc
+src/rust/vendor
+src/Makevars
+src/Makevars.win

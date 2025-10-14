@@ -1,0 +1,19 @@
+[package]
+name = 'enderecobr'
+publish = false
+version = '0.1.0'
+edition = '2021'
+rust-version = '1.65'
+
+[lib]
+crate-type = [ 'staticlib' ]
+name = 'enderecobr'
+
+[dependencies]
+extendr-api = '0.8.1'
+regex = "1.12.2"
+unidecode = "0.3.0"
+
+[profile.release]
+lto = true
+codegen-units = 1

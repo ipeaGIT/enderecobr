@@ -21,7 +21,7 @@ URL: https://github.com/ipeaGIT/enderecobr,
     https://ipeagit.github.io/enderecobr/
 BugReports: https://github.com/ipeaGIT/enderecobr/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 4.2)
 Imports: 
     checkmate,
     cli,
@@ -41,4 +41,6 @@ Encoding: UTF-8
 Language: pt
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
+Config/rextendr/version: 0.4.2
+SystemRequirements: Cargo (Rust's package manager), rustc >= 1.65.0, xz
