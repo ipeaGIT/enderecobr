@@ -18,5 +18,9 @@ hello_world <- function() .Call(wrap__hello_world)
 #' @export
 bairro_rs <- function(bairros) .Call(wrap__bairro_rs, bairros)
 
+#' a.
+#' @export
+bairro_rs_dani <- function(bairros) .Call(wrap__bairro_rs_dani, bairros)
+
 
 # nolint end

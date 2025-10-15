@@ -2,29 +2,33 @@ use extendr_api::prelude::*;
 use regex::{Regex, RegexSet};
 use unidecode::unidecode;
 
+pub mod bairro;
+
+use crate::bairro::padronizador_bairro;
+
 #[derive(Debug)]
-struct ParSubstituicao {
+struct ParSubstituicao<'a> {
     regexp: Regex,
-    substituicao: String,
+    substituicao: &'a str,
 }
 
-impl ParSubstituicao {
-    fn new(regex: &str, substituicao: &str) -> Self {
+impl<'a> ParSubstituicao<'a> {
+    fn new(regex: &str, substituicao: &'a str) -> Self {
         ParSubstituicao {
             regexp: Regex::new(regex).unwrap(),
-            substituicao: substituicao.to_uppercase().to_string(),
+            substituicao,
         }
     }
 }
 
 #[derive(Default)]
-struct Padronizador {
-    substituicoes: Vec<ParSubstituicao>,
+struct Padronizador<'a> {
+    substituicoes: Vec<ParSubstituicao<'a>>,
     grupo_regex: RegexSet,
 }
 
-impl Padronizador {
-    fn adicionar(&mut self, regex: &str, substituicao: &str) -> &mut Self {
+impl<'a> Padronizador<'a> {
+    fn adicionar(&mut self, regex: &str, substituicao: &'a str) -> &mut Self {
         self.substituicoes
             .push(ParSubstituicao::new(regex, substituicao));
         self
@@ -60,7 +64,7 @@ impl Padronizador {
 
             preproc = par
                 .regexp
-                .replace_all(preproc.as_str(), par.substituicao.as_str())
+                .replace_all(preproc.as_str(), par.substituicao)
                 .to_string();
         }
 
@@ -218,6 +222,18 @@ fn bairro_rs(bairros: Strings) -> Strings {
         .collect::<Strings>()
 }
 
+/// a.
+/// @export
+#[extendr]
+fn bairro_rs_dani(bairros: Strings) -> Strings {
+    let padronizador = padronizador_bairro();
+
+    bairros
+        .iter()
+        .map(|x| padronizador.padronizar(x))
+        .collect::<Strings>()
+}
+
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
@@ -225,4 +241,5 @@ extendr_module! {
     mod enderecobr;
     fn hello_world;
     fn bairro_rs;
+    fn bairro_rs_dani;
 }
