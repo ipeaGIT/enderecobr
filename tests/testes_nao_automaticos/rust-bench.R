@@ -13,6 +13,14 @@ print("Realizando benchmark")
 
 n <- 5
 
+cep_numerico <- rep(as.integer(gsub("\\D", "", dados$cep)), n)
+
+microbenchmark::microbenchmark(
+  padronizar_ceps_numericos_rs(cep_numerico),
+  padronizar_ceps(cep_numerico),
+  times = 5
+)
+
 microbenchmark::microbenchmark(
   padronizar_ceps_rs(rep(dados$cep, n)),
   padronizar_ceps(rep(dados$cep, n)),

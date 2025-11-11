@@ -35,12 +35,11 @@ padronizar_ceps <- function(ceps) {
     ceps_padrao <- padronizar_ceps_numericos_rs(as.integer(ceps))
   } else {
     ceps_padrao <- padronizar_ceps_rs(ceps)
+    checa_se_letra_presente(ceps_padrao)
   }
 
   checa_se_digitos_demais(ceps_padrao)
-  checa_se_letra_presente(ceps_padrao)
-
-  return(ceps_padrao)
+  ceps_padrao
 }
 
 # checks ------------------------------------------------------------------
