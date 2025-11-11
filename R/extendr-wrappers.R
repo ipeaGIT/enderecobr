@@ -20,11 +20,13 @@ padronizar_tipos_de_logradouros_rs <- function(x) .Call(wrap__padronizar_tipos_d
 
 padronizar_municipios_rs <- function(x) .Call(wrap__padronizar_municipios_rs, x)
 
-padronizar_numeros_rs <- function(x, formato = 'character') .Call(wrap__padronizar_numeros_rs, x, formato)
+padronizar_numeros_rs <- function(x) .Call(wrap__padronizar_numeros_rs, x)
 
 padronizar_estados_rs <- function(x, formato = 'por_extenso') .Call(wrap__padronizar_estados_rs, x, formato)
 
 padronizar_ceps_rs <- function(x) .Call(wrap__padronizar_ceps_rs, x)
+
+padronizar_ceps_numericos_rs <- function(x) .Call(wrap__padronizar_ceps_numericos_rs, x)
 
 
 # nolint end

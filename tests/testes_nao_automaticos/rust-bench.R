@@ -2,6 +2,10 @@ rextendr::document()
 devtools::install(quick = TRUE) # Força compilação em modo release
 devtools::load_all()
 
+# Rodando testes unitários
+# rextendr::document()
+# testthat::test_package('enderecobr')
+
 print("Carregando Dataset")
 dados <- arrow::read_parquet("/home/gabriel/ipea/enderecobr-rs/scripts/crf/dados/treino.parquet")
 
@@ -9,6 +13,11 @@ print("Realizando benchmark")
 
 n <- 5
 
+microbenchmark::microbenchmark(
+  padronizar_ceps_rs(rep(dados$cep, n)),
+  padronizar_ceps(rep(dados$cep, n)),
+  times = 5
+)
 
 microbenchmark::microbenchmark(
   padronizar_estados_rs(rep(dados$uf, n)),

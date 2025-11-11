@@ -31,40 +31,14 @@ padronizar_ceps <- function(ceps) {
     combine = "or"
   )
 
-  ceps_dedup <- unique(ceps)
-
-  # alguns ceps podem vir vazios e devem permanecer vazios ao final. nesse caso,
-  # a chamada da str_pad() abaixo faz com que esses ceps virem '00000000'. para
-  # evitar que o resultado contenha esses valores, identificamos o indice dos
-  # ceps vazios para "reesvazia-los" ao final
-
-  indice_cep_vazio <- which(ceps == "" | is.na(ceps))
-
   if (is.numeric(ceps)) {
-    ceps_padrao_dedup <- formatC(ceps_dedup, width = 8, format = "d", flag = 0)
+    ceps_padrao <- padronizar_ceps_numericos_rs(as.integer(ceps))
   } else {
-    checa_se_letra_presente(ceps)
-
-    ceps_padrao_dedup <- ceps_dedup
+    ceps_padrao <- padronizar_ceps_rs(ceps)
   }
 
-  ceps_padrao_dedup <- stringr::str_replace_all(
-    ceps_padrao_dedup,
-    c("\\.|,| " = "")
-  )
-  ceps_padrao_dedup <- stringr::str_pad(ceps_padrao_dedup, width = 8, pad = "0")
-  ceps_padrao_dedup <- stringr::str_replace_all(
-    ceps_padrao_dedup,
-    c("(\\d{5})(\\d{3})" = "\\1-\\2")
-  )
-
-  names(ceps_padrao_dedup) <- ceps_dedup
-  ceps_padrao <- ceps_padrao_dedup[as.character(ceps)]
-  names(ceps_padrao) <- NULL
-
-  ceps_padrao[indice_cep_vazio] <- NA_character_
-
   checa_se_digitos_demais(ceps_padrao)
+  checa_se_letra_presente(ceps_padrao)
 
   return(ceps_padrao)
 }
@@ -72,7 +46,7 @@ padronizar_ceps <- function(ceps) {
 # checks ------------------------------------------------------------------
 
 checa_se_letra_presente <- function(ceps) {
-  possui_letras <- stringr::str_detect(ceps, "[a-zA-Z]")
+  possui_letras <- ceps == "Erro: CEP com caracteres inválidos"
 
   if (any(possui_letras[!is.na(possui_letras)])) {
     erro_cep_com_letra(possui_letras)
@@ -80,7 +54,7 @@ checa_se_letra_presente <- function(ceps) {
 }
 
 checa_se_digitos_demais <- function(ceps_padrao) {
-  possui_digitos_demais <- nchar(ceps_padrao) > 9
+  possui_digitos_demais <- ceps_padrao == "Erro: CEP com muitos dígitos"
 
   if (any(possui_digitos_demais[!is.na(possui_digitos_demais)])) {
     erro_cep_com_digitos_demais(possui_digitos_demais)

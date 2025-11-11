@@ -59,32 +59,14 @@ padronizar_numeros <- function(numeros, formato = "character") {
     return(numeros_padrao)
   }
 
-  # alguns numeros podem vir vazios ou como NAs, fazendo com que as operacoes
-  # abaixo nao convertam seus valores adequadamente. nesses casos, identificamos
-  # seus indices para manualmente imputar "S/N" ao final
-
-  numeros_padrao <- stringr::str_squish(numeros)
-  numeros_padrao <- toupper(numeros_padrao)
-  numeros_padrao <- stringi::stri_trans_general(numeros_padrao, "Latin-ASCII")
-  numeros_padrao <- stringr::str_replace_all(
-    numeros_padrao,
-    c(
-      r"{(?<!\.)\b0+(\d+)\b}" = "\\1", # 015 -> 15, 00001 -> 1, 0180 0181 -> 180 181, mas não 1.028 -> 1.28
-
-      r"{(\d+)\.(\d{3})}" = "\\1\\2", # separador de milhar
-
-      r"{S\.?( |\/)?N(O|\u00BA)?\.?}" = "S/N", # SN ou S.N. ou S N ou .... -> S/N
-      r"{SEM NUMERO}" = "S/N",
-      r"{^(X|0|-)+$}" = "S/N"
-    )
-  )
+  numeros_padrao <- padronizar_numeros_rs(numeros)
 
   if (formato == "character") {
     numeros_padrao[is.na(numeros_padrao) | numeros_padrao == ""] <- "S/N"
   } else {
     numeros_padrao[numeros_padrao == "S/N"] <- NA_character_
 
-    #warning_conversao_invalida()
+    # warning_conversao_invalida()
     numeros_padrao <- withCallingHandlers(
       as.integer(numeros_padrao),
       warning = function(cnd) {

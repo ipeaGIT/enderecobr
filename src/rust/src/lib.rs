@@ -1,9 +1,10 @@
 use enderecobr_rs::{
-    padronizar_bairros, padronizar_cep, padronizar_complementos, padronizar_estados_para_nome,
-    padronizar_estados_para_sigla, padronizar_logradouros, padronizar_municipios,
-    padronizar_numeros, padronizar_tipo_logradouro,
+    padronizar_bairros, padronizar_cep, padronizar_cep_numerico, padronizar_complementos,
+    padronizar_estados_para_nome, padronizar_estados_para_sigla, padronizar_logradouros,
+    padronizar_municipios, padronizar_numeros, padronizar_tipo_logradouro,
 };
 use extendr_api::prelude::*;
+use extendr_api::ToVectorValue;
 use std::collections::HashMap;
 
 /// Função utilitária interna usada para fazer o tratamento em comum
@@ -22,10 +23,14 @@ where
                 if let Some(valor_cacheado) = cache.get(&chave) {
                     return valor_cacheado.clone();
                 }
-
-                let resultado = Rstr::from(fun(chave));
-                cache.insert(chave, resultado.clone());
-                resultado
+                let res_fun = fun(chave);
+                let res_r = if res_fun.is_empty() {
+                    Rstr::na()
+                } else {
+                    Rstr::from(res_fun)
+                };
+                cache.insert(chave, res_r.clone());
+                res_r
             }
         })
         .collect::<Strings>()
@@ -57,7 +62,6 @@ pub fn padronizar_municipios_rs(x: Strings) -> Strings {
 }
 
 #[extendr]
-// TODO: usar no R
 pub fn padronizar_ceps_rs(x: Strings) -> Strings {
     mapear_com_cache(x, |cep| match padronizar_cep(cep) {
         Ok(val) => val,
@@ -65,15 +69,27 @@ pub fn padronizar_ceps_rs(x: Strings) -> Strings {
     })
 }
 
+#[extendr]
+pub fn padronizar_ceps_numericos_rs(x: Integers) -> Strings {
+    x.iter()
+        .map(|xi| match xi.is_na() {
+            true => Rstr::na(),
+            false => match padronizar_cep_numerico(xi.to_integer()) {
+                Ok(cep) => Rstr::from(cep),
+                Err(err) => Rstr::from(format!("Erro: {}", err.to_string())),
+            },
+        })
+        .collect::<Strings>()
+}
+
+#[extendr]
+pub fn padronizar_numeros_rs(x: Strings) -> Strings {
+    mapear_com_cache(x, padronizar_numeros)
+}
+
 // Por algum motivo, na documentação consta para usar #[extendr(default = "value)],
 // porém ele só está aceitando o método supostamente depreciado #[default = "value"].
 // https://github.com/extendr/extendr/pull/952/files
-
-// TODO: usar no R
-#[extendr]
-pub fn padronizar_numeros_rs(x: Strings, #[default = "'character'"] formato: Robj) -> Strings {
-    mapear_com_cache(x, padronizar_numeros)
-}
 
 #[extendr]
 pub fn padronizar_estados_rs(x: Strings, #[default = "'por_extenso'"] formato: Robj) -> Strings {
@@ -94,4 +110,5 @@ extendr_module! {
     fn padronizar_numeros_rs;
     fn padronizar_estados_rs;
     fn padronizar_ceps_rs;
+    fn padronizar_ceps_numericos_rs;
 }
