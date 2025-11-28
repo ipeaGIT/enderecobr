@@ -28,5 +28,31 @@ padronizar_ceps_rs <- function(x) .Call(wrap__padronizar_ceps_rs, x)
 
 padronizar_ceps_numericos_rs <- function(x) .Call(wrap__padronizar_ceps_numericos_rs, x)
 
+novo_padronizador <- function(pares_subst = list()) .Call(wrap__novo_padronizador, pares_subst)
+
+obter_padronizador_logradouros <- function() .Call(wrap__obter_padronizador_logradouros)
+
+obter_padronizador_tipos_logradouros <- function() .Call(wrap__obter_padronizador_tipos_logradouros)
+
+obter_padronizador_complementos <- function() .Call(wrap__obter_padronizador_complementos)
+
+obter_padronizador_bairros <- function() .Call(wrap__obter_padronizador_bairros)
+
+obter_padronizador_numeros <- function() .Call(wrap__obter_padronizador_numeros)
+
+Padronizador <- new.env(parent = emptyenv())
+
+Padronizador$adicionar_substituicoes <- function(pares_subst) invisible(.Call(wrap__Padronizador__adicionar_substituicoes, self, pares_subst))
+
+Padronizador$padronizar <- function(valor) .Call(wrap__Padronizador__padronizar, self, valor)
+
+Padronizador$obter_substituicoes <- function() .Call(wrap__Padronizador__obter_substituicoes, self)
+
+#' @export
+`$.Padronizador` <- function (self, name) { func <- Padronizador[[name]]; environment(func) <- environment(); func }
+
+#' @export
+`[[.Padronizador` <- `$.Padronizador`
+
 
 # nolint end

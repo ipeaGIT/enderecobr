@@ -10,7 +10,7 @@ crate-type = [ 'staticlib' ]
 name = 'enderecobr'
 
 [dependencies]
-enderecobr_rs = "0.0.3"
+enderecobr_rs = "0.0.5"
 extendr-api = '0.8.1'
 
 [profile.release]
