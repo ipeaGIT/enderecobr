@@ -27,3 +27,5 @@ Authors:
 - Rafael H. M. Pereira ([ORCID](https://orcid.org/0000-0003-2125-7465))
 
 - Lucas Mation ([ORCID](https://orcid.org/0000-0002-7461-932X))
+
+- Gabriel Almeida ([ORCID](https://orcid.org/0009-0003-3557-7328))
