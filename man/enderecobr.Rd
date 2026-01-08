@@ -25,7 +25,7 @@ Authors:
 \itemize{
   \item Rafael H. M. Pereira (\href{https://orcid.org/0000-0003-2125-7465}{ORCID})
   \item Lucas Mation (\href{https://orcid.org/0000-0002-7461-932X}{ORCID})
-  \item Gabriel Almeida (\href{https://orcid.org/0009-0003-3557-7328}{ORCID})
+  \item Gabriel Garcia de Almeida (\href{https://orcid.org/0009-0003-3557-7328}{ORCID})
 }
 
 }
