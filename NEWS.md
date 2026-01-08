@@ -1,10 +1,14 @@
 # enderecobr (versão em desenvolvimento)
 
-## Correção de bugs
-
 ## Novas funcionalidades
 
+- Novas regras foram adicionadas às funções `padronizar_bairros()` e
+  `padronizar_logradouros()`.
+
 ## Notas
+
+- As funções de padronização foram reescritas em Rust, tornando-as muito mais
+  rápidas.
 
 # enderecobr 0.4.1
 

@@ -28,5 +28,6 @@
 #' @export
 padronizar_bairros <- function(bairros) {
   checkmate::assert_character(bairros)
+
   padronizar_bairros_rs(bairros)
 }

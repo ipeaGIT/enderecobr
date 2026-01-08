@@ -29,5 +29,6 @@
 #' @export
 padronizar_logradouros <- function(logradouros) {
   checkmate::assert_character(logradouros)
+
   padronizar_logradouros_rs(logradouros)
 }

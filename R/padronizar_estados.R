@@ -45,5 +45,6 @@ padronizar_estados <- function(estados, formato = "por_extenso") {
     checkmate::check_names(formato, subset.of = c("por_extenso", "sigla")),
     combine = "and"
   )
+
   padronizar_estados_rs(as.character(estados), formato = formato)
 }

@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31 ucrt)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -40,6 +40,12 @@
       "givenName": "Lucas",
       "familyName": "Mation",
       "@id": "https://orcid.org/0000-0002-7461-932X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Gabriel",
+      "familyName": "Almeida",
+      "@id": "https://orcid.org/0009-0003-3557-7328"
     }
   ],
   "maintainer": [
@@ -95,7 +101,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 2.10"
+      "version": ">= 4.2"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -147,18 +153,6 @@
     },
     "6": {
       "@type": "SoftwareApplication",
-      "identifier": "stringi",
-      "name": "stringi",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=stringi"
-    },
-    "7": {
-      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "provider": {
@@ -169,7 +163,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
-    "8": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -181,10 +175,10 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    "SystemRequirements": null
+    "SystemRequirements": "Cargo (Rust's package manager), rustc >= 1.65.0, xz"
   },
-  "fileSize": "289.16KB",
-  "releaseNotes": "https://github.com/ipeaGIT/enderecobr/blob/master/NEWS.md",
+  "fileSize": "26738.072KB",
+  "releaseNotes": "https://github.com/ipeaGIT/enderecobr/blob/main/NEWS.md",
   "readme": "https://github.com/ipeaGIT/enderecobr/blob/main/README.md",
   "contIntegration": ["https://github.com/ipeaGIT/enderecobr/actions?query=workflow%3Acheck", "https://app.codecov.io/gh/ipeaGIT/enderecobr?branch=main"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"

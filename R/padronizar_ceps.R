@@ -45,7 +45,7 @@ padronizar_ceps <- function(ceps) {
 # checks ------------------------------------------------------------------
 
 checa_se_letra_presente <- function(ceps) {
-  possui_letras <- ceps == "Erro: CEP com caracteres inválidos"
+  possui_letras <- ceps == "Erro: CEP com caracteres inv\u00e1lidos"
 
   if (any(possui_letras[!is.na(possui_letras)])) {
     erro_cep_com_letra(possui_letras)
@@ -53,7 +53,7 @@ checa_se_letra_presente <- function(ceps) {
 }
 
 checa_se_digitos_demais <- function(ceps_padrao) {
-  possui_digitos_demais <- ceps_padrao == "Erro: CEP com muitos dígitos"
+  possui_digitos_demais <- ceps_padrao == "Erro: CEP com muitos d\u00edgitos"
 
   if (any(possui_digitos_demais[!is.na(possui_digitos_demais)])) {
     erro_cep_com_digitos_demais(possui_digitos_demais)
