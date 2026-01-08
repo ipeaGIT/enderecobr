@@ -94,9 +94,9 @@ pub fn padronizar_numeros_rs(x: Strings) -> Strings {
 #[extendr]
 pub fn padronizar_estados_rs(x: Strings, #[default = "'por_extenso'"] formato: Robj) -> Strings {
     if formato.as_str() == Some("sigla") {
-        return mapear_com_cache(x, padronizar_estados_para_sigla);
+        return mapear_com_cache(x, |y| padronizar_estados_para_sigla(y).to_string());
     } else {
-        return mapear_com_cache(x, padronizar_estados_para_nome);
+        return mapear_com_cache(x, |y| padronizar_estados_para_nome(y).to_string());
     }
 }
 
