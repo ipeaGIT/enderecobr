@@ -28,4 +28,5 @@ Authors:
 
 - Lucas Mation ([ORCID](https://orcid.org/0000-0002-7461-932X))
 
-- Gabriel Almeida ([ORCID](https://orcid.org/0009-0003-3557-7328))
+- Gabriel Garcia de Almeida
+  ([ORCID](https://orcid.org/0009-0003-3557-7328))
