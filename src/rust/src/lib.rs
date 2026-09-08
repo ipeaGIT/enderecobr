@@ -20,6 +20,11 @@ where
     // Hashmap não padrão, porém mais performático.
     let mut cache = FxHashMap::<&str, Rstr>::default();
 
+    // Contorna um bug de vetor vazio no extendr-api 0.9.0
+    if x.len() == 0 {
+        return Strings::default();
+    }
+
     x.iter()
         .map(|xi| match xi.is_na() {
             true => Rstr::na(),
@@ -45,6 +50,10 @@ where
 
 #[extendr]
 pub fn dado_faltante_rs(x: Strings) -> Logicals {
+    if x.len() == 0 {
+        return Logicals::from_values(Vec::<bool>::new());
+    }
+
     x.iter()
         .map(|xi| match xi.is_na() {
             true => true,
@@ -105,6 +114,10 @@ pub fn padronizar_ceps_rs(x: Strings) -> Strings {
 
 #[extendr]
 pub fn padronizar_ceps_numericos_rs(x: Integers) -> Strings {
+    if x.len() == 0 {
+        return Strings::default();
+    }
+
     x.iter()
         .map(|xi| match xi.is_na() {
             true => Rstr::na(),
@@ -167,10 +180,17 @@ impl Padronizador {
     // Espero em R o que seria uma list(regex=c(), subst=c(), ignorar=c())
     // Algumas validações são feitas da pior forma possível: com `panic!`.
     fn adicionar_substituicoes(&mut self, pares_subst: HashMap<&str, Strings>) {
-        // Obrigo que nada seja NA aqui.
-        let vec_regex: Vec<&str> = pares_subst
+        let regex_str = pares_subst
             .get("regex")
-            .expect("Os pares devem ter um atributo 'regexp'")
+            .expect("Os pares devem ter um atributo 'regexp'");
+
+        // Nada a adicionar se não há regexes (além de evitar um bug no rextendr com vetor vazio).
+        if regex_str.len() == 0 {
+            return;
+        }
+
+        // Obrigo que nada seja NA aqui.
+        let vec_regex: Vec<&str> = regex_str
             .iter()
             .map(|xi| match xi.is_na() {
                 true => panic!("'regexp' não podem ser NA"),
