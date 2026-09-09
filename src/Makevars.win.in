@@ -33,13 +33,16 @@ $(STATLIB):
 
 	# Build the project using Cargo with additional flags
 	export CARGO_HOME=$(CARGOTMP) && \
+	export @CARGO_LINKER_VAR@="$(firstword $(CC))" && \
 	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
 	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --target=$(TARGET) --lib @PROFILE@ --manifest-path=rust/Cargo.toml --target-dir=$(TARGET_DIR)
 
 	# Generate wrappers
 	export CARGO_HOME=$(CARGOTMP) && \
+	export @CARGO_LINKER_VAR@="$(firstword $(CC))" && \
+	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
-	cargo run @CRAN_FLAGS@ --bin document --target $(TARGET) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR)
+	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo run @CRAN_FLAGS@ --bin document --target $(TARGET) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @PROFILE@
 
 	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);

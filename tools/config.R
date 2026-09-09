@@ -106,9 +106,18 @@ mv_txt <- readLines(mv_fp)
   "x86_64-pc-windows-gnu"
 }
 
+# Cargo precisa do linker configurado pelo Rtools ao compilar o binário
+# `document`. O nome da variável de ambiente depende do target do Windows.
+.cargo_linker_var <- paste0(
+  "CARGO_TARGET_",
+  toupper(gsub("-", "_", .windows_target)),
+  "_LINKER"
+)
+
 # replace placeholder values
 new_txt <- gsub("@CRAN_FLAGS@", .cran_flags, mv_txt) |>
   gsub("@WINDOWS_TARGET@", .windows_target, x = _) |>
+  gsub("@CARGO_LINKER_VAR@", .cargo_linker_var, x = _) |>
   gsub("@PROFILE@", .profile, x = _) |>
   gsub("@CLEAN_TARGET@", .clean_targets, x = _) |>
   gsub("@LIBDIR@", .libdir, x = _) |>
