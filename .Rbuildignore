@@ -25,7 +25,7 @@ pkgdown/
 CLAUDE.md
 MEMORY.md
 AGENTS.md
-
+.markdownlintignore
 ^src/\.cargo$
 ^src/rust/vendor$
 ^src/rust/target$

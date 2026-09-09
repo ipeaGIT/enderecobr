@@ -3,9 +3,9 @@ Title: Padronizador de Endereços Brasileiros (Brazilian Addresses
     Standardizer)
 Version: 0.5.0.9000
 Authors@R: c(
-    person("Daniel", "Herszenhut", , "dhersz@gmail.com", role = c("aut", "cre"),
+    person("Daniel", "Herszenhut", , "dhersz@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0001-8066-1105")),
-    person("Rafael H. M.", "Pereira", role = "aut",
+    person(given="Rafael H. M.", family="Pereira", email="rafa.pereira.br@gmail.com", role=c("aut", "cre"), 
            comment = c(ORCID = "0000-0003-2125-7465")),
     person("Lucas", "Mation", role = "aut",
            comment = c(ORCID = "0000-0002-7461-932X")),
@@ -43,5 +43,5 @@ Encoding: UTF-8
 Language: pt
 LazyData: true
 Roxygen: list(markdown = TRUE)
-SystemRequirements: Cargo (Rust's package manager), rustc >= 1.65.0, xz
+SystemRequirements: Cargo (Rust's package manager), rustc >= 1.81.0, xz
 Config/roxygen2/version: 8.1.0
