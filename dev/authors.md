@@ -2,10 +2,10 @@
 
 ## Authors
 
-- **Daniel Herszenhut**. Author, maintainer.
+- **Daniel Herszenhut**. Author.
   [](https://orcid.org/0000-0001-8066-1105)
 
-- **Rafael H. M. Pereira**. Author.
+- **Rafael H. M. Pereira**. Author, maintainer.
   [](https://orcid.org/0000-0003-2125-7465)
 
 - **Lucas Mation**. Author. [](https://orcid.org/0000-0002-7461-932X)

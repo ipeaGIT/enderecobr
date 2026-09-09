@@ -9,6 +9,11 @@
   [\#67](https://github.com/ipea/enderecobr/issues/67)).
 - Atualização do pacote para utilizar a nova crate v0.2.0 do
   [enderecobr_rs](https://github.com/ipea/enderecobr_rs).
+- A compilação do pacote requer Rust \>= 1.81.0, conforme o requisito do
+  `enderecobr_rs` v0.2.0.
+- Corrigida a compilação do gerador de wrappers no Windows com Rtools e
+  evitada a recompilação desnecessária das dependências Rust nessa
+  etapa.
 
 ### Adições e mudanças de padronização
 
