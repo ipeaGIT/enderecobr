@@ -1,16 +1,16 @@
 Package: enderecobr
 Title: Padronizador de Endereços Brasileiros (Brazilian Addresses
     Standardizer)
-Version: 0.5.0.9000
+Version: 0.5.0.9001
 Authors@R: c(
     person("Daniel", "Herszenhut", , "dhersz@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0001-8066-1105")),
     person(given="Rafael H. M.", family="Pereira", email="rafa.pereira.br@gmail.com", role=c("aut", "cre"), 
            comment = c(ORCID = "0000-0003-2125-7465")),
-    person("Lucas", "Mation", role = "aut",
-           comment = c(ORCID = "0000-0002-7461-932X")),
     person("Gabriel", "Garcia de Almeida", role = "aut",
-           comment = c(ORCID = "0009-0003-3557-7328"))
+           comment = c(ORCID = "0009-0003-3557-7328")),
+    person("Lucas", "Mation", role = "aut",
+           comment = c(ORCID = "0000-0002-7461-932X"))
   )
 Description: Padroniza endereços brasileiros a partir de diferentes
     critérios. Os métodos de padronização incluem apenas manipulações
