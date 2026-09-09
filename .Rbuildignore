@@ -31,3 +31,4 @@ AGENTS.md
 ^src/rust/target$
 ^src/Makevars$
 ^src/Makevars\.win$
+templates/
