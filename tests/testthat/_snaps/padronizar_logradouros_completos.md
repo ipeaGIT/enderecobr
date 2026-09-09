@@ -13,20 +13,20 @@
     Code
       res <- tester()
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando números...[K
-      v Padronizando números... [xxx ms][K
+      i Padronizando números...
+      v Padronizando números... [xxx ms]
       
-      i Trazendo números para o logradouro completo...[K
-      v Trazendo números para o logradouro completo... [xxx ms][K
+      i Trazendo números para o logradouro completo...
+      v Trazendo números para o logradouro completo... [xxx ms]
       
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Trazendo tipos de logradouro para o logradouro completo...[K
-      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms][K
+      i Trazendo tipos de logradouro para o logradouro completo...
+      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms]
       
 
 ---
@@ -35,14 +35,14 @@
       res <- tester(campos_do_logradouro = correspondencia_logradouro(
         tipo_de_logradouro = "tipo", nome_do_logradouro = "logradouro"))
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Trazendo tipos de logradouro para o logradouro completo...[K
-      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms][K
+      i Trazendo tipos de logradouro para o logradouro completo...
+      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms]
       
 
 ---
@@ -52,17 +52,17 @@
         tipo_de_logradouro = "tipo", nome_do_logradouro = "logradouro"),
       checar_tipos = TRUE)
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Verificando duplicatas entre o tipo e o nome do logradouro...[K
-      v Verificando duplicatas entre o tipo e o nome do logradouro... [xxx ms][K
+      i Verificando duplicatas entre o tipo e o nome do logradouro...
+      v Verificando duplicatas entre o tipo e o nome do logradouro... [xxx ms]
       
-      i Trazendo tipos de logradouro para o logradouro completo...[K
-      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms][K
+      i Trazendo tipos de logradouro para o logradouro completo...
+      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms]
       
 
 ---
@@ -71,13 +71,13 @@
       res <- tester(campos_do_logradouro = correspondencia_logradouro(
         nome_do_logradouro = "logradouro", numero = "numero"))
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando números...[K
-      v Padronizando números... [xxx ms][K
+      i Padronizando números...
+      v Padronizando números... [xxx ms]
       
-      i Trazendo números para o logradouro completo...[K
-      v Trazendo números para o logradouro completo... [xxx ms][K
+      i Trazendo números para o logradouro completo...
+      v Trazendo números para o logradouro completo... [xxx ms]
       
 

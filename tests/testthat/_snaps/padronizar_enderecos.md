@@ -75,29 +75,29 @@
     Code
       res <- tester()
     Message
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Padronizando logradouros...[K
-      v Padronizando logradouros... [xxx ms][K
+      i Padronizando logradouros...
+      v Padronizando logradouros... [xxx ms]
       
-      i Padronizando números...[K
-      v Padronizando números... [xxx ms][K
+      i Padronizando números...
+      v Padronizando números... [xxx ms]
       
-      i Padronizando complementos...[K
-      v Padronizando complementos... [xxx ms][K
+      i Padronizando complementos...
+      v Padronizando complementos... [xxx ms]
       
-      i Padronizando CEPs...[K
-      v Padronizando CEPs... [xxx ms][K
+      i Padronizando CEPs...
+      v Padronizando CEPs... [xxx ms]
       
-      i Padronizando bairros...[K
-      v Padronizando bairros... [xxx ms][K
+      i Padronizando bairros...
+      v Padronizando bairros... [xxx ms]
       
-      i Padronizando municípios...[K
-      v Padronizando municípios... [xxx ms][K
+      i Padronizando municípios...
+      v Padronizando municípios... [xxx ms]
       
-      i Padronizando estados...[K
-      v Padronizando estados... [xxx ms][K
+      i Padronizando estados...
+      v Padronizando estados... [xxx ms]
       
 
 ---
@@ -105,35 +105,35 @@
     Code
       res <- tester(combinar_logradouro = TRUE)
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando números...[K
-      v Padronizando números... [xxx ms][K
+      i Padronizando números...
+      v Padronizando números... [xxx ms]
       
-      i Trazendo números para o logradouro completo...[K
-      v Trazendo números para o logradouro completo... [xxx ms][K
+      i Trazendo números para o logradouro completo...
+      v Trazendo números para o logradouro completo... [xxx ms]
       
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Trazendo tipos de logradouro para o logradouro completo...[K
-      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms][K
+      i Trazendo tipos de logradouro para o logradouro completo...
+      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms]
       
-      i Padronizando complementos...[K
-      v Padronizando complementos... [xxx ms][K
+      i Padronizando complementos...
+      v Padronizando complementos... [xxx ms]
       
-      i Padronizando CEPs...[K
-      v Padronizando CEPs... [xxx ms][K
+      i Padronizando CEPs...
+      v Padronizando CEPs... [xxx ms]
       
-      i Padronizando bairros...[K
-      v Padronizando bairros... [xxx ms][K
+      i Padronizando bairros...
+      v Padronizando bairros... [xxx ms]
       
-      i Padronizando municípios...[K
-      v Padronizando municípios... [xxx ms][K
+      i Padronizando municípios...
+      v Padronizando municípios... [xxx ms]
       
-      i Padronizando estados...[K
-      v Padronizando estados... [xxx ms][K
+      i Padronizando estados...
+      v Padronizando estados... [xxx ms]
       
 
 ---
@@ -141,38 +141,38 @@
     Code
       res <- tester(combinar_logradouro = TRUE, checar_tipos = TRUE)
     Message
-      i Padronizando nomes dos logradouros...[K
-      v Padronizando nomes dos logradouros... [xxx ms][K
+      i Padronizando nomes dos logradouros...
+      v Padronizando nomes dos logradouros... [xxx ms]
       
-      i Padronizando números...[K
-      v Padronizando números... [xxx ms][K
+      i Padronizando números...
+      v Padronizando números... [xxx ms]
       
-      i Trazendo números para o logradouro completo...[K
-      v Trazendo números para o logradouro completo... [xxx ms][K
+      i Trazendo números para o logradouro completo...
+      v Trazendo números para o logradouro completo... [xxx ms]
       
-      i Padronizando tipos de logradouro...[K
-      v Padronizando tipos de logradouro... [xxx ms][K
+      i Padronizando tipos de logradouro...
+      v Padronizando tipos de logradouro... [xxx ms]
       
-      i Verificando duplicatas entre o tipo e o nome do logradouro...[K
-      v Verificando duplicatas entre o tipo e o nome do logradouro... [xxx ms][K
+      i Verificando duplicatas entre o tipo e o nome do logradouro...
+      v Verificando duplicatas entre o tipo e o nome do logradouro... [xxx ms]
       
-      i Trazendo tipos de logradouro para o logradouro completo...[K
-      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms][K
+      i Trazendo tipos de logradouro para o logradouro completo...
+      v Trazendo tipos de logradouro para o logradouro completo... [xxx ms]
       
-      i Padronizando complementos...[K
-      v Padronizando complementos... [xxx ms][K
+      i Padronizando complementos...
+      v Padronizando complementos... [xxx ms]
       
-      i Padronizando CEPs...[K
-      v Padronizando CEPs... [xxx ms][K
+      i Padronizando CEPs...
+      v Padronizando CEPs... [xxx ms]
       
-      i Padronizando bairros...[K
-      v Padronizando bairros... [xxx ms][K
+      i Padronizando bairros...
+      v Padronizando bairros... [xxx ms]
       
-      i Padronizando municípios...[K
-      v Padronizando municípios... [xxx ms][K
+      i Padronizando municípios...
+      v Padronizando municípios... [xxx ms]
       
-      i Padronizando estados...[K
-      v Padronizando estados... [xxx ms][K
+      i Padronizando estados...
+      v Padronizando estados... [xxx ms]
       
 
 # warning relacionado ao numero eh atribuido a pad enderecos

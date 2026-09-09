@@ -59,7 +59,7 @@ test_that("printa mensagens de progresso quando verboso", {
   # com os 3 campos
   expect_snapshot(
     res <- tester(),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 
   # com tipo e nome
@@ -70,7 +70,7 @@ test_that("printa mensagens de progresso quando verboso", {
         nome_do_logradouro = "logradouro"
       )
     ),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 
   # com tipo e nome quando verifica duplicatas
@@ -82,7 +82,7 @@ test_that("printa mensagens de progresso quando verboso", {
       ),
       checar_tipos = TRUE
     ),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 
   # com nome e numero
@@ -93,7 +93,7 @@ test_that("printa mensagens de progresso quando verboso", {
         numero = "numero"
       )
     ),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 })
 

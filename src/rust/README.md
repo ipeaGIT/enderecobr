@@ -15,4 +15,12 @@ enderecobr::padronizar_logradouro("") # Teste rápido
 
 devtools::test() # Roda testes unitários
 testthat::snapshot_accept() # Opcionalmente, aceita os novos snapshots
+
+devtools::check(remote = TRUE, manual = TRUE) # Testes finais
+
+devtools::check(pkg = ".",  cran = FALSE, env_vars = c(NOT_CRAN = "true")) # Outro comando de testes
+
+# Atualizar a versão no DESCRIPTION
+
+devtools::submit_cran() # Subir no CRAN
 ```

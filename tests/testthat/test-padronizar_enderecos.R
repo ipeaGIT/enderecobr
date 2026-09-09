@@ -181,17 +181,17 @@ test_that("printa mensagens de progresso quando verboso", {
 
   expect_snapshot(
     res <- tester(),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 
   expect_snapshot(
     res <- tester(combinar_logradouro = TRUE),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 
   expect_snapshot(
     res <- tester(combinar_logradouro = TRUE, checar_tipos = TRUE),
-    transform = function(x) sub("\\[\\d+.*\\]", "[xxx ms]", x)
+    transform = simplificar_mensagens
   )
 })
 
