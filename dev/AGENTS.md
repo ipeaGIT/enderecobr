@@ -7,11 +7,12 @@ fuzzy/probabilistic matching), built on the Rust crate `enderecobr_rs`
 via extendr **Maintainers:** Daniel Herszenhut (aut, cre), Rafael H. M.
 Pereira (aut — Ipea), Lucas Mation (aut), Gabriel Garcia de Almeida
 (aut) — Instituto de Pesquisa Econômica Aplicada (IPEA) **Repo:**
-<https://github.com/ipea/enderecobr> (org migrated to `ipea/enderecobr`
-— old URL redirects; git remote still points at `ipea`, harmless but
-worth updating eventually) · **Branch:** main **Language:**
-`Language: pt` in DESCRIPTION — NEWS.md, roxygen docs, README, and most
-code comments are in Portuguese; match that for user-facing content
+<https://github.com/ipeaGIT/enderecobr> (org migrated to
+`ipea/enderecobr` — old URL redirects; git remote still points at
+`ipeaGIT`, harmless but worth updating eventually) · **Branch:** main
+**Language:** `Language: pt` in DESCRIPTION — NEWS.md, roxygen docs,
+README, and most code comments are in Portuguese; match that for
+user-facing content
 
 ------------------------------------------------------------------------
 
@@ -28,11 +29,12 @@ code comments are in Portuguese; match that for user-facing content
   `enderecobr_rs` version gates the Rust side — both must pass before
   merge or release.
 - **`enderecobr_rs` is upstream, not vendored source.** The actual
-  standardization logic lives in the sibling repo `ipea/enderecobr_rs`
-  (published on crates.io). `src/rust/` here is a thin extendr wrapper
-  crate around it. A reported bug is usually fixed **there** first —
-  pulling the fix into this package means bumping the version pin in
-  `src/rust/Cargo.toml`, not patching logic here. See
+  standardization logic lives in the sibling repo
+  `ipeaGIT/enderecobr_rs` (published on crates.io). `src/rust/` here is
+  a thin extendr wrapper crate around it. A reported bug is usually
+  fixed **there** first — pulling the fix into this package means
+  bumping the version pin in `src/rust/Cargo.toml`, not patching logic
+  here. See
   [`r-extendr-conventions.md`](https://ipea.github.io/enderecobr/dev/~/.claude/rules/r-extendr-conventions.md)
   (global rule).
 - **`[LEARN]` tags** — when corrected, or a non-obvious approach is

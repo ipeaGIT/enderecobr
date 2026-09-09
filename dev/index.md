@@ -44,7 +44,7 @@ pacote. Para mais detalhes, leia a vignette introdutória:
 
 O **enderecobr** disponibiliza funções para padronizar diferentes campos
 de um endereço. A
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/dev/reference/padronizar_enderecos.md),
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/dev/reference/padronizar_enderecos.md),
 carro-chefe do pacote, atua de forma simultânea sobre os vários campos
 que podem compor um endereço. Para isso, ela recebe um dataframe e a
 correspondência entre suas colunas e os campos a serem padronizados:

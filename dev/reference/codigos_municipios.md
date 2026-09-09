@@ -26,4 +26,4 @@ Um data frame com 5570 linhas e 3 colunas:
 
 ## See also
 
-[codigos_estados](https://ipeagit.github.io/enderecobr/dev/reference/codigos_estados.md)
+[codigos_estados](https://ipea.github.io/enderecobr/dev/reference/codigos_estados.md)

@@ -35,12 +35,12 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.svg" class="logo" alt=""><h1>CLAUDE.md — enderecobr</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ipea/enderecobr/blob/main/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ipea/enderecobr/blob/main/AGENTS.md" class="external-link"><code>AGENTS.md</code></a></small>
     </div>
 
 <div id="claudemd--enderecobr" class="section level1">
 
-<p><strong>Project:</strong> enderecobr — R package that standardizes Brazilian addresses (street names, neighborhoods, municipalities, states, CEP/postal codes) using string-manipulation rules (no fuzzy/probabilistic matching), built on the Rust crate <code>enderecobr_rs</code> via extendr <strong>Maintainers:</strong> Daniel Herszenhut (aut, cre), Rafael H. M. Pereira (aut — Ipea), Lucas Mation (aut), Gabriel Garcia de Almeida (aut) — Instituto de Pesquisa Econômica Aplicada (IPEA) <strong>Repo:</strong> <a href="https://github.com/ipea/enderecobr" class="external-link uri">https://github.com/ipea/enderecobr</a> (org migrated to <code>ipea/enderecobr</code> — old URL redirects; git remote still points at <code>ipea</code>, harmless but worth updating eventually) · <strong>Branch:</strong> main <strong>Language:</strong> <code>Language: pt</code> in DESCRIPTION — NEWS.md, roxygen docs, README, and most code comments are in Portuguese; match that for user-facing content</p>
+<p><strong>Project:</strong> enderecobr — R package that standardizes Brazilian addresses (street names, neighborhoods, municipalities, states, CEP/postal codes) using string-manipulation rules (no fuzzy/probabilistic matching), built on the Rust crate <code>enderecobr_rs</code> via extendr <strong>Maintainers:</strong> Daniel Herszenhut (aut, cre), Rafael H. M. Pereira (aut — Ipea), Lucas Mation (aut), Gabriel Garcia de Almeida (aut) — Instituto de Pesquisa Econômica Aplicada (IPEA) <strong>Repo:</strong> <a href="https://github.com/ipeaGIT/enderecobr" class="external-link uri">https://github.com/ipeaGIT/enderecobr</a> (org migrated to <code>ipea/enderecobr</code> — old URL redirects; git remote still points at <code>ipeaGIT</code>, harmless but worth updating eventually) · <strong>Branch:</strong> main <strong>Language:</strong> <code>Language: pt</code> in DESCRIPTION — NEWS.md, roxygen docs, README, and most code comments are in Portuguese; match that for user-facing content</p>
 <hr><div class="section level2">
 <h2 id="core-principles">Core Principles<a class="anchor" aria-label="anchor" href="#core-principles"></a></h2>
 <ul><li>
@@ -52,7 +52,7 @@
 <li>
 <strong>Two backends, one release gate.</strong> <code>R CMD check --as-cran</code> (0 errors, 0 warnings, every note justified in <code>cran-comments.md</code>) gates the R side. A clean <code>cargo build</code> of <code>src/rust/</code> against the pinned <code>enderecobr_rs</code> version gates the Rust side — both must pass before merge or release.</li>
 <li>
-<strong><code>enderecobr_rs</code> is upstream, not vendored source.</strong> The actual standardization logic lives in the sibling repo <code>ipea/enderecobr_rs</code> (published on crates.io). <code>src/rust/</code> here is a thin extendr wrapper crate around it. A reported bug is usually fixed <strong>there</strong> first — pulling the fix into this package means bumping the version pin in <code>src/rust/Cargo.toml</code>, not patching logic here. See <a href="~/.claude/rules/r-extendr-conventions.html"><code>r-extendr-conventions.md</code></a> (global rule).</li>
+<strong><code>enderecobr_rs</code> is upstream, not vendored source.</strong> The actual standardization logic lives in the sibling repo <code>ipeaGIT/enderecobr_rs</code> (published on crates.io). <code>src/rust/</code> here is a thin extendr wrapper crate around it. A reported bug is usually fixed <strong>there</strong> first — pulling the fix into this package means bumping the version pin in <code>src/rust/Cargo.toml</code>, not patching logic here. See <a href="~/.claude/rules/r-extendr-conventions.html"><code>r-extendr-conventions.md</code></a> (global rule).</li>
 <li>
 <strong><code>[LEARN]</code> tags</strong> — when corrected, or a non-obvious approach is confirmed, append <code>[LEARN:category] wrong → right</code> to <a href="MEMORY.html">MEMORY.md</a>
 </li>
