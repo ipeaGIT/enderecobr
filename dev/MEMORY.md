@@ -36,3 +36,20 @@ erro indica pin/lock quebrado. Certo → a fonte de verdade é
 `Cargo.lock` mudar. Obs.: em disco no Dropbox, o `cargo vendor` já
 corrompeu a cópia (arquivo faltando) — apagar o diretório e revendorar
 do zero resolve.
+
+\[LEARN:enderecobr\] (2026-09-08) **extendr-api 0.9.0: iterar
+`Strings`/`Integers` vazios aborta o processo no Windows.**
+`Strings::as_slice()` chama
+`slice::from_raw_parts(STRING_PTR_RO(...), len)`; para um STRSXP de
+tamanho 0 o R (Windows/R.dll) devolve ponteiro NULL, a checagem de
+pré-condição do Rust moderno (\>=1.80) pânica e o hook do extendr
+converte em abort (“non-unwinding panic”), impossível de capturar via R.
+Sintoma: qualquer `padronizar_*_rs(character(0))` mata o R. Certo: guard
+`if x.len() == 0` antes de iterar (feito em `mapear_com_cache`,
+`dado_faltante_rs`, `padronizar_ceps_numericos_rs` e
+`adicionar_substituicoes` em `src/rust/src/lib.rs`). Para ver o panic
+real, setar `EXTENDR_BACKTRACE=1` (o hook default do extendr suprime a
+mensagem). Linux não afetado (R devolve ponteiro não-nulo), por isso o
+CI/r-universe passa. Instalar Rust local: rustup com
+`--default-host x86_64-pc-windows-gnu` (Rtools atende o target; C: em
+vez de D: por espaço).
