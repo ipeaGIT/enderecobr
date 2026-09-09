@@ -34,9 +34,9 @@ dependencies = [
 
 [[package]]
 name = "enderecobr_rs"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae99faf0c091eee1f5c29f0c01e672cc7be5942857208bfbc78785ebd49af11d"
+checksum = "0db9299d31c604df54176181afeb3ba2dd48021b10693dcafd5f74419e8e1922"
 dependencies = [
  "diacritics",
  "itertools",
