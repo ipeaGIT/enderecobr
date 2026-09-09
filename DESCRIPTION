@@ -45,4 +45,3 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 SystemRequirements: Cargo (Rust's package manager), rustc >= 1.81.0, xz
 Config/roxygen2/version: 8.1.0
-RoxygenNote: 7.3.2

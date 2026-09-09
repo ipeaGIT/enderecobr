@@ -27,8 +27,8 @@ Authors:
 \itemize{
   \item Rafael H. M. Pereira \email{rafa.pereira.br@gmail.com} (\href{https://orcid.org/0000-0003-2125-7465}{ORCID})
   \item Daniel Herszenhut \email{dhersz@gmail.com} (\href{https://orcid.org/0000-0001-8066-1105}{ORCID})
-  \item Lucas Mation (\href{https://orcid.org/0000-0002-7461-932X}{ORCID})
   \item Gabriel Garcia de Almeida (\href{https://orcid.org/0009-0003-3557-7328}{ORCID})
+  \item Lucas Mation (\href{https://orcid.org/0000-0002-7461-932X}{ORCID})
 }
 
 }
