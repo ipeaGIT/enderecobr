@@ -1,0 +1,3 @@
+# Snapshots do testthat são gerados: qualquer "correção" de lint corrompe
+# a comparação exata feita pelo testthat.
+tests/testthat/_snaps/
