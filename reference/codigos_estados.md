@@ -26,4 +26,4 @@ Um data frame com 27 linhas e 3 colunas:
 
 ## See also
 
-[codigos_municipios](https://ipeagit.github.io/enderecobr/reference/codigos_municipios.md)
+[codigos_municipios](https://ipea.github.io/enderecobr/reference/codigos_municipios.md)

@@ -27,11 +27,11 @@ padronizar_logradouros_completos(
   Um vetor nomeado de caracteres. A correspondência entre os campos a
   serem padronizados (nomes do vetor) e as colunas que os representam no
   dataframe (valores do vetor). A função
-  [`correspondencia_logradouro()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_logradouro.md)
+  [`correspondencia_logradouro()`](https://ipea.github.io/enderecobr/reference/correspondencia_logradouro.md)
   facilita a criação deste vetor, fazendo também algumas verificações do
   conteúdo imputado. Caso deseje criar o vetor manualmente, note que
   seus nomes devem ser os mesmos nomes dos parâmetros da função
-  [`correspondencia_logradouro()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_logradouro.md).
+  [`correspondencia_logradouro()`](https://ipea.github.io/enderecobr/reference/correspondencia_logradouro.md).
 
 - manter_cols_extras:
 

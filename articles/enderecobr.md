@@ -10,6 +10,7 @@ suporte a correspondências probabilísticas entre strings.
 A última versão estável pode ser baixada do CRAN com o comando a seguir:
 
 ``` r
+
 install.packages("enderecobr")
 ```
 
@@ -17,8 +18,9 @@ Caso prefira, a versão em desenvolvimento também pode ser usada. Para
 isso, use o seguinte comando:
 
 ``` r
+
 # install.packages("remotes")
-remotes::install_github("ipeaGIT/enderecobr")
+remotes::install_github("ipea/enderecobr")
 ```
 
 ## Utilização
@@ -31,12 +33,13 @@ as funções que agem sobre múltiplos campos simultaneamente.
 ### Padronização de múltiplos campos simultaneamente
 
 A
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md),
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md),
 carro-chefe do pacote, atua de forma simultânea sobre os vários campos
 que podem compor um endereço. Para isso, ela recebe um dataframe e a
 correspondência entre suas colunas e os campos a serem padronizados:
 
 ``` r
+
 library(enderecobr)
 
 enderecos <- data.frame(
@@ -78,7 +81,7 @@ padronizar_enderecos(enderecos, campos_do_endereco = campos)
 ```
 
 Note que no exemplo acima nós também utiliza a função
-[`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md),
+[`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md),
 que facilita o processo de especificação de correspondência entre as
 colunas do dataframe e os campos do endereço a serem padronizados. Com
 ela, nós especificamos que a coluna que contém a informação de tipo de
@@ -87,14 +90,14 @@ chama `"nroLogradouro"`, etc. Na prática, no entanto, essa função é
 opcional, e poderíamos simplesmente passar um vetor de caracteres no
 formato
 `c(tipo_de_logradouro = "tipo", logradouro = "logradouro", ...)`. A
-[`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md),
+[`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md),
 no entanto, realiza alguns testes no input, garantindo que o vetor a ser
 passado pra
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md)
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md)
 esteja corretamente formatado.
 
 A
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md)
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md)
 contém, ainda, cinco parâmetros adicionais. O `formato_estados` e o
 `formato_numeros` controlam como os estados e números padronizados,
 respectivamente, devem ser formatados. Caso `formato_estados` seja
@@ -111,6 +114,7 @@ situação. Os exemplos a seguir demonstram esses parâmetros
 detalhadamente:
 
 ``` r
+
 campos <- correspondencia_campos(
   numero = "nroLogradouro",
   estado = "uf_dom"
@@ -158,6 +162,7 @@ padronização e seus respectivos resultados são preservados. O bloco
 abaixo demonstra essa funcionalidade:
 
 ``` r
+
 campos <- correspondencia_campos(
   tipo_de_logradouro = "tipo",
   logradouro = "logradouro"
@@ -182,11 +187,12 @@ o logradouro (tipo, nome e número) devem ser combinados em um único
 campo padronizado de logradouro completo. Caso seja `FALSE`(valor
 padrão), os campos permanecem separados; se for `TRUE`, são combinados.
 Nesse caso, o parâmetro `logradouro` da
-[`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md)
+[`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md)
 deve ser interpretado como o *nome* do logradouro. A seguir,
 demonstramos essa funcionalidade:
 
 ``` r
+
 enderecos <- data.frame(
   tipo = "r",
   logradouro = "ns sra da piedade",
@@ -222,6 +228,7 @@ verificação não é feita; se for `TRUE`, a verificação é realizada e
 valores duplicados são removidos, como apresentado a seguir:
 
 ``` r
+
 enderecos <- data.frame(
   tipo = "r",
   logradouro = "r ns sra da piedade",
@@ -251,15 +258,16 @@ padronizar_enderecos(
 
 Os parâmetros `combinar_logradouro` e `checar_tipos` acionam, de forma
 oculta, outra função que lida com múltiplos campos simultaneamente: a
-[`padronizar_logradouros_completos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros_completos.md).
+[`padronizar_logradouros_completos()`](https://ipea.github.io/enderecobr/reference/padronizar_logradouros_completos.md).
 Essa função também pode ser usada de forma separada e, de forma similiar
 à
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md),
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md),
 recebe um dataframe com as informações do logradouro (tipo, nome e
 número) e a correspondência entre suas colunas e os campos a serem
 padronizados:
 
 ``` r
+
 campos <- correspondencia_logradouro(
   tipo_de_logradouro = "tipo",
   nome_do_logradouro = "logradouro",
@@ -276,33 +284,33 @@ Note que, nesse caso, usamos a função `campos_do_logradouro()` para
 estabelecer a correspondência entre colunas e campos do endereço, mas
 também poderíamos passar um vetor de caracteres no argumento
 `campos_do_logradouro`. A
-[`padronizar_logradouros_completos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros_completos.md)
+[`padronizar_logradouros_completos()`](https://ipea.github.io/enderecobr/reference/padronizar_logradouros_completos.md)
 também inclui os parâmetros `manter_cols_extras` e `checar_tipos`, que
 funcionam de forma idêntica aos parâmetros de mesmo nome da
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md).
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md).
 
 ### Padronização de campos individuais
 
 Por trás dos panos, tanto a
-[`padronizar_enderecos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_enderecos.md)
+[`padronizar_enderecos()`](https://ipea.github.io/enderecobr/reference/padronizar_enderecos.md)
 quanto a
-[`padronizar_logradouros_completos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros_completos.md)
+[`padronizar_logradouros_completos()`](https://ipea.github.io/enderecobr/reference/padronizar_logradouros_completos.md)
 utilizam diversas outras funções que padronizam campos de forma
 individual. Cada uma delas recebe um vetor com valores não padronizados
 e retorna um vetor de mesmo tamanho com os respectivos valores
 padronizados. As funções atualmente disponíveis são:
 
-- [`padronizar_estados()`](https://ipeagit.github.io/enderecobr/reference/padronizar_estados.md)
-- [`padronizar_municipios()`](https://ipeagit.github.io/enderecobr/reference/padronizar_municipios.md)
-- [`padronizar_bairros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_bairros.md)
-- [`padronizar_ceps()`](https://ipeagit.github.io/enderecobr/reference/padronizar_ceps.md)
-- [`padronizar_logradouros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros.md)
-- [`padronizar_numeros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_numeros.md)
-- [`padronizar_tipos_de_logradouro()`](https://ipeagit.github.io/enderecobr/reference/padronizar_tipos_de_logradouro.md)
-- [`padronizar_complementos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_complementos.md)
+- [`padronizar_estados()`](https://ipea.github.io/enderecobr/reference/padronizar_estados.md)
+- [`padronizar_municipios()`](https://ipea.github.io/enderecobr/reference/padronizar_municipios.md)
+- [`padronizar_bairros()`](https://ipea.github.io/enderecobr/reference/padronizar_bairros.md)
+- [`padronizar_ceps()`](https://ipea.github.io/enderecobr/reference/padronizar_ceps.md)
+- [`padronizar_logradouros()`](https://ipea.github.io/enderecobr/reference/padronizar_logradouros.md)
+- [`padronizar_numeros()`](https://ipea.github.io/enderecobr/reference/padronizar_numeros.md)
+- [`padronizar_tipos_de_logradouro()`](https://ipea.github.io/enderecobr/reference/padronizar_tipos_de_logradouro.md)
+- [`padronizar_complementos()`](https://ipea.github.io/enderecobr/reference/padronizar_complementos.md)
 
 A
-[`padronizar_estados()`](https://ipeagit.github.io/enderecobr/reference/padronizar_estados.md)
+[`padronizar_estados()`](https://ipea.github.io/enderecobr/reference/padronizar_estados.md)
 aceita vetores de strings e números. Caso numérico, o vetor deve conter
 o [código do
 IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php) de
@@ -318,6 +326,7 @@ espaços em excesso entre palavras. O código abaixo apresenta exemplos de
 aplicação da função.
 
 ``` r
+
 estados <- c("21", " 21", "MA", " MA ", "ma", "MARANHÃO")
 padronizar_estados(estados)
 #> [1] "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO" "MARANHAO"
@@ -331,7 +340,7 @@ padronizar_estados(estados)
 ```
 
 A função de padronização de campos de município,
-[`padronizar_municipios()`](https://ipeagit.github.io/enderecobr/reference/padronizar_municipios.md),
+[`padronizar_municipios()`](https://ipea.github.io/enderecobr/reference/padronizar_municipios.md),
 funciona de forma muito semelhante, aceitando também valores numéricos
 representando os códigos dos municípios e strings. As mesmas
 manipulações de remoção de espaços, conversão para caixa alta e
@@ -342,6 +351,7 @@ nos nomes dos municípios (e.g. Moji Mirim -\> Mogi Mirim, Parati -\>
 Paraty).
 
 ``` r
+
 municipios <- c(
   "3304557", "003304557", " 3304557 ", "RIO DE JANEIRO", "rio de janeiro",
   "SÃO PAULO"
@@ -360,7 +370,7 @@ padronizar_municipios(municipios)
 ```
 
 A
-[`padronizar_bairros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_bairros.md)
+[`padronizar_bairros()`](https://ipea.github.io/enderecobr/reference/padronizar_bairros.md)
 trabalha exclusivamente com vetores de strings. Como os nomes de bairros
 são muito mais variados e, consequentemente, menos rigidamente
 controlados do que os de estados e municípios, a função se atém a
@@ -371,6 +381,7 @@ abaixo mostra algumas das muitas abreviações usualmente empregadas no
 preenchimento de endereços.
 
 ``` r
+
 bairros <- c(
   "PRQ IND",
   "NSA SEN DE FATIMA",
@@ -385,7 +396,7 @@ padronizar_bairros(bairros)
 ```
 
 A
-[`padronizar_ceps()`](https://ipeagit.github.io/enderecobr/reference/padronizar_ceps.md)
+[`padronizar_ceps()`](https://ipea.github.io/enderecobr/reference/padronizar_ceps.md)
 é outro exemplo de função que trabalha com strings e números. Caso o
 input seja numérico, a função verifica se os valores possuem
 comprimentos compatíveis com um CEP, adicionando zeros à esquerda se
@@ -401,6 +412,7 @@ CEPs, como no caso de strings contendo caracteres não numéricos e de
 strings com caracteres em excesso.
 
 ``` r
+
 ceps <- c("22290-140", "22.290-140", "22290 140", "22290140")
 padronizar_ceps(ceps)
 #> [1] "22290-140" "22290-140" "22290-140" "22290-140"
@@ -423,7 +435,7 @@ padronizar_ceps("022290140")
 A tarefa de padronizar logradouros é a mais complexa dentre as
 apresentadas até aqui, uma vez que o campo de logradouro é o que
 apresenta maior variabilidade de input. A
-[`padronizar_logradouros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_logradouros.md),
+[`padronizar_logradouros()`](https://ipea.github.io/enderecobr/reference/padronizar_logradouros.md),
 portanto, assim como a função de padronização de bairros, se limita a
 expandir abreviações frequentemente utilizadas e a corrigir alguns
 poucos erros de digitação, fora o tratamento usual dado a strings, como
@@ -431,6 +443,7 @@ conversão para caixa alta, remoção de espaços em excesso e antes e
 depois das strings, etc.
 
 ``` r
+
 logradouros <- c(
   "r. gen.. glicério, 137",
   "cond pres j. k., qd 05 lt 02 1",
@@ -443,7 +456,7 @@ padronizar_logradouros(logradouros)
 ```
 
 A
-[`padronizar_numeros()`](https://ipeagit.github.io/enderecobr/reference/padronizar_numeros.md)
+[`padronizar_numeros()`](https://ipea.github.io/enderecobr/reference/padronizar_numeros.md)
 tem como objetivo padronizar o número do logradouro, caso este esteja em
 um campo separado do logradouro propriamente dito. A função aceita
 vetores de números e strings e retorna um vetor de strings ou inteiros,
@@ -456,6 +469,7 @@ puderem ser adequadamente convertidos para inteiro também são
 substituídos por `NA`, o que é sinalizado por um warning.
 
 ``` r
+
 numeros <- c("0210", "001", "1", "S N", "S/N", "SN", "0180  0181")
 padronizar_numeros(numeros)
 #> [1] "210"     "1"       "1"       "S/N"     "S/N"     "S/N"     "180 181"
@@ -476,24 +490,26 @@ padronizar_numeros(numeros)
 
 Outra função que atua sobre uma informação específica do logradouro,
 caso essa seja fornecida separadamente, é a
-[`padronizar_tipos_de_logradouro()`](https://ipeagit.github.io/enderecobr/reference/padronizar_tipos_de_logradouro.md).
+[`padronizar_tipos_de_logradouro()`](https://ipea.github.io/enderecobr/reference/padronizar_tipos_de_logradouro.md).
 Fora o tratamento usual dado a strings, a função também expande
 abreviações frequentemente observadas no campo de tipo de logradouro.
 
 ``` r
+
 tipos <- c("r", "R.", "AVN", "AVE", "JDM", "QD")
 padronizar_tipos_de_logradouro(tipos)
 #> [1] "RUA"     "RUA"     "AVENIDA" "AVENIDA" "JARDIM"  "QUADRA"
 ```
 
 Por fim, a
-[`padronizar_complementos()`](https://ipeagit.github.io/enderecobr/reference/padronizar_complementos.md)
+[`padronizar_complementos()`](https://ipea.github.io/enderecobr/reference/padronizar_complementos.md)
 age de forma similar às funções de padronização de logradouros e
 bairros, porém agindo de forma mais específica em abreviações e
 observações frequentemente observados na especificação de complementos
 de logradouros.
 
 ``` r
+
 complementos <- c("QD1 LT2 CS3", "APTO. 405", "PRX CX POST 450")
 padronizar_complementos(complementos)
 #> [1] "QUADRA 1 LOTE 2 CASA 3"   "APARTAMENTO 405"         
@@ -507,6 +523,7 @@ ser controlado pela opção `enderecobr.verbose`, que recebe os valores
 `"quiet"` ou `"verbose"`, como demonstrado a seguir:
 
 ``` r
+
 campos <- correspondencia_logradouro(
   nome_do_logradouro = "logradouro",
   numero = "nroLogradouro"

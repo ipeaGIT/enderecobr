@@ -30,13 +30,13 @@ padronizar_enderecos(
   Um vetor nomeado de caracteres. A correspondência entre os campos a
   serem padronizados (nomes do vetor) e as colunas que os representam no
   dataframe (valores em si). A função
-  [`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md)
+  [`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md)
   facilita a criação deste vetor, fazendo também algumas verificações do
   conteúdo imputado. Argumentos dessa função com valor `NULL` são
   ignorados, e ao menos um valor diferente de nulo deve ser fornecido.
   Caso deseje criar o vetor manualmente, note que seus nomes devem ser
   os mesmos nomes dos parâmetros da função
-  [`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md).
+  [`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md).
 
 - formato_estados:
 
@@ -61,7 +61,7 @@ padronizar_enderecos(
   Um logical. Se os campos que descrevem o logradouro (tipo, nome e
   número, por exemplo) devem ser combinados em um único campo de
   logradouro completo. Nesse caso, o parâmetro `logradouro` da
-  [`correspondencia_campos()`](https://ipeagit.github.io/enderecobr/reference/correspondencia_campos.md)
+  [`correspondencia_campos()`](https://ipea.github.io/enderecobr/reference/correspondencia_campos.md)
   deve ser interpretado como o nome do logradouro. Por padrão, `FALSE`.
 
 - checar_tipos:
