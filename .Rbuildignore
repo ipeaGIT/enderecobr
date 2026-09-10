@@ -32,3 +32,4 @@ AGENTS.md
 ^src/Makevars$
 ^src/Makevars\.win$
 templates/
+endereco-manual.tex

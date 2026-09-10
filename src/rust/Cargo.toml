@@ -14,7 +14,7 @@ name = 'document'
 path = 'document.rs'
 
 [dependencies]
-enderecobr_rs = "0.2.0"
+enderecobr_rs = "0.3.0"
 extendr-api = '0.9.0'
 rustc-hash = "2.1.1"
 

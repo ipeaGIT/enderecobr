@@ -60,13 +60,10 @@ test_that("padroniza corretamente - character", {
     " 1 ",           "1",
     "s/n",           "S/N",
     "NÚMERO",        "S/N",
-
     "0001",          "1",
     "01 02",         "1 2",
-
     "20.100",        "20100",
     "20.100 20.101", "20100 20101",
-
     "1.028",         "1028", # mistura dos dois casos acima - issue #37 (https://github.com/ipeaGIT/enderecobr/issues/37)
 
     "SN",            "S/N",
@@ -81,7 +78,7 @@ test_that("padroniza corretamente - character", {
     "S/Nº",          "S/N",
     "S./N.",         "S/N",
     "S./Nº.",        "S/N",
-    "S./N. S N",     "S./N. S N",
+    "S./N. S N",     "S/N",
     "SEM NUMERO",    "S/N",
     "X",             "S/N",
     "XX",            "S/N",
@@ -89,7 +86,6 @@ test_that("padroniza corretamente - character", {
     "00",            "S/N",
     "-",             "S/N",
     "--",            "S/N",
-
     "",              "S/N",
     NA_character_,   "S/N"
   )
@@ -103,15 +99,11 @@ test_that("padroniza corretamente - character", {
     " 1 ",           1,
     "s/n",           NA_integer_,
     "NÚMERO",        NA_integer_,
-
     "0001",          1,
     "01 02",         NA_integer_,
-
     "20.100",        20100,
     "20.100 20.101", NA_integer_,
-
     "1.028",         1028,
-
     "SN",            NA_integer_,
     "SNº",           NA_integer_,
     "S N",           NA_integer_,
@@ -132,7 +124,6 @@ test_that("padroniza corretamente - character", {
     "00",            NA_integer_,
     "-",             NA_integer_,
     "--",            NA_integer_,
-
     "",              NA_integer_,
     NA_character_,   NA_integer_
   )
@@ -142,4 +133,3 @@ test_that("padroniza corretamente - character", {
     gabarito$padronizado_esperado
   )
 })
-
