@@ -1,5 +1,11 @@
 ## Resubmission: enderecobr 0.6.1
 
+── R CMD check results ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── enderecobr 0.6.1 ────
+Duration: 1m 39.6s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+
 This is a patch release that fixes the installation failure of 0.6.0 reported
 by the CRAN checks on `r-devel-linux-x86_64-fedora-clang` and
 `r-devel-linux-x86_64-fedora-gcc` ("Installation failed",
@@ -29,9 +35,4 @@ No changes to the R API, documentation, or behaviour of any function.
   GCC 16, matching the failing CRAN flavor) and `atlas` (Fedora 42)
 - win-builder (devel)
 
-## R CMD check results
-
-Local `R CMD check --as-cran` (Windows 11, R 4.6.0):
-
-0 errors | 0 warnings | 0 notes
 
