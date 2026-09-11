@@ -38,9 +38,16 @@ $(STATLIB):
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
 	@PANIC_EXPORTS@RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @TARGET@
 
-	export CARGO_HOME=$(CARGOTMP) && \
-	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
-	cargo run @CRAN_FLAGS@ --bin document --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @TARGET@
+	# Regenerate R/extendr-wrappers.R only during devtools::document()
+	# (roxygen2 sets ROXYGEN_PKG). Never at install time: the `document`
+	# binary links against libR, which does not exist on R builds without
+	# --enable-R-shlib (e.g. CRAN's Fedora flavors). Flags mirror the lib
+	# build above so cargo reuses its fingerprints instead of recompiling.
+	if [ -n "$$ROXYGEN_PKG" ]; then \
+		export CARGO_HOME=$(CARGOTMP) && \
+		export PATH="$(PATH):$(HOME)/.cargo/bin" && \
+		@PANIC_EXPORTS@RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo run @CRAN_FLAGS@ --bin document @PROFILE@ --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @TARGET@; \
+	fi
 
 	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);

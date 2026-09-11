@@ -1,36 +1,37 @@
+## Resubmission: enderecobr 0.6.1
+
+This is a patch release that fixes the installation failure of 0.6.0 reported
+by the CRAN checks on `r-devel-linux-x86_64-fedora-clang` and
+`r-devel-linux-x86_64-fedora-gcc` ("Installation failed",
+`ld: cannot find -lR`).
+
+Cause: the build scaffold used by 0.6.0 compiled and ran a small Rust helper
+binary during installation to regenerate the R wrapper file. That binary
+links against `libR`, which does not exist on R builds configured without
+`--enable-R-shlib` (as on the Fedora check machines). The step was
+unnecessary at install time (the wrapper file ships with the package) and
+is now only run during development, never by `R CMD INSTALL`. Installation
+now performs a single `cargo build --lib` and links nothing against R
+outside the usual shared-object step.
+
+No changes to the R API, documentation, or behaviour of any function.
+
 ## Test environments
 
-- Local Windows Server 2022 installation (R 4.5.2)
-- GitHub Actions:
-  - windows-latest (release)
-  - windows-11-arm (release)
+- Local Windows 11 (R 4.6.0, Rust 1.87): `R CMD build`, `R CMD INSTALL`
+  of the tarball, and `R CMD check --as-cran`
+- GitHub Actions (`.github/workflows/check.yaml`):
+  - windows-latest (release), windows-11-arm (release)
   - macOS-latest (release)
   - Ubuntu 24.04 (devel, release, oldrel)
-- win-builder (devel, release, oldrel)
-- Rhub:
-  - linux (devel)
-  - macos-arm64 (devel)
-  - windows (devel)
+  - Fedora 44 container (R-devel, R-hub `gcc16` image) with gcc and with clang
+- R-hub v2 containers, including the Fedora-based `gcc16` (Fedora 44,
+  GCC 16, matching the failing CRAN flavor) and `atlas` (Fedora 42)
+- win-builder (devel)
 
-── R CMD check results ────────────────────────────────────────────── enderecobr 0.6.0 ────
-Duration: 3m 10s
+## R CMD check results
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+Local `R CMD check --as-cran` (Windows 11, R 4.6.0):
 
-
-
-# enderecobr 0.6.0
-
-## Notas
-
-- Atualização do pacote para utilizar a nova crate v0.2.0 do 
-[enderecobr_rs](https://github.com/ipea/enderecobr_rs).
-- A compilação do pacote requer Rust >= 1.81.0, conforme o requisito do
-  `enderecobr_rs` v0.2.0.
-- Corrigida a compilação do gerador de wrappers no Windows com Rtools e evitada
-  a recompilação desnecessária das dependências Rust nessa etapa.
-- Repositório migrado de `ipeaGIT/enderecobr` para `ipea/enderecobr` ([issue
-  #67](https://github.com/ipea/enderecobr/issues/67)).
-- Mudança de mantenedo do pacote, que passou do Daniel Herszenhut para o Rafel H. M. Pereira.
-
+0 errors | 0 warnings | 0 notes
 

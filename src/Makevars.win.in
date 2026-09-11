@@ -37,12 +37,16 @@ $(STATLIB):
 	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
 	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --target=$(TARGET) --lib @PROFILE@ --manifest-path=rust/Cargo.toml --target-dir=$(TARGET_DIR)
 
-	# Generate wrappers
-	export CARGO_HOME=$(CARGOTMP) && \
-	export @CARGO_LINKER_VAR@="$(firstword $(CC))" && \
-	export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
-	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
-	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo run @CRAN_FLAGS@ --bin document --target $(TARGET) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @PROFILE@
+	# Regenerate R/extendr-wrappers.R only during devtools::document()
+	# (roxygen2 sets ROXYGEN_PKG). Never at install time: the `document`
+	# binary must link against R, which is unnecessary for end users.
+	if [ -n "$$ROXYGEN_PKG" ]; then \
+		export CARGO_HOME=$(CARGOTMP) && \
+		export @CARGO_LINKER_VAR@="$(firstword $(CC))" && \
+		export LIBRARY_PATH="$(LIBRARY_PATH);$(CURDIR)/$(TARGET_DIR)/libgcc_mock" && \
+		export PATH="$(PATH):$(HOME)/.cargo/bin" && \
+		RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo run @CRAN_FLAGS@ --bin document --target $(TARGET) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @PROFILE@; \
+	fi
 
 	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);

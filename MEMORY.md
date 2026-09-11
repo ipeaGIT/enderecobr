@@ -48,3 +48,21 @@ mata o R. Certo: guard `if x.len() == 0` antes de iterar (feito em
 afetado (R devolve ponteiro não-nulo), por isso o CI/r-universe passa.
 Instalar Rust local: rustup com `--default-host x86_64-pc-windows-gnu`
 (Rtools atende o target; C: em vez de D: por espaço).
+
+[LEARN:enderecobr] (2026-09-11) **Nunca compilar/rodar um binário cargo na
+instalação — só `cargo build --lib`.** O scaffold do rextendr 0.5.0 roda
+`cargo run --bin document` no `Makevars(.win)` para regerar
+`R/extendr-wrappers.R`. Um binário precisa linkar com `-lR`, e as máquinas
+Fedora do CRAN (e qualquer R sem `--enable-R-shlib`) não têm `libR.so`:
+`ld: cannot find -lR` → `ERROR: compilation failed` (enderecobr 0.6.0, issue
+#70). Não é falta de `-L`: o `build.rs` do extendr-ffi já emite
+`rustc-link-search=$R_HOME/lib`. Certo → a etapa fica atrás de
+`if [ -n "$$ROXYGEN_PKG" ]` (só roda no `devtools::document()`), com as
+mesmas `RUSTFLAGS`/`@PROFILE@` do build da lib para reaproveitar fingerprints.
+
+[LEARN:enderecobr] (2026-09-11) **O `document.c` do rextendr de desenvolvimento
+não funciona com o extendr-api 0.9.0.** Ele chama
+`write__make_<pkg>_wrappers`, símbolo que só existe no extendr do git `main`
+(não em nenhuma versão do crates.io até 0.9.0). Errado → copiar o template dev
+do rextendr (`$(CC) rust/document.c ... -lR`). Certo → manter
+`document.rs` + `[[bin]] document` até sair um extendr-api > 0.9.0 com o símbolo.
