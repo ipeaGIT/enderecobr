@@ -1,0 +1,98 @@
+# Baseado em https://github.com/rust-github/template/blob/main/template/.github/workflows/cd.yml
+
+name: publish-cargo
+
+on:
+  push:
+    tags:
+      - "[v]?[0-9]+.[0-9]+.[0-9]+"
+  workflow_dispatch:
+
+jobs:
+  # publish:
+  #   name: Publishing for ${{ matrix.job.os-name }}-${{ matrix.job.architecture }}
+  #   runs-on: ${{ matrix.job.os }}
+  #   permissions:
+  #     contents: write
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       rust: [stable]
+  #       job:
+  #         - os: macos-latest
+  #           os-name: macos
+  #           target: x86_64-apple-darwin
+  #           architecture: x86_64
+  #         - os: macos-latest
+  #           os-name: macos
+  #           target: aarch64-apple-darwin
+  #           architecture: arm64
+  #         - os: ubuntu-latest
+  #           os-name: linux
+  #           target: x86_64-unknown-linux-gnu
+  #           architecture: x86_64
+  #         - os: windows-latest
+  #           os-name: windows
+  #           target: x86_64-pc-windows-msvc
+  #           architecture: x86_64
+  #         - os: ubuntu-latest
+  #           os-name: linux
+  #           target: aarch64-unknown-linux-gnu
+  #           architecture: arm64
+  #         - os: ubuntu-latest
+  #           os-name: linux
+  #           target: i686-unknown-linux-gnu
+  #           architecture: i686
+  #
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v6
+  #     - name: Install Rust toolchain
+  #       uses: dtolnay/rust-toolchain@stable
+  #       with:
+  #         toolchain: ${{ matrix.rust }}
+  #         target: ${{ matrix.job.target }}
+  #     - name: Install cross
+  #       uses: taiki-e/install-action@v2
+  #       with:
+  #         tool: cross
+  #     - name: Build release binary
+  #       run: cross build --locked --release --target ${{ matrix.job.target }}
+  #     - name: Packaging final binary
+  #       shell: bash
+  #       run: |
+  #         BINARY=target/${{ matrix.job.target }}/release/enderecobr_rs
+  #         if [[ ${{ runner.os }} == 'Windows' ]]; then
+  #           BINARY=$BINARY.exe
+  #         fi
+  #
+  #         ########## create tar.gz ##########
+  #         mkdir release
+  #         RELEASE_NAME=enderecobr_rs-${GITHUB_REF/refs\/tags\//}-${{ matrix.job.os-name }}-${{ matrix.job.architecture }}
+  #         tar czvf release/$RELEASE_NAME.tar.gz $BINARY
+  #
+  #         ########## create sha256 ##########
+  #         if [[ ${{ runner.os }} == 'Windows' ]]; then
+  #           certutil -hashfile release/$RELEASE_NAME.tar.gz sha256 | grep -E [A-Fa-f0-9]{64} > release/$RELEASE_NAME.sha256
+  #         else
+  #           shasum -a 256 release/$RELEASE_NAME.tar.gz > release/$RELEASE_NAME.sha256
+  #         fi
+  #     - name: Releasing release bins
+  #       uses: softprops/action-gh-release@v2
+  #       with:
+  #         files: release/*
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-cargo:
+    name: Publishing to Cargo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo publish --locked
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

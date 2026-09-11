@@ -1,0 +1,7 @@
+error: input must be a struct
+ --> tests/ui/enum.rs:1:1
+  |
+1 | #[readonly::make]
+  | ^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `readonly::make` (in Nightly builds, run with -Z macro-backtrace for more info)

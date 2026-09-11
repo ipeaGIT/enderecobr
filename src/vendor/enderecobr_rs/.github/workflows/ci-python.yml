@@ -1,0 +1,37 @@
+name: ci-python
+
+on:
+  # Matando temporariamente pois está demorando muito
+  # para algo rodado a cada commit.
+  # push:
+  #   branches: ["main"]
+  # pull_request:
+  #   branches: ["main"]
+  workflow_dispatch:
+
+# Trecho adaptado do maturin.yml para evitar rodar todos os builds sempre
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.x
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: x86_64
+          args: --out dist --manifest-path bindings/python/Cargo.toml
+          manylinux: auto
+      - name: pytest
+        shell: bash
+        run: |
+          set -e
+          python3 -m venv .venv
+          source .venv/bin/activate
+          # Força a instalação local (--no-index) via pasta dist (--find-links), 
+          # que recebeu o arquivo compilado no passo anterior (maturin build).
+          pip install enderecobr --no-index --find-links dist --force-reinstall
+          pip install pytest
+          cd bindings/python && pytest

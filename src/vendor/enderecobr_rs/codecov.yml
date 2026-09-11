@@ -1,0 +1,4 @@
+# https://docs.codecov.com/docs/ignoring-paths
+ignore:
+  - "bindings"
+  - "tests"
