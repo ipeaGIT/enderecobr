@@ -47,3 +47,62 @@ jobs:
         needs: check
 
     - uses: r-lib/actions/check-r-package@v2
+
+
+  # Fedora mirrors CRAN's r-devel-linux-x86_64-fedora-{gcc,clang} flavors, which
+  # failed to install enderecobr 0.6.0 (issue #70). The R-hub `gcc16` image is
+  # Fedora 44 + GCC 16 + R-devel; the clang variant compiles the package with
+  # clang on the same image. Note: this image's R ships libR.so, so it cannot
+  # reproduce the original "cannot find -lR" failure itself; it guards the
+  # Fedora toolchain (Rust from dnf, GCC 16 / clang) on every push and PR.
+  check-fedora:
+    runs-on: ubuntu-latest
+    name: fedora-44 (devel, ${{ matrix.compiler }})
+    container:
+      image: ghcr.io/r-hub/containers/gcc16:latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install system requirements (Rust toolchain, xz, pandoc)
+      run: dnf install -y cargo rust xz pandoc
+
+    - name: Install clang and select it for R
+      if: ${{ matrix.compiler == 'clang' }}
+      run: |
+        dnf install -y clang
+        mkdir -p ~/.R
+        cat > ~/.R/Makevars <<'MAKEVARS'
+        CC=clang
+        CXX=clang++
+        CXX11=clang++
+        CXX14=clang++
+        CXX17=clang++
+        CXX20=clang++
+        MAKEVARS
+        cat ~/.R/Makevars
+
+    - name: Toolchain versions
+      run: |
+        R --version | head -n 1
+        cargo --version
+        rustc --version
+        ${{ matrix.compiler }} --version | head -n 1
+
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        extra-packages: any::rcmdcheck
+        needs: check
+
+    - uses: r-lib/actions/check-r-package@v2
+      with:
+        args: 'c("--no-manual", "--as-cran")'
