@@ -1,6 +1,22 @@
 # Changelog
 
+## enderecobr 0.6.1
+
+### Notas
+
+- Corrigida falha de instalação nas plataformas Fedora do CRAN
+  (`r-devel-linux-x86_64-fedora-clang` e
+  `r-devel-linux-x86_64-fedora-gcc`): o gerador de wrappers do extendr
+  (binário `document`) era compilado e executado durante a instalação e
+  precisava linkar com a `libR.so`, inexistente em builds do R sem
+  `--enable-R-shlib`. A geração de wrappers agora ocorre apenas durante
+  `devtools::document()`
+  ([issue](https://github.com/ipea/enderecobr/issues/70)
+  [\#70](https://github.com/ipea/enderecobr/issues/70)).
+
 ## enderecobr 0.6.0
+
+CRAN release: 2026-09-10
 
 ### Notas
 

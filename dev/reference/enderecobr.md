@@ -30,7 +30,7 @@ Authors:
 - Daniel Herszenhut <dhersz@gmail.com>
   ([ORCID](https://orcid.org/0000-0001-8066-1105))
 
-- Lucas Mation ([ORCID](https://orcid.org/0000-0002-7461-932X))
-
 - Gabriel Garcia de Almeida
   ([ORCID](https://orcid.org/0009-0003-3557-7328))
+
+- Lucas Mation ([ORCID](https://orcid.org/0000-0002-7461-932X))
